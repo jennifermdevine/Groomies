@@ -14,6 +14,7 @@ const Register = () => (
     <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
+    theme="dark"
     />
 )
 
