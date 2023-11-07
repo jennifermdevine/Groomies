@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
-import Register from "./Register";
 
 export default function Nav() {
     const { user, setUser } = useUser();
@@ -23,6 +22,13 @@ export default function Nav() {
                 <Link to="/">
                     <span className="font-semibold text-xl tracking-tight">
                         Groomies
+                    </span>
+                </Link>
+            </div>
+            <div className="flex items-center flex-shrink-0 text-white mr-6">
+                <Link to="/userprofile">
+                    <span className="font-semibold text-xl tracking-tight">
+                        Profile
                     </span>
                 </Link>
             </div>

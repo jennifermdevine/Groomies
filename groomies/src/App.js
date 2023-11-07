@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/Register';
 import Nav from './components/Nav';
 import Home from './components/Home';
+import UserProfile from './pages/UserProfile';
 
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/user/:userId" element={<UserProfile />} />         
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
