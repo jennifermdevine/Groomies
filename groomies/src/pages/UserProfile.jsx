@@ -37,37 +37,22 @@ export default function UserProfile() {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      console.log('userId before request:', userId); // Confirm userId is captured correctly from the route
 
       dispatch({ type: 'FETCH_REQUEST' });
-
-      // Here we're about to make the request to Supabase, so we log the userId
-      console.log('Making request to Supabase with userId:', userId);
       const { data, error } = await supabase
         .from('users')
         .select()
         .eq('userId', userId);
-      
-      console.log('Data received from Supabase:', data); // Log the raw data from the response
       if (error) {
-        console.log('Supabase error:', error); // Log any error from Supabase
         dispatch({ type: 'FETCH_FAIL', payload: error.message })
       } else if (data && data.length > 0) {
-        // We have data, so we'll dispatch the success action
-        dispatch({ type: 'FETCH_SUCCESS', payload: data[0] }) // Assuming you're expecting to get one user back
+        dispatch({ type: 'FETCH_SUCCESS', payload: data[0] })
       } else {
-        // No data was returned for this userId
         console.log(`No data returned from Supabase for userId: ${userId}`);
         dispatch({ type: 'FETCH_FAIL', payload: 'No user found' })
       }
     };
-
-    if (userId) {
-      console.log('Fetching data for userId:', userId); // Confirming the fetch operation is initiated
       fetchUsers();
-    } else {
-      console.log('No userId provided'); // If userId is undefined or not provided
-    }
   }, [userId]);
 
   return (
