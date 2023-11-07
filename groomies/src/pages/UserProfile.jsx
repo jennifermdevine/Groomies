@@ -1,73 +1,96 @@
-import React, { useState } from "react";
+import { useEffect, useReducer } from 'react';
+import { useParams } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
+import { Helmet } from "react-helmet-async";
 
-const UserProfile = () => {
-  // sample user
-  const initialUser = {
-    username: "JohnDoe",
-    fullName: "John Doe",
-    email: "john.doe@example.com",
-    profilePicture: "https://placekitten.com/200/200",
-  };
 
-  // manage user info
-  const [user, setUser] = useState(initialUser);
-  const [isEditing, setIsEditing] = useState(false);
+// const getUserImage = async (path) => {
 
-  // edit user info
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
+// };
 
-  // save user info
-  const handleSave = () => {
-    setIsEditing(false);
-    // unfinished
-  };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true, error: "" };
+    case 'FETCH_SUCCESS':
+      return { ...state, user: action.payload, loading: false, error: '' };
+    case 'FETCH_FAIL':
+      return { ...state, loading: false, error: action.payload };
+    case 'UPDATE_USER':
+      return { ...state, user: { ...state.user, ...action.payload } };
+    case 'TOGGLE_EDIT':
+      return { ...state, isEditing: !state.isEditing };
+    default:
+      return state;
+  }
+};
 
-  // delete user
-  const handleDelete = () => {
-    // unfinished
-  };
+export default function UserProfile() {
+  const { userId } = useParams();
+
+  const [{ user, loading, error }, dispatch] = useReducer(reducer, {
+    user: {},
+    loading: false,
+    error: '',
+    isEditing: false,
+  });
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      console.log('userId before request:', userId); // Confirm userId is captured correctly from the route
+
+      dispatch({ type: 'FETCH_REQUEST' });
+
+      // Here we're about to make the request to Supabase, so we log the userId
+      console.log('Making request to Supabase with userId:', userId);
+      const { data, error } = await supabase
+        .from('users')
+        .select()
+        .eq('userId', userId);
+      
+      console.log('Data received from Supabase:', data); // Log the raw data from the response
+      if (error) {
+        console.log('Supabase error:', error); // Log any error from Supabase
+        dispatch({ type: 'FETCH_FAIL', payload: error.message })
+      } else if (data && data.length > 0) {
+        // We have data, so we'll dispatch the success action
+        dispatch({ type: 'FETCH_SUCCESS', payload: data[0] }) // Assuming you're expecting to get one user back
+      } else {
+        // No data was returned for this userId
+        console.log(`No data returned from Supabase for userId: ${userId}`);
+        dispatch({ type: 'FETCH_FAIL', payload: 'No user found' })
+      }
+    };
+
+    if (userId) {
+      console.log('Fetching data for userId:', userId); // Confirming the fetch operation is initiated
+      fetchUsers();
+    } else {
+      console.log('No userId provided'); // If userId is undefined or not provided
+    }
+  }, [userId]);
 
   return (
     <div>
       <h1>User Profile</h1>
-      <div>
-        <img src={user.profilePicture} alt="Profile" />
-      </div>
-      {isEditing ? (
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {user.userName && (
         <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={user.username}
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
-          />
-          <label>Full Name:</label>
-          <input
-            type="text"
-            value={user.fullName}
-            onChange={(e) => setUser({ ...user, fullName: e.target.value })}
-          />
-          <label>Email:</label>
-          <input
-            type="text"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-          />
-          <button onClick={handleSave}>Save</button>
-        </div>
-      ) : (
-        <div>
-          <p>Username: {user.username}</p>
-          <p>Full Name: {user.fullName}</p>
-          <p>Email: {user.email}</p>
-          <button onClick={handleEdit}>Edit</button>
+          <Helmet>
+            <title>{user.userName} | Groomies</title>
+          </Helmet>
+          <h2>{user.userName}</h2>
+          <p>{user.email}</p>
+          <p>{user.userSlug}</p>
         </div>
       )}
-      <button onClick={handleDelete}>Delete Account</button>
+      {/* {users.map((user) => (
+        <div key={user.userId}>
+          <h2>{user.userName}</h2>
+          <p>{user.email}</p>
+        </div>
+      ))} */}
     </div>
   );
-};
-
-export default UserProfile;
+}

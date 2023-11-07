@@ -1,19 +1,22 @@
-import { Auth } from '@supabase/auth-ui-react'
-import {
-    // Import predefined theme
-    ThemeSupa,
-} from '@supabase/auth-ui-shared'
-import { createClient } from '@supabase/supabase-js'
+// Docs for hot to style this page
+// https://supabase.com/docs/guides/auth/auth-helpers/auth-ui#customization
 
-const supabase = createClient(
-    process.env.REACT_APP_SUPABASE_URL,
-    process.env.REACT_APP_ANON_KEY
-)
+import { Auth } from '@supabase/auth-ui-react'
+import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { supabase } from "../supabaseClient";
 
 const Register = () => (
     <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
+        providers={[
+            'google',
+            'github',
+            'facebook',
+            'twitter',
+            'magiclink',
+
+        ]}
     />
 )
 
