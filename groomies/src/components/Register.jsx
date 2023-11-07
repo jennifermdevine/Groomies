@@ -12,10 +12,16 @@ const supabase = createClient(
 
 const Register = () => (
     <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-    theme="dark"
+      supabaseClient={supabase}
+      localization={{
+        variables: {
+          sign_in: {
+            email_label: 'Your Email Address',
+            password_label: 'Your Strong Password',
+          },
+        },
+      }}
     />
-)
+  )
 
 export default Register
