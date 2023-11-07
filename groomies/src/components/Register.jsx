@@ -3,13 +3,8 @@
 
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from "../supabaseClient";
 // import { useRouter } from 'next/router'
-
-const supabase = createClient(
-    process.env.REACT_APP_SUPABASE_URL,
-    process.env.REACT_APP_ANON_KEY
-)
 
 const Register = () => (
     <Auth
