@@ -31,6 +31,9 @@ export default function Nav() {
                         Profile
                     </span>
                 </Link>
+                <Link to="/user/1">
+                    Test Profile
+                </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
