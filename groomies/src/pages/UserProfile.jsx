@@ -1,12 +1,22 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { Helmet } from "react-helmet-async";
 
 
-// const getUserImage = async (path) => {
+const getImageUrl = async (path) => {
+  const response = await supabase.storage
+    .from('User_Images')
+    .getPublicUrl(path);
 
-// };
+  const { publicUrl, error } = response.data;
+
+  if (error) {
+    // console.error("Error fetching image URL:", error);
+    return null;
+  }
+  return publicUrl;
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -27,6 +37,7 @@ const reducer = (state, action) => {
 
 export default function UserProfile() {
   const { userId } = useParams();
+  const [imageUrl, setImageUrl] = useState(null);
 
   const [{ user, loading, error }, dispatch] = useReducer(reducer, {
     user: {},
@@ -52,30 +63,39 @@ export default function UserProfile() {
         dispatch({ type: 'FETCH_FAIL', payload: 'No user found' })
       }
     };
-      fetchUsers();
+    fetchUsers();
   }, [userId]);
+
+  useEffect(() => {
+    if (user && user.userImage) {
+      // fetch image URL and set the state
+      getImageUrl(user.userImage).then(url => {
+        // console.log("Image URL:", url);
+        setImageUrl(url);
+      });
+    }
+  }, [user]);
 
   return (
     <div>
-      <h1>User Profile</h1>
+      <h1>User Profile:</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {user.userName && (
         <div>
           <Helmet>
-            <title>{user.userName} | Groomies</title>
+            <title>{user.userSlug} | Profile</title>
           </Helmet>
-          <h2>{user.userName}</h2>
-          <p>{user.email}</p>
-          <p>{user.userSlug}</p>
+          <img
+            src={imageUrl}
+            alt={user.userImage}
+          />
+          <h2>Name: {user.fullName}</h2>
+          <p>Email: {user.email}</p>
+          <p>UserName: {user.userName}</p>
+          <p>Pets: {user.pets}</p>
         </div>
       )}
-      {/* {users.map((user) => (
-        <div key={user.userId}>
-          <h2>{user.userName}</h2>
-          <p>{user.email}</p>
-        </div>
-      ))} */}
     </div>
   );
 }
