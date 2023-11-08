@@ -1,3 +1,22 @@
+<<<<<<< HEAD
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import { Link, Route, Routes } from 'react-router-dom'
+
+function Nav() {
+    return (
+      <div className="header">
+        <Navbar>
+          <Container>
+            <Navbar><Link className="a" to="/">Groomies</Link></Navbar>
+          </Container>
+        </Navbar>
+      </div>
+    );
+  }
+
+  export default Nav;
+=======
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
@@ -65,3 +84,4 @@ export default function Nav() {
         </nav>
     );
 }
+>>>>>>> db7337ae819b22b28b6d3b8872352e41d88f3b5e
