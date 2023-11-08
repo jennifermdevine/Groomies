@@ -1,4 +1,4 @@
-// UserProfile
+// UserProfile.jsx
 import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
@@ -58,7 +58,7 @@ export default function UserProfile() {
         const user = data[0];
         const petsArray = user.pets ? (Array.isArray(user.pets) ? user.pets : [user.pets]) : [];
         const petsWithImages = await fetchPetsWithImages(petsArray);
-        console.log('petsWithImages:', petsWithImages);
+        // console.log('petsWithImages:', petsWithImages);
         dispatch({ type: 'FETCH_SUCCESS', payload: { ...user, pets: petsWithImages } });
       } else {
         dispatch({ type: 'FETCH_FAIL', payload: 'No user found' });

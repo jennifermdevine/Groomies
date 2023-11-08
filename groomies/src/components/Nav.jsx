@@ -32,7 +32,10 @@ export default function Nav() {
                     </span>
                 </Link>
                 <Link to="/user/1">
-                    Test Profile
+                    User Test Profile
+                </Link>
+                <Link to="/groomie/1">
+                    Groomie Test Profile
                 </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
