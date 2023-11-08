@@ -6,7 +6,8 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import UserProfile from './pages/UserProfile';
 import Calendar from './components/Calendar'
-//
+import GroomieProfile from './pages/GroomieProfile';
+
 import './App.css';
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/user/:userId" element={<UserProfile />} />
+              <Route path="/user/:userId" element={<UserProfile />} /> 
+              <Route path="/groomie/:groomieId" element={<GroomieProfile />} 
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/calendar" element={<Calendar />} />
             </Routes>
