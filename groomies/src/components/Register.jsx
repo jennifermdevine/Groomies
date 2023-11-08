@@ -7,17 +7,16 @@ import { supabase } from "../supabaseClient";
 
 const Register = () => (
     <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        providers={[
-            'google',
-            'github',
-            'facebook',
-            'twitter',
-            'magiclink',
-
-        ]}
+      supabaseClient={supabase}
+      localization={{
+        variables: {
+          sign_in: {
+            email_label: 'Your Email Address',
+            password_label: 'Your Strong Password',
+          },
+        },
+      }}
     />
-)
+  )
 
 export default Register
