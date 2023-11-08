@@ -37,6 +37,11 @@ export default function Nav() {
                 <Link to="/groomie/1">
                     Groomie Test Profile
                 </Link>
+                <Link to="/calendar">
+                    <span className="font-semibold text-xl tracking-tight">
+                        /calendar
+                    </span>
+                </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
