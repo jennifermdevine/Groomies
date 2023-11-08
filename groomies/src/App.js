@@ -5,7 +5,7 @@ import Register from './components/Register';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import UserProfile from './pages/UserProfile';
-
+import Calendar from './components/Calendar'
 import './App.css';
 
 function App() {
@@ -21,8 +21,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/user/:userId" element={<UserProfile />} />         
+              <Route path="/user/:userId" element={<UserProfile />} />
               <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/calendar" element={<Calendar />} />
             </Routes>
           </main>
         </div>
