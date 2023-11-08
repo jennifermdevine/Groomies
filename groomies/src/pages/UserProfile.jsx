@@ -97,8 +97,6 @@ export default function UserProfile() {
             src={userImage || 'default_profile_image.jpg'} // Replace with your default image if needed
             alt={`${user.userName}'s profile`}
             style={{
-              height: '30vh',
-              width: '50vw',
               objectFit: 'cover'
             }}
           />
