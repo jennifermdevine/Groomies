@@ -94,7 +94,7 @@ export default function UserProfile() {
       {user.userName && (
         <div>
           <img
-            src={userImage || 'default_profile_image.jpg'} // Replace with your default image if needed
+            src={userImage || 'default_profile_image.jpg'}
             alt={`${user.userName}'s profile`}
             style={{
               height: '30vh',
