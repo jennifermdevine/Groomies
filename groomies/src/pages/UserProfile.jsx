@@ -1,73 +1,167 @@
-import React, { useState } from "react";
+import { useEffect, useReducer, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
+import { Helmet } from "react-helmet-async";
 
-const UserProfile = () => {
-  // sample user
-  const initialUser = {
-    username: "JohnDoe",
-    fullName: "John Doe",
-    email: "john.doe@example.com",
-    profilePicture: "https://placekitten.com/200/200",
-  };
+// Function to retrieve the public URL of an image from Supabase storage
+const getImageUrl = async (folder, path) => {
+  const fullPath = `${folder}/${path}`;
 
-  // manage user info
-  const [user, setUser] = useState(initialUser);
-  const [isEditing, setIsEditing] = useState(false);
+  const response = await supabase.storage
+    .from('Images')
+    .getPublicUrl(fullPath);
 
-  // edit user info
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
+  const { publicUrl, error } = response.data;
 
-  // save user info
-  const handleSave = () => {
-    setIsEditing(false);
-    // unfinished
-  };
+  if (error) {
+    console.error("Error fetching image URL:", error);
+    return null;
+  }
+  return publicUrl;
+};
 
-  // delete user
-  const handleDelete = () => {
-    // unfinished
-  };
+// Reducer function for useReducer hook to manage complex component state
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true, error: "" };
+    case 'FETCH_SUCCESS':
+      return { ...state, user: action.payload, loading: false, error: '' };
+    case 'FETCH_FAIL':
+      return { ...state, loading: false, error: action.payload };
+    case 'UPDATE_USER':
+      return { ...state, user: { ...state.user, ...action.payload } };
+    case 'TOGGLE_EDIT':
+      return { ...state, isEditing: !state.isEditing };
+    default:
+      return state;
+  }
+};
+
+// Initial state for the reducer, setting up default values
+const initialState = {
+  user: {
+    pets: [],
+  },
+  loading: false,
+  error: '',
+  isEditing: false,
+};
+
+// The main component for the User Profile page
+export default function UserProfile() {
+  const { userId } = useParams();
+  const [userImage, setUserImage] = useState(null);
+
+  const [{ user, loading, error }, dispatch] = useReducer(reducer, initialState);
+
+  // Fetch user and related pets when the component mounts or the userId changes
+  useEffect(() => {
+    const fetchUsers = async () => {
+      dispatch({ type: 'FETCH_REQUEST' });
+      const { data, error } = await supabase
+        .from('users')
+        .select(`
+          *,
+          pets!inner(petId, petName, petSlug, petImage, species )
+        `)
+        .eq('userId', userId);
+
+      // Handle errors by dispatching a fetch fail action
+      if (error) {
+        console.error('Error fetching user:', error);
+        dispatch({ type: 'FETCH_FAIL', payload: error.message });
+        return;
+      }
+
+      // Process the fetched data and dispatch a fetch success action
+      if (data && data.length > 0) {
+        const user = data[0];
+
+        const petsArray = user.pets ? (Array.isArray(user.pets) ? user.pets : [user.pets]) : [];
+
+        // Fetch image URLs for each pet and update the pet objects with the image URLs
+        const petsWithImages = await Promise.all(petsArray.map(async (pet) => {
+          if (pet.petImage) {
+            try {
+              const url = await getImageUrl('pets', pet.petImage);
+              return { ...pet, imageUrl: url };
+            } catch (imgError) {
+              console.error('Error fetching pet image:', imgError);
+              return { ...pet, imageUrl: null };
+            }
+          }
+          return pet;
+        }));
+
+        dispatch({ type: 'FETCH_SUCCESS', payload: { ...user, pets: petsWithImages } });
+      } else {
+        console.log(`No data returned from Supabase for userId: ${userId}`);
+        dispatch({ type: 'FETCH_FAIL', payload: 'No user found' });
+      }
+    };
+    fetchUsers();
+  }, [userId]);
+
+  // Fetch the user image when the user state updates and contains a user image path
+  useEffect(() => {
+    if (user?.userImage) {
+      getImageUrl('users', user.userImage).then(url => {
+        if (url) {
+          setUserImage(url);
+        }
+      }).catch(error => {
+        console.error('Error fetching user image:', error);
+      });
+    }
+  }, [user]);
 
   return (
     <div>
-      <h1>User Profile</h1>
-      <div>
-        <img src={user.profilePicture} alt="Profile" />
-      </div>
-      {isEditing ? (
+      <Helmet>
+        <title>{user.userSlug ? `${user.userSlug} | Profile` : 'User Profile'}</title>
+      </Helmet>
+      <h1>User Profile:</h1>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {user.userName && (
         <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={user.username}
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
+          <img
+            src={userImage}
+            alt={user.userImage}
+            style={{
+              height: '30vh',
+              width: '50vw'
+            }}
           />
-          <label>Full Name:</label>
-          <input
-            type="text"
-            value={user.fullName}
-            onChange={(e) => setUser({ ...user, fullName: e.target.value })}
-          />
-          <label>Email:</label>
-          <input
-            type="text"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-          />
-          <button onClick={handleSave}>Save</button>
-        </div>
-      ) : (
-        <div>
-          <p>Username: {user.username}</p>
-          <p>Full Name: {user.fullName}</p>
+          <h2>Name: {user.fullName}</h2>
           <p>Email: {user.email}</p>
-          <button onClick={handleEdit}>Edit</button>
+          <p>UserName: {user.userName}</p>
+          <div>
+            <h3>Pets:</h3>
+            {user.pets && user.pets.length > 0 ? (
+              user.pets.map(pet => (
+                <div key={pet.petId}>
+                  <p>Name: {pet.petName}</p>
+                  <p>Species: {pet.species}</p>
+                  {pet.imageUrl && (
+                    <img
+                      src={pet.imageUrl}
+                      alt={pet.petName}
+                      style={{
+                        height: '30vh',
+                        width: '50vw'
+                      }}
+                    />
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No pets found.</p>
+            )}
+          </div>
         </div>
       )}
-      <button onClick={handleDelete}>Delete Account</button>
     </div>
   );
-};
-
-export default UserProfile;
+}
