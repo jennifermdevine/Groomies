@@ -1,6 +1,6 @@
-* {
+/* * {
   border: #0ebe75 1px solid;
-}
+} */
 
 .App {
   text-align: center;
@@ -39,4 +39,32 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* App.css */
+.react-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.react-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  z-index: 1001;
 }
