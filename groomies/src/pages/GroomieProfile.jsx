@@ -59,10 +59,10 @@ export default function GroomieProfile() {
                 }
 
                 if (data) {
-                    fetchedGroomie = { ...data }; // Spread the data object into fetchedGroomie
+                    fetchedGroomie = { ...data };
                     if (data.groomieImage) {
                         const imageUrl = await getImageUrl('groomies', data.groomieImage);
-                        fetchedGroomie.imageUrl = imageUrl; // Add imageUrl to the fetchedGroomie object
+                        fetchedGroomie.imageUrl = imageUrl;
                     }
                 }
 
@@ -87,8 +87,8 @@ export default function GroomieProfile() {
             {groomie && (
                 <div>
                     <img
-                        src={groomie.imageUrl || 'default_groomie_image.jpg'} // Use imageUrl from fetchedGroomie
-                        alt={`${groomie.groomieName}'s profile`} // Adjusted to match the object field groomieName
+                        src={groomie.imageUrl || 'default_groomie_image.jpg'}
+                        alt={`${groomie.groomieName}'s profile`}
                         style={{
                             height: '30vh',
                             width: '50vw',
