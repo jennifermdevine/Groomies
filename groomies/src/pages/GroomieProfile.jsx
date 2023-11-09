@@ -1,8 +1,22 @@
 // GroomieProfile.jsx
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { supabase } from '../supabaseClient';
+
+// Adapted getImageUrl function
+const getImageUrl = async (folder, path) => {
+    const fullPath = `${folder}/${path}`;
+    const { data, error } = await supabase.storage
+        .from('Images')
+        .getPublicUrl(fullPath);
+
+    if (error) {
+        console.error("Error fetching image URL:", error);
+        return null;
+    }
+    return data.publicUrl;
+};
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -27,22 +41,36 @@ export default function GroomieProfile() {
     const { groomieId } = useParams();
     const [{ groomie, loading, error }, dispatch] = useReducer(reducer, initialState);
 
+    // Fetch groomie profile and image together
     useEffect(() => {
         const fetchGroomie = async () => {
             dispatch({ type: 'FETCH_REQUEST' });
-            const { data, error } = await supabase
-                .from('groomies')
-                .select()
-                .eq('groomieId', groomieId);
-            if (error) {
+            let fetchedGroomie;
+            try {
+                const { data, error } = await supabase
+                    .from('groomies')
+                    .select('*')
+                    .eq('groomieId', groomieId)
+                    .single();
+
+                if (error) {
+                    dispatch({ type: 'FETCH_FAIL', payload: error.message });
+                    return;
+                }
+
+                if (data) {
+                    fetchedGroomie = { ...data };
+                    if (data.groomieImage) {
+                        const imageUrl = await getImageUrl('groomies', data.groomieImage);
+                        fetchedGroomie.imageUrl = imageUrl;
+                    }
+                }
+
+                dispatch({ type: 'FETCH_SUCCESS', payload: fetchedGroomie });
+
+            } catch (error) {
                 dispatch({ type: 'FETCH_FAIL', payload: error.message });
-                return;
             }
-            if (data && data.length === 0) {
-                dispatch({ type: 'FETCH_FAIL', payload: 'Groomie not found' });
-                return;
-            }
-            dispatch({ type: 'FETCH_SUCCESS', payload: data[0] });
         };
 
         fetchGroomie();
@@ -59,8 +87,8 @@ export default function GroomieProfile() {
             {groomie && (
                 <div>
                     <img
-                        src={groomie.image || 'default_groomie_image.jpg'}
-                        alt={`${groomie.name}'s profile`}
+                        src={groomie.imageUrl || 'default_groomie_image.jpg'}
+                        alt={`${groomie.groomieName}'s profile`}
                         style={{
                             height: '30vh',
                             width: '50vw',
