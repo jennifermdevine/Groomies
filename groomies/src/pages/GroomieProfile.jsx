@@ -1,5 +1,5 @@
 // GroomieProfile.jsx
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { supabase } from '../supabaseClient';

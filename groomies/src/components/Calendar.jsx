@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Modal from 'react-modal';
+import TimePicker from 'react-time-picker';
 import { supabase } from '../supabaseClient';
 import '../App.css';
 
-// Set up the root element for accessibility for Modal
 Modal.setAppElement('#root');
 
 export default function Calendar() {
@@ -15,43 +15,41 @@ export default function Calendar() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [appointmentDate, setAppointmentDate] = useState('');
   const [appointmentTitle, setAppointmentTitle] = useState('');
+  const [appointmentTime, setAppointmentTime] = useState('10:00');
 
-  // Fetch appointments from Supabase
   const fetchAppointments = async () => {
     const { data, error } = await supabase
       .from('appointments')
-      .select('appointmentId, appointment');
+      .select('title, appointment');
 
     if (error) {
       console.error('Error fetching appointments:', error);
     } else {
       const fetchedEvents = data.map(appt => ({
-        title: `Appointment #${appt.appointmentId}`,
-        start: appt.appointment,
-        allDay: true,
+        title: appt.title,
+        start: new Date(appt.appointment).toISOString(),
+        allDay: false,
       }));
       setEvents(fetchedEvents);
     }
   };
 
-  // Add a new appointment to Supabase
-  const addAppointment = async (date, title) => {
-    const { data, error } = await supabase
+  const addAppointment = async (dateTime, title) => {
+    const { error } = await supabase
       .from('appointments')
-      .insert([{ appointment: date, title }]);
+      .insert([{ appointment: new Date(dateTime).toISOString(), title }]);
 
     if (error) {
       console.error('Error adding new appointment:', error);
     } else {
       fetchAppointments();
-      alert(`Appointment added with ID: ${data[0].appointmentId}`);
     }
   };
 
-  // Function to handle modal form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAppointment(appointmentDate, appointmentTitle);
+    const dateTime = `${appointmentDate}T${appointmentTime}`;
+    addAppointment(dateTime, appointmentTitle);
     setModalIsOpen(false);
   };
 
@@ -60,23 +58,28 @@ export default function Calendar() {
   }, []);
 
   return (
-    <div>
+    <div className="calendar-container">
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
           start: 'today prev,next',
           center: 'title',
-          end: 'dayGridMonth,timeGridWeek,timeGridDay addEventButton',
-        }}
-        customButtons={{
-          addEventButton: {
-            text: 'Add Event',
-            click: () => setModalIsOpen(true),
-          },
+          end: 'dayGridMonth,timeGridWeek,timeGridDay',
         }}
         events={events}
+        slotMinTime="08:00:00"
+        slotMaxTime="18:00:00"
       />
+      <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
+        <button
+          type="button"
+          className="fc-button fc-button-primary"
+          onClick={() => setModalIsOpen(true)}
+        >
+          Add Event
+        </button>
+      </div>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
@@ -104,6 +107,21 @@ export default function Calendar() {
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
               />
+            </label>
+          </div>
+          <div>
+            <label>
+              Appointment Time:
+              <div className="custom-time-picker">
+                <TimePicker
+                  onChange={setAppointmentTime}
+                  value={appointmentTime}
+                  format="HH:mm"
+                  hourPlaceholder="hh"
+                  minutePlaceholder="mm"
+                  step={30}
+                />
+              </div>
             </label>
           </div>
           <div>

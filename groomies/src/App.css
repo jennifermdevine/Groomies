@@ -36,12 +36,12 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-/* App.css */
 .react-modal-overlay {
   position: fixed;
   top: 0;
@@ -67,4 +67,16 @@
   height: auto;
   overflow: auto;
   z-index: 1001;
+}
+
+.custom-time-picker .react-time-picker__inputGroup__input {
+  width: 100px; /* Adjust this value to increase the width */
+}
+
+.custom-time-picker .react-time-picker__inputGroup__hour {
+  width: 100px; /* Adjust for hour input */
+}
+
+.custom-time-picker .react-time-picker__inputGroup__minute {
+  width: 100px; /* Adjust for minute input */
 }
