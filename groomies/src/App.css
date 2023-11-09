@@ -27,10 +27,17 @@ a:visited {
 
 .nav {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
   flex-direction: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px;  
   }
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 
 .react-modal-overlay {
   position: fixed;

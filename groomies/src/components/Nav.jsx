@@ -25,7 +25,7 @@ export default function Nav() {
                     </span>
                 </Link>
             </div>
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
+            <div className="navLinks">
                 <Link to="/userprofile">
                     <span className="font-semibold text-xl tracking-tight">
                         Profile
@@ -39,7 +39,7 @@ export default function Nav() {
                 </Link>
                 <Link to="/calendar">
                     <span className="font-semibold text-xl tracking-tight">
-                        /calendar
+                        Calendar
                     </span>
                 </Link>
             </div>
