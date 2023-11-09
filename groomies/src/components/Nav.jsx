@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
+import logo from "../assets/groomieslogo.png";
 
 export default function Nav() {
     const { user, setUser } = useUser();
@@ -20,8 +21,8 @@ export default function Nav() {
         <nav className="nav">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <Link to="/">
-                    <span className="font-semibold text-xl tracking-tight">
-                        Groomies
+                    <span className="titleName">
+                <Link to="/Home"><img className="logo" src={logo} alt="Login Illustration" /></Link>
                     </span>
                 </Link>
             </div>
@@ -63,7 +64,7 @@ export default function Nav() {
                         </>
                     ) : (
                         <Link to="/register">
-                            <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            <button className="loginButton">
                                 Login
                             </button>
                         </Link>

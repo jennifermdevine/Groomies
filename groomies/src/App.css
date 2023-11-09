@@ -1,5 +1,5 @@
 * {
-  border: #fcfffd 1px solid;
+  /* border: #fcfffd 1px solid; */
   background-color: #5d737e;
   color: #c0fdfb;
   text-align: center;
@@ -12,8 +12,16 @@ img {
   border-radius: 25px;
 }
 
+.logo {
+  width: 100px;
+  height: 100px;
+  border: #0ebe75 1px solid;
+  border-radius: 25px;
+}
+
 a {
   color: #daffef;
+  text-decoration: none;
 }
 
 a:hover {
@@ -23,7 +31,6 @@ a:hover {
 a:visited {
   color: darkgreen;
 }
-
 
 .nav {
   display: flex;
@@ -37,6 +44,33 @@ a:visited {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.loginButton {
+  font-size: 20px;
+  border-radius: 12px;
+  border-color: #64BBAC;
+  transition-duration: 0.4s;
+}
+
+.loginButton:hover {
+  background-color: #04AA6D; /* Green */
+  color: white;
+}
+
+.loginButton:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+
+.titleName {
+  font-size: 25px;
+  border-radius: 12px;
+  border-color: #64bbac;
+  
 }
 
 .react-modal-overlay {
