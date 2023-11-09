@@ -1,42 +1,110 @@
 * {
-  border: #0ebe75 1px solid;
-}
-
-.App {
+  /* border: #fcfffd 1px solid; */
+  background-color: #5d737e;
+  color: #c0fdfb;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+img {
+  width: 300px;
+  height: 300px;
+  border: #0ebe75 1px solid;
+  border-radius: 25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logo {
+  width: 100px;
+  height: 100px;
+  border: #0ebe75 1px solid;
+  border-radius: 25px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a {
+  color: #daffef;
+  text-decoration: none;
+}
+
+a:hover {
+  color: mediumspringgreen;
+}
+
+a:visited {
+  color: darkgreen;
+}
+
+.nav {
   display: flex;
-  flex-direction: column;
+  flex-direction: wrap;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  padding: 25px;  
+  }
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.loginButton {
+  font-size: 20px;
+  border-radius: 12px;
+  border-color: #64BBAC;
+  transition-duration: 0.4s;
+}
+
+.loginButton:hover {
+  background-color: #04AA6D; /* Green */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.loginButton:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.titleName {
+  font-size: 25px;
+  border-radius: 12px;
+  border-color: #64bbac;
+  
+}
+
+.react-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+}
+
+.react-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  z-index: 1001;
+}
+
+.custom-time-picker .react-time-picker__inputGroup__input {
+  width: 100px; /* Adjust this value to increase the width */
+}
+
+.custom-time-picker .react-time-picker__inputGroup__hour {
+  width: 100px; /* Adjust for hour input */
+}
+
+.custom-time-picker .react-time-picker__inputGroup__minute {
+  width: 100px; /* Adjust for minute input */
 }

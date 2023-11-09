@@ -1,26 +1,12 @@
+// UserProfile.jsx
 import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { supabase } from '../supabaseClient';
 import { Helmet } from "react-helmet-async";
+import { fetchPetsWithImages, getImageUrl } from './PetProfile';
+import { supabase } from '../supabaseClient';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 
-// Function to retrieve the public URL of an image from Supabase storage
-const getImageUrl = async (folder, path) => {
-  const fullPath = `${folder}/${path}`;
-
-  const response = await supabase.storage
-    .from('Images')
-    .getPublicUrl(fullPath);
-
-  const { publicUrl, error } = response.data;
-
-  if (error) {
-    console.error("Error fetching image URL:", error);
-    return null;
-  }
-  return publicUrl;
-};
-
-// Reducer function for useReducer hook to manage complex component state
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -38,7 +24,6 @@ const reducer = (state, action) => {
   }
 };
 
-// Initial state for the reducer, setting up default values
 const initialState = {
   user: {
     pets: [],
@@ -48,14 +33,12 @@ const initialState = {
   isEditing: false,
 };
 
-// The main component for the User Profile page
 export default function UserProfile() {
   const { userId } = useParams();
   const [userImage, setUserImage] = useState(null);
 
   const [{ user, loading, error }, dispatch] = useReducer(reducer, initialState);
 
-  // Fetch user and related pets when the component mounts or the userId changes
   useEffect(() => {
     const fetchUsers = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
@@ -67,76 +50,61 @@ export default function UserProfile() {
         `)
         .eq('userId', userId);
 
-      // Handle errors by dispatching a fetch fail action
       if (error) {
         console.error('Error fetching user:', error);
         dispatch({ type: 'FETCH_FAIL', payload: error.message });
         return;
       }
 
-      // Process the fetched data and dispatch a fetch success action
       if (data && data.length > 0) {
         const user = data[0];
-
         const petsArray = user.pets ? (Array.isArray(user.pets) ? user.pets : [user.pets]) : [];
-
-        // Fetch image URLs for each pet and update the pet objects with the image URLs
-        const petsWithImages = await Promise.all(petsArray.map(async (pet) => {
-          if (pet.petImage) {
-            try {
-              const url = await getImageUrl('pets', pet.petImage);
-              return { ...pet, imageUrl: url };
-            } catch (imgError) {
-              console.error('Error fetching pet image:', imgError);
-              return { ...pet, imageUrl: null };
-            }
-          }
-          return pet;
-        }));
-
+        const petsWithImages = await fetchPetsWithImages(petsArray);
+        // console.log('petsWithImages:', petsWithImages);
         dispatch({ type: 'FETCH_SUCCESS', payload: { ...user, pets: petsWithImages } });
       } else {
-        console.log(`No data returned from Supabase for userId: ${userId}`);
         dispatch({ type: 'FETCH_FAIL', payload: 'No user found' });
       }
     };
+
     fetchUsers();
   }, [userId]);
 
-  // Fetch the user image when the user state updates and contains a user image path
   useEffect(() => {
-    if (user?.userImage) {
-      getImageUrl('users', user.userImage).then(url => {
-        if (url) {
+    const fetchUserImage = async () => {
+      if (user?.userImage) {
+        try {
+          const url = await getImageUrl('users', user.userImage);
           setUserImage(url);
+        } catch (error) {
+          console.error('Error fetching user image:', error);
         }
-      }).catch(error => {
-        console.error('Error fetching user image:', error);
-      });
-    }
-  }, [user]);
+      }
+    };
+
+    fetchUserImage();
+  }, [user?.userImage]);
 
   return (
     <div>
       <Helmet>
-        <title>{user.userSlug ? `${user.userSlug} | Profile` : 'User Profile'}</title>
+        <title>{user.userSlug ? `${user.userSlug}'s Profile` : 'User Profile'}</title>
       </Helmet>
       <h1>User Profile:</h1>
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p>Error: {error}</p>}
       {user.userName && (
         <div>
           <img
-            src={userImage}
-            alt={user.userImage}
+            src={userImage || 'default_profile_image.jpg'}
+            alt={`${user.userName}'s profile`}
             style={{
-              height: '30vh',
-              width: '50vw'
+              objectFit: 'cover'
             }}
           />
           <h2>Name: {user.fullName}</h2>
           <p>Email: {user.email}</p>
-          <p>UserName: {user.userName}</p>
+          <p>Username: {user.userName}</p>
           <div>
             <h3>Pets:</h3>
             {user.pets && user.pets.length > 0 ? (
@@ -147,10 +115,11 @@ export default function UserProfile() {
                   {pet.imageUrl && (
                     <img
                       src={pet.imageUrl}
-                      alt={pet.petName}
+                      alt={`${pet.petName}`}
                       style={{
-                        height: '30vh',
-                        width: '50vw'
+                        height: '20vh',
+                        width: 'calc(50vw / 3)',
+                        objectFit: 'cover'
                       }}
                     />
                   )}

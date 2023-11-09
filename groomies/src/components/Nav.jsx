@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
+import logo from "../assets/groomieslogo.png";
 
 export default function Nav() {
     const { user, setUser } = useUser();
@@ -17,22 +18,30 @@ export default function Nav() {
     };
 
     return (
-        <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-6">
+        <nav className="nav">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <Link to="/">
-                    <span className="font-semibold text-xl tracking-tight">
-                        Groomies
+                    <span className="titleName">
+                <Link to="/Home"><img className="logo" src={logo} alt="Login Illustration" /></Link>
                     </span>
                 </Link>
             </div>
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
+            <div className="navLinks">
                 <Link to="/userprofile">
                     <span className="font-semibold text-xl tracking-tight">
                         Profile
                     </span>
                 </Link>
                 <Link to="/user/1">
-                    Test Profile
+                    User Test Profile
+                </Link>
+                <Link to="/groomie/1">
+                    Groomie Test Profile
+                </Link>
+                <Link to="/calendar">
+                    <span className="font-semibold text-xl tracking-tight">
+                        Calendar
+                    </span>
                 </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
@@ -55,7 +64,7 @@ export default function Nav() {
                         </>
                     ) : (
                         <Link to="/register">
-                            <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            <button className="loginButton">
                                 Login
                             </button>
                         </Link>
