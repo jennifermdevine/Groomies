@@ -2,15 +2,15 @@
   /* border: #fcfffd 1px solid; */
   background-color: #5d737e;
   color: #c0fdfb;
-  text-align: center;
+  /* text-align: center; */
 }
 
-img {
+/* img {
   width: 300px;
   height: 300px;
   border: #0ebe75 1px solid;
   border-radius: 25px;
-}
+} */
 
 .logo {
   width: 100px;
@@ -37,8 +37,8 @@ a:visited {
   flex-direction: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 25px;  
-  }
+  padding: 25px;
+}
 
 .navLinks {
   display: flex;
@@ -49,12 +49,12 @@ a:visited {
 .loginButton {
   font-size: 20px;
   border-radius: 12px;
-  border-color: #64BBAC;
+  border-color: #64bbac;
   transition-duration: 0.4s;
 }
 
 .loginButton:hover {
-  background-color: #04AA6D; /* Green */
+  background-color: #04aa6d; /* Green */
   color: white;
 }
 
@@ -64,13 +64,10 @@ a:visited {
   transform: translateY(4px);
 }
 
-
-
 .titleName {
   font-size: 25px;
   border-radius: 12px;
   border-color: #64bbac;
-  
 }
 
 .react-modal-overlay {

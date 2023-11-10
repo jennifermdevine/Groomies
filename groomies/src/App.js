@@ -1,14 +1,14 @@
-import { UserProvider } from './components/UserContext';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { UserProvider } from "./components/UserContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Register from './components/Register';
-import Nav from './components/Nav';
-import Home from './components/Home';
-import UserProfile from './pages/UserProfile';
-import Calendar from './components/Calendar'
-import GroomieProfile from './pages/GroomieProfile';
+import Register from "./components/Register";
+import Nav from "./components/Nav";
+import Home from "./pages/Home";
+import UserProfile from "./pages/UserProfile";
+import Calendar from "./components/Calendar";
+import GroomieProfile from "./pages/GroomieProfile";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (

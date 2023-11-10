@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { Jumbotron, Button } from "react-bootstrap";
+import HeroHome from "../components/HeroHome";
 
 export default function Home() {
   return (
@@ -7,14 +7,15 @@ export default function Home() {
       <Helmet>
         <title>Home | Groomies</title>
       </Helmet>
+      <HeroHome />
       <div class="section">
-        <img src="https://placedog.net/500" alt="Dog Image"></img>
+        {/* <img src="https://placedog.net/500"></img> */}
         <h1>
           Mobile Grooming at Your Doorstep: Tailored Pet Care, Effortless
           Grooming
         </h1>
         <p>
-          Welcome to groomies, where convenience meets care. We're dedicated to
+          Welcome to Groomies, where convenience meets care. We're dedicated to
           delivering top-notch grooming services right to your doorstep,
           ensuring your pets look and feel their best without the hassle of
           leaving your home. Whether you're a pet owner looking for stress-free
@@ -31,16 +32,11 @@ export default function Home() {
             Welcome to Groomies: Where Passionate Groomers and Pet Lovers Unite!
           </h1>
           <p>
-            Discover a grooming haven that transcends boundaries. PetGroomHub is
+            Discover a grooming haven that transcends boundaries. Groomies is
             not just a platform; it's a vibrant community where skilled groomers
             craft personalized experiences and pet owners find unparalleled
             convenience. From doorstep services to flexible scheduling, our hub
-            is the epicenter of modern pet care. Whether you're seeking a
-            talented groomer or ready to showcase your skills, PetGroomHub is
-            your gateway to a world where pets receive top-tier pampering and
-            groomers flourish in their passion. Join us on this transformative
-            journey – because every pet deserves the best, and every groomer
-            deserves the spotlight
+            is the epicenter of modern pet care.
           </p>
           <div class="service-card">
             <h3>
@@ -122,7 +118,7 @@ export default function Home() {
             groomer.
           </p>
         </div>
-        <img src="https://placedog.net/600" alt="Dog Image"></img>
+        <img src="https://placedog.net/600"></img>
       </div>
     </div>
   );
