@@ -1,11 +1,11 @@
 * {
   /* border: #fcfffd 1px solid; */
-  background-color: #5d737e;
   color: #c0fdfb;
   text-align: center;
+  background-color: #5d737e
 }
 
-img {
+.profImg {
   width: 300px;
   height: 300px;
   border: #0ebe75 1px solid;
@@ -30,6 +30,7 @@ a:hover {
 
 a:visited {
   color: darkgreen;
+
 }
 
 .nav {
@@ -47,6 +48,7 @@ a:visited {
 }
 
 .loginButton {
+  background-color: #64b6ac;
   font-size: 20px;
   border-radius: 12px;
   border-color: #64BBAC;
