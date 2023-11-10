@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { fetchPetsWithImages, getImageUrl } from './PetProfile';
 import { supabase } from '../supabaseClient';
 import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -97,46 +97,55 @@ export default function UserProfile() {
       <Helmet>
         <title>{user.userSlug ? `${user.userSlug}'s Profile` : 'User Profile'}</title>
       </Helmet>
-      <h1>User Profile:</h1>
+      <h1>User Profile</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {user.userName && (
-        <div>
-          <img
+        <Card>
+          <Card.Body className="profWrapper">
+          <Card.Img
+            className="profImg"
+            variant="top"
             src={userImage || 'default_profile_image.jpg'}
             alt={`${user.userName}'s profile`}
             style={{
+              height: '20vh',
+              width: 'calc(50vw / 3)',
               objectFit: 'cover'
             }}
           />
-          <h2>Name: {user.fullName}</h2>
-          <p>Email: {user.email}</p>
-          <p>Username: {user.userName}</p>
-          <div>
-            <h3>Pets:</h3>
+            <Card.Title>Name: {user.fullName}</Card.Title>
+            <Card.Text>Email: {user.email}</Card.Text>
+            <Card.Text>Username: {user.userName}</Card.Text>
+            
+            <Card.Title>Pets</Card.Title>
             {user.pets && user.pets.length > 0 ? (
               user.pets.map(pet => (
-                <div key={pet.petId}>
-                  <p>Name: {pet.petName}</p>
-                  <p>Species: {pet.species}</p>
-                  {pet.imageUrl && (
-                    <img
-                      src={pet.imageUrl}
-                      alt={`${pet.petName}`}
-                      style={{
-                        height: '20vh',
-                        width: 'calc(50vw / 3)',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  )}
-                </div>
+                <Card key={pet.petId}>
+                  <Card.Body>
+                    <Card.Text>Name: {pet.petName}</Card.Text>
+                    <Card.Text>Species: {pet.species}</Card.Text>
+                    {pet.imageUrl && (
+                      <Card.Img
+                        className="profImg"
+                        variant="bottom"
+                        src={pet.imageUrl}
+                        alt={`${pet.petName}`}
+                        style={{
+                          height: '20vh',
+                          width: 'calc(50vw / 3)',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    )}
+                  </Card.Body>
+                </Card>
               ))
             ) : (
               <p>No pets found.</p>
             )}
-          </div>
-        </div>
+          </Card.Body>
+        </Card>
       )}
     </div>
   );
