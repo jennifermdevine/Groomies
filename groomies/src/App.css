@@ -117,19 +117,16 @@ a:visited {
 
 }
 
-/* .profWrapper {
+.profWrapper {
   display: flex;
   flex-direction: row;
-  position: relative;
-  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .profCards {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  flex-wrap: wrap;
-} */
+  flex: 1;
+  margin: 0 10px
+}
 
 .react-modal-overlay {
   position: fixed;
