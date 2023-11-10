@@ -47,6 +47,7 @@ export default function Nav() {
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
                     {user && (
+
                         <span className="welcome">
                             Welcome, {user.email}!
                         </span>

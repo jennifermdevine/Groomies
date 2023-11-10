@@ -38,9 +38,16 @@ export default function UserProfile() {
   const [userImage, setUserImage] = useState(null);
 
   const [{ user, loading, error }, dispatch] = useReducer(reducer, initialState);
+  
 
   useEffect(() => {
     const fetchUsers = async () => {
+      const loggedInUser = supabase.auth.user;
+
+      if (!loggedInUser) {
+        return;
+      }
+
       dispatch({ type: 'FETCH_REQUEST' });
       const { data, error } = await supabase
         .from('users')
