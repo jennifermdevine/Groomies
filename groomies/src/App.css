@@ -2,14 +2,13 @@
   /* border: #fcfffd 1px solid; */
   color: #c0fdfb;
   text-align: center;
+  text-decoration: none!important;
   background-color: #5d737e
 }
 
-.profImg {
-  width: 300px;
-  height: 300px;
-  border: #0ebe75 1px solid;
-  border-radius: 25px;
+.welcome {
+  color: #fcfffd;
+  font-weight: 600;
 }
 
 .logo {
@@ -19,18 +18,10 @@
   border-radius: 25px;
 }
 
-a {
-  color: #daffef;
-  text-decoration: none;
-}
-
-a:hover {
-  color: mediumspringgreen;
-}
-
-a:visited {
-  color: darkgreen;
-
+.titleName {
+  font-size: 25px;
+  border-radius: 12px;
+  border-color: #64bbac;
 }
 
 .nav {
@@ -55,9 +46,18 @@ a:visited {
   transition-duration: 0.4s;
 }
 
+.logoutButton {
+  background-color: #b6646e;
+  color: #FCFFFD;
+  font-size: 20px;
+  border-radius: 12px;
+  border-color: red;
+  transition-duration: 0.4s;
+}
+
 .loginButton:hover {
   background-color: #04AA6D; /* Green */
-  color: white;
+  color: #FCFFFD;
 }
 
 .loginButton:active {
@@ -66,13 +66,64 @@ a:visited {
   transform: translateY(4px);
 }
 
+.logoutButton:hover {
+  background-color: red;
+}
 
+.logoutButton:active {
+  background-color: darkred;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 
-.titleName {
-  font-size: 25px;
+.apptButton {
+  background-color: rgb(17, 28, 52);
+  font-size: 20px;
   border-radius: 12px;
-  border-color: #64bbac;
-  
+  border-color: rgb(38, 214, 229);
+  transition-duration: 0.4s;
+}
+
+.apptButton:hover {
+  background-color: #c0fdfb;
+  color: rgb(17, 28, 52);
+  font-weight: 600;
+}
+
+.apptButton:active {
+  background-color: rgb(79, 228, 201);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.profImg {
+  width: 300px;
+  height: 300px;
+  border: #0ebe75 1px solid;
+  border-radius: 25px;
+}
+
+a {
+  color: #daffef;
+  text-decoration: none;
+}
+
+a:hover {
+  color: mediumspringgreen;
+}
+
+a:visited {
+  color: darkgreen;
+
+}
+
+.profWrapper {
+  display: inline-flex;
+  position: relative;
+  flex-wrap: wrap;
+  flex-grow: inherit;
+  flex-shrink: inherit;
+  flex-direction: row;
 }
 
 .react-modal-overlay {

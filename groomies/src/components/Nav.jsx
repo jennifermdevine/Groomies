@@ -47,7 +47,7 @@ export default function Nav() {
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
                     {user && (
-                        <span className="text-white mr-4">
+                        <span className="welcome">
                             Welcome, {user.email}!
                         </span>
                     )}
@@ -56,7 +56,7 @@ export default function Nav() {
                     {user ? (
                         <>
                             <button
-                                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                                className="logoutButton"
                                 onClick={handleLogout}
                             >
                                 Logout
