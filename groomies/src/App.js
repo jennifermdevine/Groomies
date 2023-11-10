@@ -1,3 +1,4 @@
+// App.jsx
 import { UserProvider } from './components/UserContext';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -7,6 +8,7 @@ import Home from './components/Home';
 import UserProfile from './pages/UserProfile';
 import Calendar from './components/Calendar'
 import GroomieProfile from './pages/GroomieProfile';
+import CreateProfile from './pages/CreateProfile';
 
 import './App.css';
 
@@ -24,8 +26,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/user/:userId" element={<UserProfile />} />
-              <Route path="/user/:userId" element={<UserProfile />} />
-              <Route path="/groomie/:groomieId" element={<GroomieProfile />} />
+              <Route path="/create-profile" element={<CreateProfile />} />              <Route path="/groomie/:groomieId" element={<GroomieProfile />} />
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/calendar" element={<Calendar />} />
             </Routes>
