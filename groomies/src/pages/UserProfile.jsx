@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { fetchPetsWithImages, getImageUrl } from "./PetProfile";
 import { supabase } from "../supabaseClient";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
 
 const reducer = (state, action) => {
   switch (action.type) {
