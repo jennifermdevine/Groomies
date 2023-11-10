@@ -1,22 +1,53 @@
-// Docs for hot to style this page
-// https://supabase.com/docs/guides/auth/auth-helpers/auth-ui#customization
+import { useEffect } from 'react';
+import { Auth } from '@supabase/auth-ui-react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 
-import { Auth } from '@supabase/auth-ui-react'
-// import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { supabase } from "../supabaseClient";
+const Register = () => {
+    const navigate = useNavigate();
 
-const Register = () => (
-    <Auth
-      supabaseClient={supabase}
-      localization={{
-        variables: {
-          sign_in: {
-            email_label: 'Your Email Address',
-            password_label: 'Your Strong Password',
-          },
-        },
-      }}
-    />
-  )
+    useEffect(() => {
+        const authListener = supabase.auth.onAuthStateChange(
+            async (event, session) => {
+                console.log("Auth state change event:", event);
+                console.log("User session data:", session);
 
-export default Register
+                if (event === 'SIGNED_IN') {
+                    await createUserProfile(session.user);
+                    navigate('/create-profile');
+                }
+            }
+        );
+
+        return () => {
+            if (authListener && typeof authListener.unsubscribe === 'function') {
+                authListener.unsubscribe();
+            }
+        };
+    }, [navigate]);
+
+    const createUserProfile = async (user) => {
+      console.log("Creating/updating profile for user:", user);
+      try {
+          const { data, error } = await supabase
+              .from('users')
+              .upsert({ // Changed to use upsert method
+                  authUserId: user.id,
+                  email: user.email 
+              }, {
+                  onConflict: 'authUserId' // Specify the conflict target column
+              });
+  
+          if (error) throw error;
+          console.log('User profile created/updated:', data);
+      } catch (error) {
+          console.error('Error creating/updating user profile:', error);
+      }
+  };  
+
+    return (
+        <Auth supabaseClient={supabase} />
+    );
+};
+
+export default Register;

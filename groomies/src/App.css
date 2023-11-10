@@ -70,13 +70,13 @@
 }
 
 .custom-time-picker .react-time-picker__inputGroup__input {
-  width: 100px; /* Adjust this value to increase the width */
+  width: 100px;
 }
 
 .custom-time-picker .react-time-picker__inputGroup__hour {
-  width: 100px; /* Adjust for hour input */
+  width: 100px;
 }
 
 .custom-time-picker .react-time-picker__inputGroup__minute {
-  width: 100px; /* Adjust for minute input */
+  width: 100px;
 }
