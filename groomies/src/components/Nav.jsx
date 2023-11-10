@@ -48,7 +48,7 @@ export default function Nav() {
                 <div className="text-sm lg:flex-grow">
                     {user && (
                         <span className="text-white mr-4">
-                            Welcome, {user.email}!
+                            Welcome, {user.userName || user.email || 'User'}!
                         </span>
                     )}
                 </div>
