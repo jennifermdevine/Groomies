@@ -94,8 +94,9 @@ export default function UserProfile() {
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {user.userName && (
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
         <Card>
-          <Card.Body className="profWrapper">
+          <Card.Body>
           <Card.Img
             className="profImg"
             variant="top"
@@ -106,15 +107,17 @@ export default function UserProfile() {
               width: 'calc(50vw / 3)',
               objectFit: 'cover'
             }}
-          />
+          /> 
             <Card.Title>Name: {user.fullName}</Card.Title>
             <Card.Text>Email: {user.email}</Card.Text>
             <Card.Text>Username: {user.userName}</Card.Text>
-            
+            </Card.Body>
+            </Card>
+            <div>
             <Card.Title>Pets</Card.Title>
             {user.pets && user.pets.length > 0 ? (
               user.pets.map(pet => (
-                <Card key={pet.petId}>
+                <Card key={pet.petId} style={{ flex: '1', margin: '0 10px' }}>
                   <Card.Body>
                     <Card.Text>Name: {pet.petName}</Card.Text>
                     <Card.Text>Species: {pet.species}</Card.Text>
@@ -133,13 +136,15 @@ export default function UserProfile() {
                     )}
                   </Card.Body>
                 </Card>
+                
               ))
             ) : (
               <p>No pets found.</p>
             )}
-          </Card.Body>
-        </Card>
+            </div>
+          </div>
       )}
-    </div>
+      </div>
+      
   );
 }
