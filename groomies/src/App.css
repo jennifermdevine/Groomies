@@ -118,12 +118,14 @@ a:visited {
 }
 
 .profWrapper {
-  display: inline-flex;
-  position: relative;
-  flex-wrap: wrap;
-  flex-grow: inherit;
-  flex-shrink: inherit;
+  display: flex;
   flex-direction: row;
+  justify-content: space-around;
+}
+
+.profCards {
+  flex: 1;
+  margin: 0 10px
 }
 
 .react-modal-overlay {
