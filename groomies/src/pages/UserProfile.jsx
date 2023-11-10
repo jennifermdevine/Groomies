@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { fetchPetsWithImages, getImageUrl } from './PetProfile';
 import { supabase } from '../supabaseClient';
-import UserProf from '../components/UserProf';
-import PetProf from '../components/PetProf';
-import '../App.css';
+import Card from 'react-bootstrap/Card';
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -39,16 +38,9 @@ export default function UserProfile() {
   const [userImage, setUserImage] = useState(null);
 
   const [{ user, loading, error }, dispatch] = useReducer(reducer, initialState);
-  
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const loggedInUser = supabase.auth.user;
-
-      if (!loggedInUser) {
-        return;
-      }
-
       dispatch({ type: 'FETCH_REQUEST' });
       const { data, error } = await supabase
         .from('users')
@@ -102,10 +94,51 @@ export default function UserProfile() {
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {user.userName && (
-        <div className="profWrapper">
-          <UserProf/>
-          <PetProf/>
-          </div>
+        <Card>
+          <Card.Body className="profWrapper">
+          <Card.Img
+            className="profImg"
+            variant="top"
+            src={userImage || 'default_profile_image.jpg'}
+            alt={`${user.userName}'s profile`}
+            style={{
+              height: '20vh',
+              width: 'calc(50vw / 3)',
+              objectFit: 'cover'
+            }}
+          />
+            <Card.Title>Name: {user.fullName}</Card.Title>
+            <Card.Text>Email: {user.email}</Card.Text>
+            <Card.Text>Username: {user.userName}</Card.Text>
+            
+            <Card.Title>Pets</Card.Title>
+            {user.pets && user.pets.length > 0 ? (
+              user.pets.map(pet => (
+                <Card key={pet.petId}>
+                  <Card.Body>
+                    <Card.Text>Name: {pet.petName}</Card.Text>
+                    <Card.Text>Species: {pet.species}</Card.Text>
+                    {pet.imageUrl && (
+                      <Card.Img
+                        className="profImg"
+                        variant="bottom"
+                        src={pet.imageUrl}
+                        alt={`${pet.petName}`}
+                        style={{
+                          height: '20vh',
+                          width: 'calc(50vw / 3)',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    )}
+                  </Card.Body>
+                </Card>
+              ))
+            ) : (
+              <p>No pets found.</p>
+            )}
+          </Card.Body>
+        </Card>
       )}
     </div>
   );
