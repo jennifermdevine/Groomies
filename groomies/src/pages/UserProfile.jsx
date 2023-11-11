@@ -6,7 +6,6 @@ import { fetchPetsWithImages, getImageUrl } from './PetProfile';
 import { supabase } from '../supabaseClient';
 import Card from 'react-bootstrap/Card';
 
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -96,7 +95,6 @@ export default function UserProfile() {
       {user.userName && (
         <div className="profWrapper">
         <Card>
-        <Card.Title>{user.fullName}</Card.Title>
           <Card.Body>
           <Card.Img
             className="profImg"
@@ -109,7 +107,7 @@ export default function UserProfile() {
               objectFit: 'cover'
             }}
           /> 
-            
+            <Card.Title>{user.fullName}</Card.Title>
             <Card.Text>{user.email}</Card.Text>
             <Card.Text>Username: {user.userName}</Card.Text>
             </Card.Body>
