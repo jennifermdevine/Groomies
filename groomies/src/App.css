@@ -1,15 +1,13 @@
 * {
-  /* border: #fcfffd 1px solid; */
-  background-color: #5d737e;
   color: #c0fdfb;
   text-align: center;
+  text-decoration: none !important;
+  background-color: #5d737e;
 }
 
-img {
-  width: 300px;
-  height: 300px;
-  border: #0ebe75 1px solid;
-  border-radius: 25px;
+.welcome {
+  color: #fcfffd;
+  font-weight: 600;
 }
 
 .logo {
@@ -19,17 +17,10 @@ img {
   border-radius: 25px;
 }
 
-a {
-  color: #daffef;
-  text-decoration: none;
-}
-
-a:hover {
-  color: mediumspringgreen;
-}
-
-a:visited {
-  color: darkgreen;
+.titleName {
+  font-size: 25px;
+  border-radius: 12px;
+  border-color: #64bbac;
 }
 
 .nav {
@@ -37,8 +28,8 @@ a:visited {
   flex-direction: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 25px;  
-  }
+  padding: 25px;
+}
 
 .navLinks {
   display: flex;
@@ -47,30 +38,84 @@ a:visited {
 }
 
 .loginButton {
+  background-color: #64b6ac;
   font-size: 20px;
   border-radius: 12px;
-  border-color: #64BBAC;
+  border-color: #64bbac;
   transition-duration: 0.4s;
 }
-
 .loginButton:hover {
-  background-color: #04AA6D; /* Green */
-  color: white;
+  background-color: #04aa6d; /* Green */
+  color: #fcfffd;
 }
-
 .loginButton:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
 
-
-
-.titleName {
-  font-size: 25px;
+.logoutButton {
+  background-color: #b6646e;
+  color: #fcfffd;
+  font-size: 20px;
   border-radius: 12px;
-  border-color: #64bbac;
-  
+  border-color: red;
+  transition-duration: 0.4s;
+}
+.logoutButton:hover {
+  background-color: red;
+}
+.logoutButton:active {
+  background-color: darkred;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.apptButton {
+  background-color: rgb(17, 28, 52);
+  font-size: 20px;
+  border-radius: 12px;
+  border-color: rgb(38, 214, 229);
+  transition-duration: 0.4s;
+}
+.apptButton:hover {
+  background-color: #c0fdfb;
+  color: rgb(17, 28, 52);
+  font-weight: 600;
+}
+.apptButton:active {
+  background-color: rgb(79, 228, 201);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.profImg {
+  width: 300px;
+  height: 300px;
+  border: #0ebe75 1px solid;
+  border-radius: 25px;
+}
+
+a {
+  color: #daffef;
+  text-decoration: none;
+}
+a:hover {
+  color: mediumspringgreen;
+}
+a:visited {
+  color: darkgreen;
+}
+
+.profWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.profCards {
+  flex: 1;
+  margin: 0 10px;
 }
 
 .react-modal-overlay {
@@ -97,14 +142,10 @@ a:visited {
   z-index: 1001;
 }
 
-.custom-time-picker .react-time-picker__inputGroup__input {
-  width: 100px;
-}
-
-.custom-time-picker .react-time-picker__inputGroup__hour {
-  width: 100px;
-}
-
+.custom-time-picker .react-time-picker__inputGroup__input,
+.custom-time-picker .react-time-picker__inputGroup__hour,
 .custom-time-picker .react-time-picker__inputGroup__minute {
   width: 100px;
 }
+
+/*# sourceMappingURL=App.css.map */

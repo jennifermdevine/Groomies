@@ -74,7 +74,7 @@ export default function Calendar() {
       <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
         <button
           type="button"
-          className="fc-button fc-button-primary"
+          className="apptButton"
           onClick={() => setModalIsOpen(true)}
         >
           Add Event
