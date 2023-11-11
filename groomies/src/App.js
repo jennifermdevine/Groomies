@@ -8,7 +8,7 @@ import Home from './components/Home';
 import UserProfile from './pages/UserProfile';
 import Calendar from './components/Calendar'
 import GroomieProfile from './pages/GroomieProfile';
-// import CreateProfile from './pages/CreateProfile';
+import EditProfile from './pages/EditProfile';
 
 import './App.css';
 
@@ -26,7 +26,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/user/:userId" element={<UserProfile />} />
-              {/* <Route path="/create-profile" element={<CreateProfile />} />               */}
+              <Route path="/EditProfile" element={<EditProfile />} />
               <Route path="/groomie/:groomieId" element={<GroomieProfile />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="*" element={<Navigate to="/" />} />

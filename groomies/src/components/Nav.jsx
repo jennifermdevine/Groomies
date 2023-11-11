@@ -33,6 +33,13 @@ export default function Nav() {
                         </span>
                     </Link>
                 )}
+                {user && (
+                    <Link to="/EditProfile">
+                        <span className="font-semibold text-xl tracking-tight">
+                            Edit Profile
+                        </span>
+                    </Link>
+                )}
                 <Link to="/groomie/1">
                     Groomie Test Profile
                 </Link>
