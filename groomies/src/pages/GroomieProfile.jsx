@@ -81,7 +81,7 @@ export default function GroomieProfile() {
             <Helmet>
                 <title>{groomie ? `${groomie.groomieSlug}'s Profile` : 'Groomie Profile'}</title>
             </Helmet>
-            <h1>Groomie Profile:</h1>
+            <h1 style={{color: 'rgb(17, 28, 52)', fontWeight: '800'}}>Groomie Profile</h1>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             {groomie && (
