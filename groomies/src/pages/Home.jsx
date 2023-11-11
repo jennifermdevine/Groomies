@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import HeroHome from "../components/HeroHome";
+import Services from "../components/Services";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
         <title>Home | Groomies</title>
       </Helmet>
       <HeroHome />
+      <Services />
       <div class="section">
         {/* <img src="https://placedog.net/500"></img> */}
         <h1>
@@ -28,16 +30,8 @@ export default function Home() {
 
       <div class="section">
         <div class="services-div">
-          <h1>
-            Welcome to Groomies: Where Passionate Groomers and Pet Lovers Unite!
-          </h1>
-          <p>
-            Discover a grooming haven that transcends boundaries. Groomies is
-            not just a platform; it's a vibrant community where skilled groomers
-            craft personalized experiences and pet owners find unparalleled
-            convenience. From doorstep services to flexible scheduling, our hub
-            is the epicenter of modern pet care.
-          </p>
+          <h1>OUR SERVICES</h1>
+          <p>Discover a grooming haven that transcends boundaries.</p>
           <div class="service-card">
             <h3>
               <strong>Bathing and Shampooing</strong>
@@ -46,7 +40,7 @@ export default function Home() {
               Our soothing and cleansing baths will leave your furry friend
               feeling fresh and revitalized. We use only the finest,
               pet-friendly shampoos to give your dog's coat a lustrous shine and
-              their skin a gentle touch
+              their skin a gentle touch.
             </p>
           </div>
           <div class="service-card">
