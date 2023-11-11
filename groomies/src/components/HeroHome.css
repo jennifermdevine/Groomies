@@ -19,11 +19,24 @@
 }
 
 .custom-caption h1 {
-  font-size: 2em;
+  font-size: 8em;
   background-color: transparent;
+  margin-bottom: 100px;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .custom-caption p {
-  font-size: 1.5em;
+  font-size: 2em;
+  background-color: transparent;
+  color: aqua;
+}
+
+img {
+  max-height: 50vh;
+}
+
+.carousel-indicators,
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
   background-color: transparent;
 }
