@@ -1,6 +1,7 @@
 // PetProfile.jsx
 import { supabase } from '../supabaseClient';
 
+
 // Function to retrieve the public URL of an image from Supabase storage
 export const getImageUrl = async (folder, path) => {
     const fullPath = `${folder}/${path}`;

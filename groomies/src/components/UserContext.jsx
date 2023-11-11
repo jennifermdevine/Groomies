@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { supabase } from "../supabaseClient";
 
 const UserContext = createContext();
@@ -9,6 +9,7 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [session, setSession] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const fetchUserData = async (authUserId) => {
@@ -38,7 +39,9 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         // Check for an existing session when the component mounts
         const session = supabase.auth.session;
-        console.log("Initial session:", session);
+        setUser(session?.user || null);
+        setSession(session);
+        // console.log("Initial session:", session);
 
         if (session) {
             fetchUserData(session.user.id).then(userDetails => {
@@ -50,9 +53,9 @@ export const UserProvider = ({ children }) => {
         }
     
         const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
-            console.log("Auth state change event:", event); // Log auth state change
-            console.log("Session data:", session); // Log session data
-            
+            // console.log("Auth state change event:", event);
+            // console.log("Session data:", session);
+
             setLoading(true);
             if (session) {
                 const userDetails = await fetchUserData(session.user.id);
@@ -70,8 +73,10 @@ export const UserProvider = ({ children }) => {
         };
     }, []);
 
+    const contextValue = useMemo(() => ({ user, session }), [user, session]);
+
     return (
-        <UserContext.Provider value={{ user, setUser, loading }}>
+        <UserContext.Provider value={contextValue}>
             {children}
         </UserContext.Provider>
     );
