@@ -25,6 +25,11 @@ export default function Nav() {
                 </span>
             </div>
             <div className="navLinks">
+
+                <Link className="a" to="/userprofile">
+                    Home
+                </Link>
+
                 {user && (
                     <Link className="a" to={`/user/${user.userId}`}>
                             Profile
