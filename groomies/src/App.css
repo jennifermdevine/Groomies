@@ -60,6 +60,51 @@ img {
   font-size: 25px;
   border-radius: 12px;
   border-color: #64bbac;
+  border-color: rgb(38, 214, 229);
+  transition-duration: 0.4s;
+}
+.apptButton:hover {
+  background-color: #c0fdfb;
+  color: rgb(17, 28, 52);
+  font-weight: 600;
+}
+.apptButton:active {
+  background-color: rgb(79, 228, 201);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.profImg {
+  width: 300px;
+  height: 300px;
+  border: #0ebe75 1px solid;
+  border-radius: 25px;
+}
+
+.landingImg {
+  width: 100%;
+}
+
+a {
+  color: #daffef;
+  text-decoration: none;
+}
+a:hover {
+  color: mediumspringgreen;
+}
+a:visited {
+  color: #64b6ac;
+}
+
+.profWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.profCards {
+  flex: 1;
+  margin: 0 10px;
 }
 
 .react-modal-overlay {
