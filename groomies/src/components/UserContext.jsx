@@ -1,3 +1,4 @@
+// UserContext.jsx
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { supabase } from "../supabaseClient";
 
@@ -37,7 +38,6 @@ export const UserProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        // Check for an existing session when the component mounts
         const session = supabase.auth.session;
         setUser(session?.user || null);
         setSession(session);

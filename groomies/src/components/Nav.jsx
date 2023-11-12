@@ -5,13 +5,12 @@ import { useUser } from "../components/UserContext";
 import logo from "../assets/groomieslogo.png";
 
 export default function Nav() {
-    const { user, setUser } = useUser();
+    const { user } = useUser();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut();
         if (!error) {
-            setUser(null);
             navigate("/");
         } else {
             console.error("Error logging out:", error.message);
@@ -37,6 +36,13 @@ export default function Nav() {
                     <Link to="/EditProfile">
                         <span className="font-semibold text-xl tracking-tight">
                             Edit Profile
+                        </span>
+                    </Link>
+                )}
+                {user && (
+                    <Link to="/AddPet">
+                        <span className="font-semibold text-xl tracking-tight">
+                            Add Pet
                         </span>
                     </Link>
                 )}
