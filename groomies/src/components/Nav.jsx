@@ -20,7 +20,7 @@ export default function Nav() {
     <nav className="nav">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <span className="titleName">
-          <Link to="/Home">
+          <Link to="/">
             <img className="logo" src={logo} alt="Login Illustration" />
           </Link>
         </span>

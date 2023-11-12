@@ -4,10 +4,7 @@ const Error404 = () => {
   return (
     <div>
       <img
-        src={
-          process.env.PUBLIC_URL +
-          "/silly-astronaut-cat-404-error-delf-design.jpg"
-        }
+        src={`${process.env.PUBLIC_URL}/silly-astronaut-cat-404-error-delf-design.jpg`}
         alt="Cat 404"
         style={{
           width: "500px",
