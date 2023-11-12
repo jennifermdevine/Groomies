@@ -16,60 +16,58 @@ export default function Nav() {
     }
   };
 
-  return (
-    <nav className="nav">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="titleName">
-          <Link to="/">
-            <img className="logo" src={logo} alt="Login Illustration" />
-          </Link>
-        </span>
-      </div>
-      <div className="navLinks">
-        {user && (
-          <Link to={`/user/${user.userId}`}>
-            <span className="font-semibold text-xl tracking-tight">
-              Profile
-            </span>
-          </Link>
-        )}
-        {user && (
-          <Link to="/EditProfile">
-            <span className="font-semibold text-xl tracking-tight">
-              Edit Profile
-            </span>
-          </Link>
-        )}
-        {user && (
-          <Link to="/AddPet">
-            <span className="font-semibold text-xl tracking-tight">
-              Add Pet
-            </span>
-          </Link>
-        )}
-        <Link to="/groomie/1">Groomie Test Profile</Link>
-        <Link to="/calendar">
-          <span className="font-semibold text-xl tracking-tight">Calendar</span>
-        </Link>
-      </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          {user && <span className="welcome">Welcome, {user.email}!</span>}
-        </div>
-        <div>
-          {user ? (
-            <>
-              <button className="logoutButton" onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <Link to="/register">
-              <button className="loginButton">Login</button>
+    return (
+        <nav className="nav">
+            <div className="flex items-center flex-shrink-0 text-white mr-6">
+                <span className="titleName">
+                    <Link className="a" to="/"><img className="logo" src={logo} alt="Login Illustration" /></Link>
+                </span>
+            </div>
+            <div className="navLinks">
+
+                <Link className="a" to="/userprofile">
+                    Home
+                </Link>
+
+                {user && (
+                    <Link className="a" to={`/user/${user.userId}`}>
+                            Profile
+                    </Link>
+                )}
+                <Link className="a" to="/groomie/1">
+                    Meet The Groomies!
+                </Link>
+                <Link className="a" to="/calendar">
+                    Calendar
             </Link>
-          )}
-        </div>
-      </div>
-    </nav>
-  );
+            </div>
+            <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                <div className="text-sm lg:flex-grow">
+                    {user && (
+                        <span className="welcome">
+                            Welcome, {user.email}!
+                        </span>
+                    )}
+                </div>
+                <div>
+                    {user ? (
+                        <>
+                            <button
+                                className="logoutButton"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <Link className="a" to="/register">
+                            <button className="loginButton">
+                                Login
+                            </button>
+                        </Link>
+                    )}
+                </div>
+            </div>
+        </nav>
+    );
 }

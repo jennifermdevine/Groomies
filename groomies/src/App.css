@@ -1,15 +1,12 @@
 * {
   color: #c0fdfb;
   text-align: center;
-  text-decoration: none !important;
   background-color: #5d737e;
 }
 
-.profImg {
-  width: 300px;
-  height: 300px;
-  border: #0ebe75 1px solid;
-  border-radius: 25px;
+.welcome {
+  color: #fcfffd;
+  font-weight: 600;
 }
 
 .logo {
@@ -29,7 +26,7 @@
   display: flex;
   flex-direction: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 25px;
 }
 
@@ -41,25 +38,44 @@
 
 .loginButton {
   background-color: #64b6ac;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 12px;
   border-color: #64bbac;
   transition-duration: 0.4s;
 }
+
 .loginButton:hover {
   background-color: #04aa6d; /* Green */
-  color: white;
+  color: #fcfffd;
 }
+
 .loginButton:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
 
-.titleName {
-  font-size: 25px;
+.logoutButton {
+  background-color: #b6646e;
+  color: #fcfffd;
+  font-size: 18px;
   border-radius: 12px;
-  border-color: #64bbac;
+  border-color: red;
+  transition-duration: 0.4s;
+}
+.logoutButton:hover {
+  background-color: red;
+}
+.logoutButton:active {
+  background-color: darkred;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.apptButton {
+  background-color: rgb(17, 28, 52);
+  font-size: 18px;
+  border-radius: 12px;
   border-color: rgb(38, 214, 229);
   transition-duration: 0.4s;
 }
@@ -74,6 +90,11 @@
   transform: translateY(4px);
 }
 
+.pageTitle {
+  color: rgb(17, 28, 52);
+  font-weight: bolder;
+}
+
 .profImg {
   width: 300px;
   height: 300px;
@@ -81,18 +102,16 @@
   border-radius: 25px;
 }
 
-.landingImg {
-  width: 100%;
-}
-
-a {
+.a {
   color: #daffef;
   text-decoration: none;
 }
-a:hover {
-  color: mediumspringgreen;
+
+.a:hover {
+  color: mediumspringgreen !important;
 }
-a:visited {
+
+.a:visited {
   color: #64b6ac;
 }
 
