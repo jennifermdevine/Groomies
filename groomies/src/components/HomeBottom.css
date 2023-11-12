@@ -1,0 +1,25 @@
+#register-link {
+  color: white;
+}
+
+.home-bottom {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.home-content {
+  padding: 20px;
+}
+
+.register-image {
+  text-align: center;
+}
+
+.register-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.home-content h2 {
+  padding-bottom: 20px;
+}

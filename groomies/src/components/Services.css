@@ -28,6 +28,13 @@
   color: white;
 }
 
+.services-header {
+  margin-top: 80px;
+}
+
+.services-blurb {
+  margin-bottom: 50px;
+}
 .services-blurb,
 .services-header {
   text-align: center;
