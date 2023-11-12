@@ -13,7 +13,7 @@ export default function Home() {
           Grooming
         </h1>
         <p>
-          Welcome to groomies, where convenience meets care. We're dedicated to
+          Welcome to Groomies, where convenience meets care. We're dedicated to
           delivering top-notch grooming services right to your doorstep,
           ensuring your pets look and feel their best without the hassle of
           leaving your home. Whether you're a pet owner looking for stress-free
