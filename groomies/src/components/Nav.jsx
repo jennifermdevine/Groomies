@@ -5,13 +5,12 @@ import { useUser } from "../components/UserContext";
 import logo from "../assets/groomieslogo.png";
 
 export default function Nav() {
-    const { user, setUser } = useUser();
+    const { user } = useUser();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut();
         if (!error) {
-            setUser(null);
             navigate("/");
         } else {
             console.error("Error logging out:", error.message);

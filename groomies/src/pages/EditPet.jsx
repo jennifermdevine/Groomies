@@ -65,24 +65,21 @@ export default function EditPet() {
         const file = e.target.files[0];
         if (!file) return;
 
-        // If there's an existing pet image, delete it first
         if (petImage) {
             try {
-                // Ensure the correct path is used for the old image
                 const oldImagePath = `pets/${petImage}`;
                 let { error: deleteError } = await supabase.storage.from('Images').remove([oldImagePath]);
 
                 if (deleteError) {
                     console.error('Error deleting old pet image:', deleteError);
-                    return; // Stop further execution if there's an error
+                    return;
                 }
             } catch (error) {
                 console.error('Exception while deleting old image:', error);
-                return; // Stop further execution if there's an exception
+                return;
             }
         }
 
-        // Upload the new image
         try {
             const fileExt = file.name.split('.').pop();
             const newFileName = `pets/${contextUser.userId}_${Date.now()}.${fileExt}`;
@@ -133,7 +130,6 @@ export default function EditPet() {
     const handleDeletePet = async () => {
         dispatch({ type: 'UPDATE_REQUEST' });
 
-        // If there's an existing pet image, delete it first
         if (petImage) {
             try {
                 const imagePath = `pets/${petImage}`;
@@ -141,16 +137,15 @@ export default function EditPet() {
                 if (deleteError) {
                     console.error('Error deleting pet image:', deleteError);
                     dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet image' });
-                    return; // Stop further execution if there's an error
+                    return;
                 }
             } catch (error) {
                 console.error('Exception while deleting pet image:', error);
                 dispatch({ type: 'UPDATE_FAIL', payload: 'Exception while deleting pet image' });
-                return; // Stop further execution if there's an exception
+                return;
             }
         }
 
-        // Delete the pet record from the database
         try {
             const { error } = await supabase.from('pets').delete().eq('petId', petId);
             if (error) {
@@ -158,7 +153,7 @@ export default function EditPet() {
                 dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet' });
             } else {
                 dispatch({ type: 'UPDATE_SUCCESS' });
-                navigate(`/user/${contextUser.userId}`); // Redirect to the user's profile page after deletion
+                navigate(`/user/${contextUser.userId}`);
             }
         } catch (error) {
             console.error('Error deleting pet:', error);
