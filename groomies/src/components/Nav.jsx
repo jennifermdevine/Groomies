@@ -21,51 +21,25 @@ export default function Nav() {
         <nav className="nav">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <span className="titleName">
-                    <Link to="/Home"><img className="logo" src={logo} alt="Login Illustration" /></Link>
+                    <Link className="a" to="/Home"><img className="logo" src={logo} alt="Login Illustration" /></Link>
                 </span>
             </div>
             <div className="navLinks">
-
-                <Link to="/userprofile">
-                    <span className="font-semibold text-xl tracking-tight">
-                        Home
-                    </span>
-                </Link>
-                <Link to="/user/1">
-                    User Test Profile
-                </Link>
                 {user && (
-                    <Link to={`/user/${user.userId}`}>
-                        <span className="font-semibold text-xl tracking-tight">
+                    <Link className="a" to={`/user/${user.userId}`}>
                             Profile
-                        </span>
                     </Link>
                 )}
-                {user && (
-                    <Link to="/EditProfile">
-                        <span className="font-semibold text-xl tracking-tight">
-                            Edit Profile
-                        </span>
-                    </Link>
-                )}
-                {user && (
-                    <Link to="/AddPet">
-                        <span className="font-semibold text-xl tracking-tight">
-                            Add Pet
-                        </span>
-                    </Link>
-                )}
-                <Link to="/groomie/1">
-                    Groomie Test Profile
+                <Link className="a" to="/groomie/1">
+                    Meet The Groomies!
                 </Link>
-                <Link to="/calendar">
+                <Link className="a" to="/calendar">
                     Calendar
-                </Link>
+            </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
                     {user && (
-
                         <span className="welcome">
                             Welcome, {user.email}!
                         </span>
@@ -82,7 +56,7 @@ export default function Nav() {
                             </button>
                         </>
                     ) : (
-                        <Link to="/register">
+                        <Link className="a" to="/register">
                             <button className="loginButton">
                                 Login
                             </button>

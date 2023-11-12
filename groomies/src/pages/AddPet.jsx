@@ -80,7 +80,7 @@ export default function AddPet() {
 
     return (
         <div>
-            <h1>Add Pet</h1>
+            <h1 className="pageTitle">Add Pet</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="petName">
                     <Form.Label>Pet Name:</Form.Label>
@@ -105,9 +105,9 @@ export default function AddPet() {
                         onChange={handlePetImageChange}
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit" disabled={loading}>
+                <button className="loginButton" type="submit" disabled={loading}>
                     Add Pet
-                </Button>
+                </button>
             </Form>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
