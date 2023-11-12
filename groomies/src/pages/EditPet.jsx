@@ -64,14 +64,14 @@ export default function EditPet() {
     const handlePetImageChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-    
+
         // If there's an existing pet image, delete it first
         if (petImage) {
             try {
                 // Ensure the correct path is used for the old image
                 const oldImagePath = `pets/${petImage}`;
                 let { error: deleteError } = await supabase.storage.from('Images').remove([oldImagePath]);
-                
+
                 if (deleteError) {
                     console.error('Error deleting old pet image:', deleteError);
                     return; // Stop further execution if there's an error
@@ -81,7 +81,7 @@ export default function EditPet() {
                 return; // Stop further execution if there's an exception
             }
         }
-    
+
         // Upload the new image
         try {
             const fileExt = file.name.split('.').pop();
@@ -89,12 +89,12 @@ export default function EditPet() {
             let { error: uploadError } = await supabase.storage
                 .from('Images')
                 .upload(newFileName, file);
-    
+
             if (uploadError) {
                 console.error('Error uploading new pet image:', uploadError);
                 return;
             }
-    
+
             setPetImage(newFileName);
         } catch (error) {
             console.error('Error uploading new pet image:', error);
@@ -130,6 +130,42 @@ export default function EditPet() {
         updatePet();
     };
 
+    const handleDeletePet = async () => {
+        dispatch({ type: 'UPDATE_REQUEST' });
+
+        // If there's an existing pet image, delete it first
+        if (petImage) {
+            try {
+                const imagePath = `pets/${petImage}`;
+                let { error: deleteError } = await supabase.storage.from('Images').remove([imagePath]);
+                if (deleteError) {
+                    console.error('Error deleting pet image:', deleteError);
+                    dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet image' });
+                    return; // Stop further execution if there's an error
+                }
+            } catch (error) {
+                console.error('Exception while deleting pet image:', error);
+                dispatch({ type: 'UPDATE_FAIL', payload: 'Exception while deleting pet image' });
+                return; // Stop further execution if there's an exception
+            }
+        }
+
+        // Delete the pet record from the database
+        try {
+            const { error } = await supabase.from('pets').delete().eq('petId', petId);
+            if (error) {
+                console.error('Error deleting pet:', error);
+                dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet' });
+            } else {
+                dispatch({ type: 'UPDATE_SUCCESS' });
+                navigate(`/user/${contextUser.userId}`); // Redirect to the user's profile page after deletion
+            }
+        } catch (error) {
+            console.error('Error deleting pet:', error);
+            dispatch({ type: 'UPDATE_FAIL', payload: 'Error deleting pet' });
+        }
+    };
+
     return (
         <div>
             <h1>Edit Pet</h1>
@@ -159,6 +195,9 @@ export default function EditPet() {
                 </Form.Group>
                 <Button variant="primary" type="submit" disabled={loading}>
                     Update Pet
+                </Button>
+                <Button variant="danger" onClick={handleDeletePet} disabled={loading}>
+                    Delete Pet
                 </Button>
             </Form>
             {loading && <p>Loading...</p>}
