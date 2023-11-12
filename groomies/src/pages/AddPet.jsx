@@ -80,7 +80,7 @@ export default function AddPet() {
 
     return (
         <div>
-            <h1 className="pageTitle">Add Pet</h1>
+            <h1>Add Pet</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="petName">
                     <Form.Label>Pet Name:</Form.Label>

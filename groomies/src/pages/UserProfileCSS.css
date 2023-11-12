@@ -1,0 +1,11 @@
+.body {
+    color: #c0fdfb;
+    text-align: center;
+    background-color: rgb(55, 94, 113);
+    background-image: url('/src/assets/bubblesFINAL.png');
+    background-repeat: repeat-x;
+    background-attachment: fixed;
+    background-position: left;
+    background-size: auto;
+    border-radius: 20px;
+}

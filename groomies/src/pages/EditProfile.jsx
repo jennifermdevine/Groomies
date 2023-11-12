@@ -147,7 +147,7 @@ export default function EditProfile() {
             <Helmet>
                 <title>Edit Profile</title>
             </Helmet>
-            <h1 className="pageTitle">Edit Profile</h1>
+            <h1>Edit Profile</h1>
             <div className="profile-container d-flex justify-content-between">
                 <div className="user-edit-form flex-grow-1">
                     <Form onSubmit={handleUpdateProfile}>

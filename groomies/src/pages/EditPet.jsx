@@ -163,7 +163,7 @@ export default function EditPet() {
 
     return (
         <div>
-            <h1 className="pageTitle">Edit Pet</h1>
+            <h1>Edit Pet</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="petName">
                     <Form.Label>Pet Name:</Form.Label>

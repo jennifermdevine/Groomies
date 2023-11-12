@@ -1,11 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 import { Helmet } from "react-helmet-async";
-import Card from 'react-bootstrap/Card';
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../components/UserContext';
 import { fetchPetsWithImages } from './PetProfile';
 import { supabase } from '../supabaseClient';
+import "./UserProfileCSS.css";
 
 // Reducer for managing the state
 const reducer = (state, action) => {
@@ -77,19 +78,20 @@ export default function UserProfile() {
   }, [contextUser]);
 
   return (
-    <div>
+    <div className="body">
       <Helmet>
         <title>{user?.userSlug ? `${user.fullName}'s Profile` : 'User Profile'}</title>
       </Helmet>
-      <h1 className="pageTitle">User Profile</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {user && (
-        <div className="profile-container" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div className="user-info" style={{ flex: 1 }}>
+        <Container>
+        <div className="profile-container">
+          <div className="user-info">
+            <Col>
             <Card>
-              <Card.Text>{user.fullName}</Card.Text>
-              <Card.Body>
+            <Card.Body>
+              <Card.Text className="titleName">{user.fullName}</Card.Text>
                 <Card.Img
                   className="profImg"
                   src={user.userImage ? `${userImageUrl}${user.userImage}` : 'default_profile_image.jpg'}
@@ -114,11 +116,14 @@ export default function UserProfile() {
                         </Button>
               </Card.Body>
             </Card>
+            </Col>
           </div>
-          <div className="pets-info" style={{ flex: 1 }}>
+          <div className="pets-info" style={{marginBottom:"20px"}}>
             {user.pets && user.pets.length > 0 ? (
               user.pets.map(pet => (
-                <Card key={pet.petId} className="profCards">
+                <Row>
+                <Col>
+                <Card key={pet.petId}>
                   <Card.Body>
                     <Card.Text>Name: {pet.petName}</Card.Text>
                     <Card.Text>Species: {pet.species}</Card.Text>
@@ -140,12 +145,17 @@ export default function UserProfile() {
                     </Button>
                   </Card.Body>
                 </Card>
+                </Col>
+                </Row>
+                
               ))
             ) : (
               <p>No pets found.</p>
             )}
+            
           </div>
         </div>
+        </Container>
       )}
     </div>
   );
