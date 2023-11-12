@@ -104,34 +104,3 @@ export default function GroomiesList() {
     </div>
   );
 }
-//      <div>
-// {groomies.map((groomie) => (
-//     <div key={groomie.groomieId}>
-//       <h2>Name: {groomie.groomieName}</h2>
-//       <p>Email: {groomie.email}</p>
-//     </div>
-//{groomie ? `${groomie.groomieSlug}'s Profile` : 'Groomie Profile'}
-//            {groomie && (
-//     <div>
-//     <img
-//         src={groomie.imageUrl || 'default_groomie_image.jpg'}
-//         alt={`${groomie.groomieName}'s profile`}
-//         style={{
-//             height: '30vh',
-//             width: '50vw',
-//             objectFit: 'cover'
-//         }}
-//     />
-//     <h2>Name: {groomie.groomieName}</h2>
-
-//     <p>Email: {groomie.email}</p>
-
-//     <ul>
-//         {groomie.map((groomie,index)=>(
-//             <li key={index}>
-//                 <div></div>
-//             </li>
-//         ))}
-//     </ul>
-// </div>
-// )}

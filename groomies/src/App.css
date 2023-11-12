@@ -1,8 +1,7 @@
 * {
   color: #c0fdfb;
   text-align: center;
-  text-decoration: none !important;
-  background-color: #5d737e;
+  background-color: rgb(55, 94, 113);
 }
 
 .welcome {
@@ -39,15 +38,17 @@
 
 .loginButton {
   background-color: #64b6ac;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 12px;
   border-color: #64bbac;
   transition-duration: 0.4s;
 }
+
 .loginButton:hover {
   background-color: #04aa6d; /* Green */
   color: #fcfffd;
 }
+
 .loginButton:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
@@ -57,7 +58,7 @@
 .logoutButton {
   background-color: #b6646e;
   color: #fcfffd;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 12px;
   border-color: red;
   transition-duration: 0.4s;
@@ -73,7 +74,7 @@
 
 .apptButton {
   background-color: rgb(17, 28, 52);
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 12px;
   border-color: rgb(38, 214, 229);
   transition-duration: 0.4s;
@@ -96,30 +97,28 @@
   border-radius: 25px;
 }
 
-.landingImg {
-  width: 100%;
-}
-
-a {
+.a {
   color: #daffef;
   text-decoration: none;
 }
-a:hover {
-  color: mediumspringgreen;
+
+.a:hover {
+  color: mediumspringgreen !important;
 }
-a:visited {
+
+.a:visited {
   color: #64b6ac;
 }
 
-.profWrapper {
+.pets-info {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  height: 100%;
+  justify-content: center;
 }
 
-.profCards {
-  flex: 1;
-  margin: 0 10px;
+.card {
+  border: none !important;
 }
 
 .react-modal-overlay {

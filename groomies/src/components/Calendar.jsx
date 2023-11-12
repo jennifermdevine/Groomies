@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import TimePicker from 'react-time-picker';
 import { supabase } from '../supabaseClient';
 import '../App.css';
+import { useUser } from './UserContext';
 
 Modal.setAppElement('#root');
 
@@ -16,6 +17,7 @@ export default function Calendar() {
   const [appointmentDate, setAppointmentDate] = useState('');
   const [appointmentTitle, setAppointmentTitle] = useState('');
   const [appointmentTime, setAppointmentTime] = useState('10:00');
+  const { user } = useUser();
 
   const fetchAppointments = async () => {
     const { data, error } = await supabase
@@ -59,27 +61,30 @@ export default function Calendar() {
 
   return (
     <div className="calendar-container">
+      <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
+        {user && (
+          <button
+            type="button"
+            className="apptButton"
+            onClick={() => setModalIsOpen(true)}
+          >
+            Make an Appointment
+          </button>
+        )}
+      </div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          start: 'today prev,next',
+          start: 'prev,next today',
           center: 'title',
-          end: 'dayGridMonth,timeGridWeek,timeGridDay',
+          end: 'dayGridMonth,timeGridWeek,timeGridDay'
         }}
+        titleFormat={{ year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }}
         events={events}
         slotMinTime="08:00:00"
         slotMaxTime="18:00:00"
       />
-      <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
-        <button
-          type="button"
-          className="apptButton"
-          onClick={() => setModalIsOpen(true)}
-        >
-          Add Event
-        </button>
-      </div>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}

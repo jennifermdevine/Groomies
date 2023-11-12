@@ -188,12 +188,12 @@ export default function EditPet() {
                         onChange={handlePetImageChange}
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit" disabled={loading}>
+                <button className="loginButton" type="submit" disabled={loading}>
                     Update Pet
-                </Button>
-                <Button variant="danger" onClick={handleDeletePet} disabled={loading}>
+                </button>
+                <button className="logoutButton" onClick={handleDeletePet} disabled={loading}>
                     Delete Pet
-                </Button>
+                </button>
             </Form>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}

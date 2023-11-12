@@ -105,9 +105,9 @@ export default function AddPet() {
                         onChange={handlePetImageChange}
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit" disabled={loading}>
+                <button className="loginButton" type="submit" disabled={loading}>
                     Add Pet
-                </Button>
+                </button>
             </Form>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}

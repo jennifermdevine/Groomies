@@ -1,11 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 import { Helmet } from "react-helmet-async";
-import Card from 'react-bootstrap/Card';
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../components/UserContext';
 import { fetchPetsWithImages } from './PetProfile';
 import { supabase } from '../supabaseClient';
+import "./UserProfileCSS.css";
 
 // Reducer for managing the state
 const reducer = (state, action) => {
@@ -36,6 +37,15 @@ export default function UserProfile() {
   const handleEditPetClick = (petId) => {
     navigate(`/EditPet/${petId}`);
   };
+
+  const handleEditProfileClick = (userId) => {
+    navigate(`/EditProfile`)
+  }
+
+  const handleAddPetClick = () => {
+    navigate(`/AddPet`)
+  }
+
 
   useEffect(() => {
     const fetchUserAndPets = async () => {
@@ -68,22 +78,22 @@ export default function UserProfile() {
   }, [contextUser]);
 
   return (
-    <div>
+    <div className="body">
       <Helmet>
         <title>{user?.userSlug ? `${user.fullName}'s Profile` : 'User Profile'}</title>
       </Helmet>
-      <h1 style={{ color: 'rgb(17, 28, 52)', fontWeight: '800' }}>User Profile</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {user && (
-        <div className="profile-container" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div className="user-info" style={{ flex: 1 }}>
+        <Container>
+        <div className="profile-container">
+          <div className="user-info">
+            <Col>
             <Card>
-              <Card.Title>{user.fullName}</Card.Title>
-              <Card.Body>
+            <Card.Body>
+              <Card.Text className="titleName">{user.fullName}</Card.Text>
                 <Card.Img
                   className="profImg"
-                  variant="top"
                   src={user.userImage ? `${userImageUrl}${user.userImage}` : 'default_profile_image.jpg'}
                   alt={`${user.userName}'s profile`}
                   style={{
@@ -92,41 +102,60 @@ export default function UserProfile() {
                     objectFit: 'cover'
                   }}
                 />
+                <br/>
+                <br/>
                 <Card.Text>{user.email}</Card.Text>
                 <Card.Text>Username: {user.userName}</Card.Text>
+                <Button variant="dark"
+                        onClick={() => handleEditProfileClick(user.userId)}>
+                            Edit Profile
+                    </Button>
+                <Button variant="success"
+                        onClick={() => handleAddPetClick()}>
+                          Add Pet
+                        </Button>
               </Card.Body>
             </Card>
+            </Col>
           </div>
-          <div className="pets-info" style={{ flex: 1 }}>
+          <div className="pets-info" style={{marginBottom:"20px"}}>
             {user.pets && user.pets.length > 0 ? (
               user.pets.map(pet => (
-                <Card key={pet.petId} className="profCards">
+                <Row>
+                <Col>
+                <Card key={pet.petId}>
                   <Card.Body>
                     <Card.Text>Name: {pet.petName}</Card.Text>
                     <Card.Text>Species: {pet.species}</Card.Text>
                     {pet.imageUrl && (
                       <Card.Img
                         className="profImg"
-                        variant="bottom"
                         src={pet.imageUrl}  // Use the URL directly from fetchPetsWithImages
                         alt={`${pet.petName}`}
                         style={{ height: '20vh', width: 'calc(50vw / 3)', objectFit: 'cover' }}
                       />
                     )}
+                    <br/>
+                    <br/>
                     <Button
-                      variant="primary"
+                      variant="dark"
                       onClick={() => handleEditPetClick(pet.petId)}
                     >
                       Edit Pet
                     </Button>
                   </Card.Body>
                 </Card>
+                </Col>
+                </Row>
+                
               ))
             ) : (
               <p>No pets found.</p>
             )}
+            
           </div>
         </div>
+        </Container>
       )}
     </div>
   );

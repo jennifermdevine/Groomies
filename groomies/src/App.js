@@ -1,6 +1,6 @@
 // App.jsx
-import { UserProvider } from './components/UserContext';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { UserProvider } from "./components/UserContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Register from './components/Register';
 import Nav from './components/Nav';
@@ -13,7 +13,8 @@ import EditProfile from './pages/EditProfile';
 import AddPet from './pages/AddPet';
 import EditPet from './pages/EditPet';
 
-import './App.css';
+import "./App.css";
+import Error404 from "./pages/Error404";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
               <Route path="/groomie" element={<GroomieProfile />} />
               <Route path="/EditPet/:petId" element={<EditPet />} />
               <Route path="/calendar" element={<Calendar />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Error404 />} />
             </Routes>
           </main>
         </div>
@@ -41,6 +42,5 @@ function App() {
     </UserProvider>
   );
 }
-
 
 export default App;
