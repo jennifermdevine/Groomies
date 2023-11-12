@@ -51,7 +51,7 @@ export const UserProvider = ({ children }) => {
         } else {
             setLoading(false);
         }
-    
+
         const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
             // console.log("Auth state change event:", event);
             // console.log("Session data:", session);
@@ -65,7 +65,7 @@ export const UserProvider = ({ children }) => {
             }
             setLoading(false);
         });
-    
+
         return () => {
             if (authListener && typeof authListener.unsubscribe === 'function') {
                 authListener.unsubscribe();

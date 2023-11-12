@@ -55,7 +55,7 @@ export default function Nav() {
                         </span>
                     </Link>
                 )}
-                <Link to="/groomie/1">
+                <Link to="/groomie">
                     Groomie Test Profile
                 </Link>
                 <Link to="/calendar">

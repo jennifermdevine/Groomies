@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import UserProfile from './pages/UserProfile';
 import Calendar from './components/Calendar'
+import GroomieList from './components/GroomieList'
 import GroomieProfile from './pages/GroomieProfile';
 import EditProfile from './pages/EditProfile';
 import AddPet from './pages/AddPet';
@@ -29,7 +30,7 @@ function App() {
               <Route path="/user/:userId" element={<UserProfile />} />
               <Route path="/EditProfile" element={<EditProfile />} />
               <Route path="/AddPet" element={<AddPet />} />
-              <Route path="/groomie/:groomieId" element={<GroomieProfile />} />
+              <Route path="/groomie" element={<GroomieProfile />} />
               <Route path="/EditPet/:petId" element={<EditPet />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="*" element={<Navigate to="/" />} />
