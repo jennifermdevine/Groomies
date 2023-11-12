@@ -31,9 +31,6 @@ export default function Nav() {
                         Home
                     </span>
                 </Link>
-                <Link to="/user/1">
-                    User Test Profile
-                </Link>
                 {user && (
                     <Link to={`/user/${user.userId}`}>
                         <span className="font-semibold text-xl tracking-tight">
