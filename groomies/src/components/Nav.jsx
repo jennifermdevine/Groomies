@@ -25,6 +25,15 @@ export default function Nav() {
                 </span>
             </div>
             <div className="navLinks">
+
+                <Link to="/userprofile">
+                    <span className="font-semibold text-xl tracking-tight">
+                        Home
+                    </span>
+                </Link>
+                <Link to="/user/1">
+                    User Test Profile
+                </Link>
                 {user && (
                     <Link to={`/user/${user.userId}`}>
                         <span className="font-semibold text-xl tracking-tight">
@@ -50,9 +59,7 @@ export default function Nav() {
                     Groomie Test Profile
                 </Link>
                 <Link to="/calendar">
-                    <span className="font-semibold text-xl tracking-tight">
-                        Calendar
-                    </span>
+                    Calendar
                 </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
