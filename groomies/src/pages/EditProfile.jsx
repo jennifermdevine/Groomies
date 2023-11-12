@@ -147,7 +147,7 @@ export default function EditProfile() {
             <Helmet>
                 <title>Edit Profile</title>
             </Helmet>
-            <h1 className="text-primary font-weight-bold">Edit Profile</h1>
+            <h1 className="pageTitle">Edit Profile</h1>
             <div className="profile-container d-flex justify-content-between">
                 <div className="user-edit-form flex-grow-1">
                     <Form onSubmit={handleUpdateProfile}>
@@ -182,7 +182,7 @@ export default function EditProfile() {
                                 onChange={handleUserImageChange}
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit">Update Profile</Button>
+                        <button className="loginButton" type="submit">Update Profile</button>
                     </Form>
                 </div>
                 {loading && <p>Loading...</p>}
