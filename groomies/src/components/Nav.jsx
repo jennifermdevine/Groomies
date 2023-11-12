@@ -40,6 +40,13 @@ export default function Nav() {
                         </span>
                     </Link>
                 )}
+                {user && (
+                    <Link to="/AddPet">
+                        <span className="font-semibold text-xl tracking-tight">
+                            Add Pet
+                        </span>
+                    </Link>
+                )}
                 <Link to="/groomie/1">
                     Groomie Test Profile
                 </Link>

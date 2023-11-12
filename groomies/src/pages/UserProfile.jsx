@@ -1,3 +1,4 @@
+// UserProfile.jsx
 import React, { useEffect, useReducer } from 'react';
 import { Helmet } from "react-helmet-async";
 import Card from 'react-bootstrap/Card';
@@ -77,7 +78,7 @@ export default function UserProfile() {
             <Card>
               <Card.Title>{user.fullName}</Card.Title>
               <Card.Body>
-              <Card.Img
+                <Card.Img
                   className="profImg"
                   variant="top"
                   src={user.userImage ? `${baseImageUrl}${user.userImage}` : 'default_profile_image.jpg'}
@@ -106,11 +107,7 @@ export default function UserProfile() {
                         variant="bottom"
                         src={pet.imageUrl}
                         alt={`${pet.petName}`}
-                        style={{
-                          height: '20vh',
-                          width: 'calc(50vw / 3)',
-                          objectFit: 'cover'
-                        }}
+                        style={{ height: '20vh', width: 'calc(50vw / 3)', objectFit: 'cover' }}
                       />
                     )}
                   </Card.Body>

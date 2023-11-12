@@ -1,3 +1,4 @@
+// EditProfile.jsx
 import React, { useState, useEffect, useReducer } from 'react';
 import { useUser } from '../components/UserContext';
 import { supabase } from '../supabaseClient';
@@ -84,7 +85,7 @@ export default function EditProfile() {
         }
     };
 
-    const handleImageChange = async (e) => {
+    const handleUserImageChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
@@ -178,7 +179,7 @@ export default function EditProfile() {
                             <Form.Label>User Image:</Form.Label>
                             <Form.Control
                                 type="file"
-                                onChange={handleImageChange}
+                                onChange={handleUserImageChange}
                             />
                         </Form.Group>
                         <Button variant="primary" type="submit">Update Profile</Button>
