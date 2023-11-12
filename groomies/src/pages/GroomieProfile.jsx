@@ -1,8 +1,10 @@
-import React, { useEffect, useReducer } from 'react';
+// GroomieProfile.jsx
+import { useEffect, useReducer } from 'react';
+import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { supabase } from '../supabaseClient';
 
-// Function to get the public URL of an image
+// Adapted getImageUrl function
 const getImageUrl = async (folder, path) => {
     const fullPath = `${folder}/${path}`;
     const { data, error } = await supabase.storage
@@ -21,7 +23,7 @@ const reducer = (state, action) => {
         case 'FETCH_REQUEST':
             return { ...state, loading: true, error: "" };
         case 'FETCH_SUCCESS':
-            return { ...state, groomies: action.payload, loading: false, error: '' };
+            return { ...state, groomie: action.payload, loading: false, error: '' };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
         default:
@@ -30,35 +32,41 @@ const reducer = (state, action) => {
 };
 
 const initialState = {
-    groomies: [],
+    groomie: null,
     loading: false,
     error: '',
 };
 
-export default function GroomiesList() {
-    const [{ groomies, loading, error }, dispatch] = useReducer(reducer, initialState);
+export default function GroomieProfile() {
+    const { groomieId } = useParams();
+    const [{ groomie, loading, error }, dispatch] = useReducer(reducer, initialState);
 
+    // Fetch groomie profile and image together
     useEffect(() => {
         const fetchGroomie = async () => {
             dispatch({ type: 'FETCH_REQUEST' });
+            let fetchedGroomie;
             try {
                 const { data, error } = await supabase
                     .from('groomies')
-                    .select('*');
+                    .select('*')
+                    .eq('groomieId', groomieId)
+                    .single();
 
                 if (error) {
                     dispatch({ type: 'FETCH_FAIL', payload: error.message });
                     return;
                 }
 
-                const groomiesImg = await Promise.all(data.map(async groomie => {
-                    if (groomie.groomieImage) {
-                        groomie.imageUrl = await getImageUrl('groomies', groomie.groomieImage);
+                if (data) {
+                    fetchedGroomie = { ...data };
+                    if (data.groomieImage) {
+                        const imageUrl = await getImageUrl('groomies', data.groomieImage);
+                        fetchedGroomie.imageUrl = imageUrl;
                     }
-                    return groomie;
-                }));
+                }
 
-                dispatch({ type: 'FETCH_SUCCESS', payload: groomiesImg });
+                dispatch({ type: 'FETCH_SUCCESS', payload: fetchedGroomie });
 
             } catch (error) {
                 dispatch({ type: 'FETCH_FAIL', payload: error.message });
@@ -66,23 +74,31 @@ export default function GroomiesList() {
         };
 
         fetchGroomie();
-    }, []);
+    }, [groomieId]);
 
     return (
         <div>
             <Helmet>
-                <title>Groomies List</title>
+                <title>{groomie ? `${groomie.groomieSlug}'s Profile` : 'Groomie Profile'}</title>
             </Helmet>
-            <h1 style={{ color: 'rgb(17, 28, 52)', fontWeight: '800' }}>Groomies List</h1>
+            <h1 className="pageTitle">Groomie Profile</h1>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
-            <div>
-                {groomies.map(groomie => (
-                    <div key={groomie.groomieId}>
-                        <h2>Name: {groomie.groomieName}</h2>
-                    </div>
-                ))}
-            </div>
+            {groomie && (
+                <div>
+                    <img
+                        src={groomie.imageUrl || 'default_groomie_image.jpg'}
+                        alt={`${groomie.groomieName}'s profile`}
+                        style={{
+                            height: '30vh',
+                            width: '50vw',
+                            objectFit: 'cover'
+                        }}
+                    />
+                    <h2>Name: {groomie.groomieName}</h2>
+                    <p>Email: {groomie.email}</p>
+                </div>
+            )}
         </div>
     );
 }
