@@ -9,6 +9,7 @@ import UserProfile from './pages/UserProfile';
 import Calendar from './components/Calendar'
 import GroomieProfile from './pages/GroomieProfile';
 import CreateProfile from './pages/CreateProfile';
+import GroomieList from './components/GroomieList'
 
 import './App.css';
 
@@ -29,6 +30,7 @@ function App() {
               <Route path="/create-profile" element={<CreateProfile />} />              <Route path="/groomie/:groomieId" element={<GroomieProfile />} />
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/calendar" element={<Calendar />} />
+              <Route path="/groomieList" element ={<GroomieList/>} />
             </Routes>
           </main>
         </div>
