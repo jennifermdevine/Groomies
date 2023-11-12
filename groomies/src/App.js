@@ -1,3 +1,4 @@
+// App.jsx
 import { UserProvider } from "./components/UserContext";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -7,8 +8,12 @@ import Home from "./components/Home";
 import UserProfile from "./pages/UserProfile";
 import Calendar from "./components/Calendar";
 import GroomieProfile from "./pages/GroomieProfile";
+import EditProfile from "./pages/EditProfile";
+import AddPet from "./pages/AddPet";
+import EditPet from "./pages/EditPet";
 
 import "./App.css";
+import Error404 from "./pages/Error404";
 
 function App() {
   return (
@@ -28,7 +33,7 @@ function App() {
               <Route path="/groomie/:groomieId" element={<GroomieProfile />} />
               <Route path="/EditPet/:petId" element={<EditPet />} />
               <Route path="/calendar" element={<Calendar />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Error404 />} />
             </Routes>
           </main>
         </div>
