@@ -1,27 +1,26 @@
-//nav.jsx
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
 import logo from "../assets/groomieslogo.png";
 
 export default function Nav() {
-    const { user } = useUser();
-    const navigate = useNavigate();
+  const { user } = useUser();
+  const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        const { error } = await supabase.auth.signOut();
-        if (!error) {
-            navigate("/");
-        } else {
-            console.error("Error logging out:", error.message);
-        }
-    };
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      navigate("/");
+    } else {
+      console.error("Error logging out:", error.message);
+    }
+  };
 
     return (
         <nav className="nav">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <span className="titleName">
-                    <Link className="a" to="/Home"><img className="logo" src={logo} alt="Login Illustration" /></Link>
+                    <Link className="a" to="/"><img className="logo" src={logo} alt="Login Illustration" /></Link>
                 </span>
             </div>
             <div className="navLinks">
