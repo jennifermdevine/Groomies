@@ -38,16 +38,17 @@ export default function AddPet() {
     const handlePetImageChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-    
+
         try {
             const fileExt = file.name.split('.').pop();
-            const fileName = `${contextUser.userId}_${Date.now()}.${fileExt}`;
+            const fileName = `pets/${contextUser.userId}_${Date.now()}.${fileExt}`;
+
             let { error: uploadError } = await supabase.storage
-                .from('Images') // Correct bucket name
+                .from('Images')
                 .upload(fileName, file);
-    
+
             if (uploadError) throw uploadError;
-    
+
             setPetImage(fileName);
         } catch (error) {
             console.error('Error uploading pet image:', error);

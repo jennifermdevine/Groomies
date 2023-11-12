@@ -10,6 +10,7 @@ import Calendar from './components/Calendar'
 import GroomieProfile from './pages/GroomieProfile';
 import EditProfile from './pages/EditProfile';
 import AddPet from './pages/AddPet';
+import EditPet from './pages/EditPet';
 
 import './App.css';
 
@@ -28,6 +29,7 @@ function App() {
               <Route path="/user/:userId" element={<UserProfile />} />
               <Route path="/EditProfile" element={<EditProfile />} />
               <Route path="/AddPet" element={<AddPet />} />
+              <Route path="/EditPet/:petId" element={<EditPet />} />
               <Route path="/groomie/:groomieId" element={<GroomieProfile />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="*" element={<Navigate to="/" />} />

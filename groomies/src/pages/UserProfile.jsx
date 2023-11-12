@@ -1,7 +1,8 @@
-// UserProfile.jsx
 import React, { useEffect, useReducer } from 'react';
 import { Helmet } from "react-helmet-async";
 import Card from 'react-bootstrap/Card';
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../components/UserContext';
 import { fetchPetsWithImages } from './PetProfile';
 import { supabase } from '../supabaseClient';
@@ -13,8 +14,6 @@ const reducer = (state, action) => {
       return { ...state, loading: true, error: '' };
     case 'FETCH_SUCCESS':
       return { ...state, user: action.payload, loading: false, error: '' };
-    case 'FETCH_PETS_SUCCESS':
-      return { ...state, user: { ...state.user, pets: action.payload }, loading: false };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
@@ -31,7 +30,12 @@ const initialState = {
 export default function UserProfile() {
   const { user: contextUser } = useUser();
   const [{ user, loading, error }, dispatch] = useReducer(reducer, initialState);
-  const baseImageUrl = "https://hkyyizxvogotpfozdbdg.supabase.co/storage/v1/object/public/Images/users/";
+  const userImageUrl = "https://hkyyizxvogotpfozdbdg.supabase.co/storage/v1/object/public/Images/users/";
+  const navigate = useNavigate();
+
+  const handleEditPetClick = (petId) => {
+    navigate(`/EditPet/${petId}`);
+  };
 
   useEffect(() => {
     const fetchUserAndPets = async () => {
@@ -49,8 +53,7 @@ export default function UserProfile() {
 
         if (data && data.length > 0) {
           const userData = data[0];
-
-          const petsWithImages = userData.pets ? await fetchPetsWithImages(userData.pets) : [];
+          const petsWithImages = await fetchPetsWithImages(userData.pets);
           dispatch({ type: 'FETCH_SUCCESS', payload: { ...userData, pets: petsWithImages } });
         }
       } catch (error) {
@@ -81,7 +84,7 @@ export default function UserProfile() {
                 <Card.Img
                   className="profImg"
                   variant="top"
-                  src={user.userImage ? `${baseImageUrl}${user.userImage}` : 'default_profile_image.jpg'}
+                  src={user.userImage ? `${userImageUrl}${user.userImage}` : 'default_profile_image.jpg'}
                   alt={`${user.userName}'s profile`}
                   style={{
                     height: '20vh',
@@ -105,11 +108,17 @@ export default function UserProfile() {
                       <Card.Img
                         className="profImg"
                         variant="bottom"
-                        src={pet.imageUrl}
+                        src={pet.imageUrl}  // Use the URL directly from fetchPetsWithImages
                         alt={`${pet.petName}`}
                         style={{ height: '20vh', width: 'calc(50vw / 3)', objectFit: 'cover' }}
                       />
                     )}
+                    <Button
+                      variant="primary"
+                      onClick={() => handleEditPetClick(pet.petId)}
+                    >
+                      Edit Pet
+                    </Button>
                   </Card.Body>
                 </Card>
               ))

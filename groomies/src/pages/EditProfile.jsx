@@ -59,12 +59,12 @@ export default function EditProfile() {
         if (contextUser.userImage && contextUser.userImage !== newFileName) {
             const oldImagePath = `users/${contextUser.userImage}`;
             try {
-                console.log("Attempting to delete old image at path:", oldImagePath);
+                // console.log("Attempting to delete old image at path:", oldImagePath);
                 const { error: deleteError } = await supabase.storage.from('Images').remove([oldImagePath]);
                 if (deleteError) {
                     console.error("Error deleting old image:", deleteError);
                 } else {
-                    console.log("Old image deleted successfully", oldImagePath);
+                    // console.log("Old image deleted successfully", oldImagePath);
                 }
             } catch (error) {
                 console.error("Exception while deleting old image:", error);
@@ -72,7 +72,7 @@ export default function EditProfile() {
         }
 
         try {
-            console.log("Uploading new image at path:", newFilePath);
+            // console.log("Uploading new image at path:", newFilePath);
             let { error: uploadError } = await supabase.storage.from('Images').upload(newFilePath, file);
 
             if (uploadError) throw uploadError;
