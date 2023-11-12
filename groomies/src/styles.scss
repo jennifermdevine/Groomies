@@ -1,0 +1,160 @@
+* {
+    color: #c0fdfb;
+    text-align: center;
+    text-decoration: none !important;
+    background-color: #5d737e;
+}
+
+.welcome {
+    color: #fcfffd;
+    font-weight: 600;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border: #0ebe75 1px solid;
+    border-radius: 25px;
+}
+
+.titleName {
+    font-size: 25px;
+    border-radius: 12px;
+    border-color: #64bbac;
+}
+
+.nav {
+    display: flex;
+    flex-direction: wrap;
+    align-items: center;
+    justify-content: space-evenly; 
+    padding: 25px;
+   
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.loginButton {
+    background-color: #64b6ac;
+    font-size: 20px;
+    border-radius: 12px;
+    border-color: #64bbac;
+    transition-duration: 0.4s;
+
+    &:hover {
+        background-color: #04aa6d; /* Green */
+        color: #fcfffd;
+    }
+
+    &:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+}
+
+.logoutButton {
+    background-color: #b6646e;
+    color: #fcfffd;
+    font-size: 20px;
+    border-radius: 12px;
+    border-color: red;
+    transition-duration: 0.4s;
+
+    &:hover {
+        background-color: red;
+    }
+
+    &:active {
+        background-color: darkred;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+}
+
+.apptButton {
+    background-color: rgb(17, 28, 52);
+    font-size: 20px;
+    border-radius: 12px;
+    border-color: rgb(38, 214, 229);
+    transition-duration: 0.4s;
+
+    &:hover {
+        background-color: #c0fdfb;
+        color: rgb(17, 28, 52);
+        font-weight: 600;
+    }
+
+    &:active {
+    background-color: rgb(79, 228, 201);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+}
+
+.profImg {
+    width: 300px;
+    height: 300px;
+    border: #0ebe75 1px solid;
+    border-radius: 25px;
+}
+
+a, Link {
+    color: #daffef;
+    text-decoration: none;
+
+    &:hover {
+        color: mediumspringgreen;
+    }
+
+    &:visited {
+        color: #64b6ac;
+    }
+}
+
+.profWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.profCards {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.react-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+}
+
+.react-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    z-index: 1001;
+}
+
+.custom-time-picker {
+    .react-time-picker__inputGroup__input,
+    .react-time-picker__inputGroup__hour,
+    .react-time-picker__inputGroup__minute {
+        width: 100px;
+    }
+}
