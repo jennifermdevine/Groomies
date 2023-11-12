@@ -121,7 +121,7 @@ export default function UserProfile() {
           <div className="pets-info" style={{marginBottom:"20px"}}>
             {user.pets && user.pets.length > 0 ? (
               user.pets.map(pet => (
-                <Row>
+                <Row key={pet.petId}>
                 <Col>
                 <Card key={pet.petId}>
                   <Card.Body>
