@@ -20,7 +20,6 @@ function App() {
           <header>
             <Nav />
           </header>
-
           <main>
             <Routes>
               <Route path="/" element={<Home />} />
