@@ -1,0 +1,30 @@
+#home-bottom {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    background-color: white;
+}
+
+#register-link {
+    color: white;
+}
+
+.home-content {
+    padding: 20px;
+}
+
+.register-image {
+    text-align: center;
+}
+
+.register-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Adjust the values as needed */
+}
+
+.home-content h2 {
+    padding-bottom: 20px;
+    font-family: "Playfair Display", serif;
+}
