@@ -3,36 +3,37 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: transparent;
   padding: 20px;
   text-align: center;
   color: #fff;
-  width: 50%;
+  width: 70%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  float: inline-end;
-  margin-left: 35vw;
-  margin-right: 0;
+  left: 50% !important;
+  background-color: transparent;
 }
 
 .custom-caption h1 {
-  font-size: 8em;
+  font-size: 3em;
   background-color: transparent;
   margin-bottom: 100px;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .custom-caption p {
-  font-size: 2em;
+  font-size: 1em;
   background-color: transparent;
   color: aqua;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-img {
-  max-height: 50vh;
+.carousel-inner img {
+  max-height: 50vh; /* Adjust the maximum height as needed */
+  width: auto; /* Maintain the aspect ratio */
+  margin: 0 auto; /* Center the image */
 }
 
 .carousel-indicators,
