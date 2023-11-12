@@ -5,7 +5,7 @@ import "./HomeBottom.css";
 
 const HomeBottom = ({ title, text, imageSrc }) => {
   return (
-    <Container className="home-bottom">
+    <Container id="home-bottom">
       <Row>
         <Col md={6}>
           <div className="home-content">

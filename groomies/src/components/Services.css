@@ -26,6 +26,7 @@
 #services .service-card-title {
   margin-bottom: 10px;
   color: white;
+  font-family: "Playfair Display", serif;
 }
 
 .services-header {
@@ -38,4 +39,8 @@
 .services-blurb,
 .services-header {
   text-align: center;
+}
+
+.services-text {
+  font-family: "Open Sans", sans-serif;
 }
