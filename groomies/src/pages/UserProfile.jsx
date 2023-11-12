@@ -1,12 +1,14 @@
 // UserProfile.jsx
 import { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
+import React, { useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { fetchPetsWithImages, getImageUrl } from "./PetProfile";
 import { supabase } from "../supabaseClient";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
+// Reducer for managing the state
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -25,9 +27,7 @@ const reducer = (state, action) => {
 };
 
 const initialState = {
-  user: {
-    pets: [],
-  },
+  user: null,
   loading: false,
   error: "",
   isEditing: false,
@@ -104,7 +104,9 @@ export default function UserProfile() {
           {user.userSlug ? `${user.userSlug}'s Profile` : "User Profile"}
         </title>
       </Helmet>
-      <h1>User Profile:</h1>
+      <h1 style={{ color: "rgb(17, 28, 52)", fontWeight: "800" }}>
+        User Profile
+      </h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {user.userName && (

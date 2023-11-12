@@ -1,16 +1,16 @@
 * {
-  /* border: #fcfffd 1px solid; */
-  background-color: #5d737e;
   color: #c0fdfb;
-  /* text-align: center; */
+  text-align: center;
+  text-decoration: none !important;
+  background-color: #5d737e;
 }
 
-/* img {
+img {
   width: 300px;
   height: 300px;
   border: #0ebe75 1px solid;
   border-radius: 25px;
-} */
+}
 
 .logo {
   width: 100px;
@@ -19,17 +19,10 @@
   border-radius: 25px;
 }
 
-a {
-  color: #daffef;
-  text-decoration: none;
-}
-
-a:hover {
-  color: mediumspringgreen;
-}
-
-a:visited {
-  color: darkgreen;
+.titleName {
+  font-size: 25px;
+  border-radius: 12px;
+  border-color: #64bbac;
 }
 
 .nav {
@@ -47,17 +40,16 @@ a:visited {
 }
 
 .loginButton {
+  background-color: #64b6ac;
   font-size: 20px;
   border-radius: 12px;
   border-color: #64bbac;
   transition-duration: 0.4s;
 }
-
 .loginButton:hover {
   background-color: #04aa6d; /* Green */
   color: white;
 }
-
 .loginButton:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
@@ -94,14 +86,10 @@ a:visited {
   z-index: 1001;
 }
 
-.custom-time-picker .react-time-picker__inputGroup__input {
-  width: 100px; /* Adjust this value to increase the width */
-}
-
-.custom-time-picker .react-time-picker__inputGroup__hour {
-  width: 100px; /* Adjust for hour input */
-}
-
+.custom-time-picker .react-time-picker__inputGroup__input,
+.custom-time-picker .react-time-picker__inputGroup__hour,
 .custom-time-picker .react-time-picker__inputGroup__minute {
-  width: 100px; /* Adjust for minute input */
+  width: 100px;
 }
+
+/*# sourceMappingURL=App.css.map */
