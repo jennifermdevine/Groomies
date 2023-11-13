@@ -130,7 +130,7 @@ export default function UserProfile() {
                     {pet.imageUrl && (
                       <Card.Img
                         className="profImg"
-                        src={pet.imageUrl}  // Use the URL directly from fetchPetsWithImages
+                        src={pet.imageUrl}
                         alt={`${pet.petName}`}
                         style={{ height: '20vh', width: 'calc(50vw / 3)', objectFit: 'cover' }}
                       />

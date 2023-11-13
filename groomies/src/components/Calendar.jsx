@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import TimePicker from 'react-time-picker';
 import { supabase } from '../supabaseClient';
 import '../App.css';
+import './Calendar.css';
 import { useUser } from './UserContext';
 
 Modal.setAppElement('#root');
@@ -17,7 +18,60 @@ export default function Calendar() {
   const [appointmentDate, setAppointmentDate] = useState('');
   const [appointmentTitle, setAppointmentTitle] = useState('');
   const [appointmentTime, setAppointmentTime] = useState('10:00');
+  const [pets, setPets] = useState([]);
+  const [selectedPet, setSelectedPet] = useState('');
+  const [groomies, setGroomies] = useState([]);
+  const [selectedGroomie, setSelectedGroomie] = useState('');
   const { user } = useUser();
+
+  useEffect(() => {
+    fetchAppointments();
+    fetchGroomies();
+    if (user?.userId) {
+      fetchUserPets(user.userId);
+    }
+  }, [user]);
+
+  const fetchGroomies = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('groomies')
+        .select('groomieId, groomieName');
+
+      if (error) {
+        console.error('Error fetching groomies:', error);
+      } else {
+        setGroomies(data);
+      }
+    } catch (error) {
+      console.error('Error fetching groomies:', error);
+    }
+  };
+
+  const handleGroomieChange = (e) => {
+    setSelectedGroomie(e.target.value);
+  };
+
+  const fetchUserPets = async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from('pets')
+        .select('petId, petName')
+        .eq('userId', userId);
+
+      if (error) {
+        console.error('Error fetching pets:', error);
+      } else {
+        setPets(data);
+      }
+    } catch (error) {
+      console.error('Error fetching pets:', error);
+    }
+  };
+
+  const handlePetChange = (e) => {
+    setSelectedPet(e.target.value);
+  };
 
   const fetchAppointments = async () => {
     const { data, error } = await supabase
@@ -36,10 +90,18 @@ export default function Calendar() {
     }
   };
 
-  const addAppointment = async (dateTime, title) => {
+  const addAppointment = async (dateTime, title, userId, petId, groomieId) => {
     const { error } = await supabase
       .from('appointments')
-      .insert([{ appointment: new Date(dateTime).toISOString(), title }]);
+      .insert([
+        { 
+          appointment: new Date(dateTime).toISOString(), 
+          title, 
+          userId, 
+          petId, 
+          groomieId
+        }
+      ]);
 
     if (error) {
       console.error('Error adding new appointment:', error);
@@ -51,12 +113,13 @@ export default function Calendar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const dateTime = `${appointmentDate}T${appointmentTime}`;
-    addAppointment(dateTime, appointmentTitle);
+    addAppointment(dateTime, appointmentTitle, user.userId, selectedPet, selectedGroomie);
     setModalIsOpen(false);
   };
 
   useEffect(() => {
     fetchAppointments();
+    fetchGroomies();
   }, []);
 
   return (
@@ -92,7 +155,7 @@ export default function Calendar() {
         overlayClassName="react-modal-overlay"
         className="react-modal-content"
       >
-        <h2>Add New Appointment</h2>
+        <h2>Make a New Appointment</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label>
@@ -130,9 +193,30 @@ export default function Calendar() {
             </label>
           </div>
           <div>
-            <button type="submit">Add Appointment</button>
-            <button type="button" onClick={() => setModalIsOpen(false)}>Cancel</button>
+            <label>
+              Select Pet:
+              <select value={selectedPet} onChange={handlePetChange}>
+                {pets.map(pet => (
+                  <option key={pet.petId} value={pet.petId}>{pet.petName}</option>
+                ))}
+              </select>
+            </label>
           </div>
+          <div>
+            <label>
+              Select Groomie:
+              <select value={selectedGroomie} onChange={handleGroomieChange}>
+                <option value="">Select a Groomie</option>
+                {groomies.map(groomie => (
+                  <option key={groomie.groomieId} value={groomie.groomieId}>
+                    {groomie.groomieName}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <button type="submit">Add Appointment</button>
+          <button type="button" onClick={() => setModalIsOpen(false)}>Cancel</button>
         </form>
       </Modal>
     </div>
