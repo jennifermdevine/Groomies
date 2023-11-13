@@ -12,6 +12,7 @@ import Calendar from './components/Calendar'
 import EditProfile from './pages/EditProfile';
 import AddPet from './pages/AddPet';
 import EditPet from './pages/EditPet';
+import Appointment from "./pages/Appointment";
 
 import "./App.css";
 import Error404 from "./pages/Error404";
@@ -35,6 +36,7 @@ function App() {
               {/* <Route path="/groomie/list" element={<GroomieList />} /> */}
               <Route path="/EditPet/:petId" element={<EditPet />} />
               <Route path="/calendar" element={<Calendar />} />
+              <Route path="/appointment/:appointmentId" element={<Appointment />} />
               <Route path="*" element={<Error404 />} />
             </Routes>
           </main>
