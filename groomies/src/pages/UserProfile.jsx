@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../components/UserContext';
 import { fetchPetsWithImages } from './PetProfile';
 import { supabase } from '../supabaseClient';
-import "./UserProfileCSS.css";
+import "../components/UserProfileCSS.css";
 
 // Reducer for managing the state
 const reducer = (state, action) => {

@@ -24,17 +24,15 @@ export default function Nav() {
                 </span>
             </div>
             <div className="navLinks">
-
-                <Link className="a" to="/userprofile">
+                <Link className="a" to="/">
                     Home
                 </Link>
-
                 {user && (
                     <Link className="a" to={`/user/${user.userId}`}>
                             Profile
                     </Link>
                 )}
-                <Link className="a" to="/groomie/1">
+                <Link className="a" to="/groomie/">
                     Meet The Groomies!
                 </Link>
                 <Link className="a" to="/calendar">
