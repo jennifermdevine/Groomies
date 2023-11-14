@@ -4,17 +4,17 @@ import { useUser } from "../components/UserContext";
 import logo from "../assets/groomieslogo.png";
 
 export default function Nav() {
-  const { user } = useUser();
-  const navigate = useNavigate();
+    const { user } = useUser();
+    const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (!error) {
-      navigate("/");
-    } else {
-      console.error("Error logging out:", error.message);
-    }
-  };
+    const handleLogout = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (!error) {
+            navigate("/");
+        } else {
+            console.error("Error logging out:", error.message);
+        }
+    };
 
     return (
         <nav className="nav">
@@ -29,21 +29,22 @@ export default function Nav() {
                 </Link>
                 {user && (
                     <Link className="a" to={`/user/${user.userId}`}>
-                            Profile
+                        Profile
                     </Link>
                 )}
-                <Link className="a" to="/groomie/">
+
+                <Link className="a" to="/groomie">
                     Meet The Groomies!
                 </Link>
                 <Link className="a" to="/calendar">
                     Calendar
-            </Link>
+                </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
                     {user && (
                         <span className="welcome">
-                            Welcome, {user.email}!
+                            Welcome, {user.userName ? user.userName : user.email}!
                         </span>
                     )}
                 </div>

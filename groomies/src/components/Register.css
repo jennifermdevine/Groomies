@@ -1,0 +1,58 @@
+#auth-sign-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.supabase-auth-ui_ui-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    margin: auto;
+    padding: 20px;
+}
+
+.supabase-auth-ui_ui-button,
+.supabase-auth-ui_ui-input,
+.supabase-auth-ui_ui-link {
+    margin: auto;
+    width: 50vw;
+    transition-duration: 0.4s;
+    background-color: #64b6ac;
+    font-size: 18px;
+    border-radius: 12px;
+    border-color: #64bbac;
+}
+
+.supabase-auth-ui_ui-button:hover {
+    background-color: #04aa6d;
+    color: #fcfffd;
+}
+
+.supabase-auth-ui_ui-button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.supabase-auth-ui_ui-anchor {
+    margin: auto;
+    width: 50vw;
+    transition-duration: 0.4s;
+    background-color: #64b6ac;
+    font-size: 18px;
+    border-radius: 12px;
+    border-color: #64bbac;
+}
+
+.supabase-auth-ui_ui-anchor:hover {
+    background-color: #04aa6d;
+    color: #fcfffd;
+}
+
+.supabase-auth-ui_ui-anchor:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
