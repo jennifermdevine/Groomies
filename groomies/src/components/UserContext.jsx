@@ -41,7 +41,6 @@ export const UserProvider = ({ children }) => {
     const session = supabase.auth.session;
     setUser(session?.user || null);
     setSession(session);
-    // console.log("Initial session:", session);
 
     if (session) {
       fetchUserData(session.user.id).then((userDetails) => {
@@ -54,8 +53,6 @@ export const UserProvider = ({ children }) => {
 
     const authListener = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        // console.log("Auth state change event:", event);
-        // console.log("Session data:", session);
 
         setLoading(true);
         if (session) {
