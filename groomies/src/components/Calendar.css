@@ -1,3 +1,13 @@
+.custom-time-picker {
+    width: 50vw;
+    margin: auto;
+    border-radius: 12px;
+}
+
 .react-time-picker__inputGroup__input {
-    width: 75px !important;
+    width: 10vw !important;
+}
+
+.react-time-picker__inputGroup__divider {
+    width: 1vw !important;
 }
