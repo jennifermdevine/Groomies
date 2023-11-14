@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { getImageUrl } from './PetProfile';
 import { Helmet } from "react-helmet-async";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import "../components/AppointmentCSS.css";
 
 export default function Appointment() {
     const { appointmentId } = useParams();
@@ -70,20 +72,25 @@ export default function Appointment() {
     }, [appointmentId]);
 
     return (
-        <div>
+        <div className="body">
             <Helmet>
                 <title>{appointment?.title ? `${appointment.title}` : 'Appointment Details'}</title>
             </Helmet>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
+            <Container>
             <div>
                 <h1>Appointment Details</h1>
+                <Col>
+                    <Card.Body>
                 {appointment && (
                     <div>
                         <h2>Title: {appointment.title}</h2>
                         <p>Appointment Time: {new Date(appointment.appointment).toLocaleString()}</p>
                     </div>
                 )}
+                </Card.Body>
+                </Col>
                 {user && (
                     <div>
                         <h3>User Details</h3>
@@ -111,7 +118,8 @@ export default function Appointment() {
                         )}
                     </div>
                 )}
-            </div>
+                </div>
+            </Container>
         </div>
     );
 }
