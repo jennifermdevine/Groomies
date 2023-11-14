@@ -37,7 +37,7 @@ const Services = () => {
                 <Card.Title className="service-card-title">
                   Bathing and Shampooing
                 </Card.Title>
-                <Card.Text class="services-text">
+                <Card.Text className="services-text">
                   Our soothing and cleansing baths will leave your furry friend
                   feeling fresh and revitalized. We use only the finest,
                   pet-friendly shampoos to give your dog's coat a lustrous shine
@@ -57,7 +57,7 @@ const Services = () => {
                 <Card.Title className="service-card-title">
                   Haircut and Styling
                 </Card.Title>
-                <Card.Text class="services-text">
+                <Card.Text className="services-text">
                   Transform your dog's appearance with our professional grooming
                   and styling services. From breed-specific cuts to creative and
                   personalized styles, we'll have your pup looking their best!
@@ -72,7 +72,7 @@ const Services = () => {
                 <Card.Title className="service-card-title">
                   Nail Trimming
                 </Card.Title>
-                <Card.Text class="services-text">
+                <Card.Text className="services-text">
                   Keep those nails in tip-top shape with our safe and
                   stress-free nail trimming service. Regular nail maintenance
                   not only enhances your dog's comfort but also protects your
@@ -92,7 +92,7 @@ const Services = () => {
                 <Card.Title className="service-card-title">
                   Teeth Brushing and Oral Care
                 </Card.Title>
-                <Card.Text class="services-text">
+                <Card.Text className="services-text">
                   Don't neglect your dog's dental health. Our teeth brushing and
                   oral care services will give your pup fresh breath and prevent
                   dental issues. A bright smile is just a brush away!
@@ -111,7 +111,7 @@ const Services = () => {
                 <Card.Title className="service-card-title">
                   Ear Cleaning and Maintenance
                 </Card.Title>
-                <Card.Text class="services-text">
+                <Card.Text className="services-text">
                   Healthy ears are happy ears. Our gentle ear cleaning and
                   maintenance services ensure your dog's ears stay clean, free
                   from infections, and itch-free!
@@ -130,7 +130,7 @@ const Services = () => {
                 <Card.Title className="service-card-title">
                   Flea and Tick Treatments
                 </Card.Title>
-                <Card.Text class="services-text">
+                <Card.Text className="services-text">
                   Protect your pet from those tiny nuisances with our effective
                   flea and tick treatments. Our expert groomers are well-versed
                   in the latest methods to keep your dog itch-free and

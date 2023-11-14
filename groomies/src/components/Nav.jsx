@@ -24,7 +24,7 @@ export default function Nav() {
                 </span>
             </div>
             <div className="navLinks">
-                <Link className="a" to="/userprofile">
+                <Link className="a" to="/">
                     Home
                 </Link>
                 {user && (
