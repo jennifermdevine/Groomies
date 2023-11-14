@@ -1,78 +1,111 @@
-// import { useEffect, useReducer } from "react";
-// import { useParams } from 'react-router-dom';
-// import { supabase } from "../supabaseClient";
+import React, { useEffect, useReducer } from "react";
+import { Helmet } from "react-helmet-async";
+import { supabase } from "../supabaseClient";
+import { Link } from "react-router-dom";
 
-// const reducer = (state, action) => {
-//     switch (action.type) {
-//         case 'FETCH_REQUEST':
-//             return { ...state, loading: true, error: '' };
-//         case 'FETCH_SUCCESS':
-//             return { ...state, groomie: action.payload, loading: false, error: '' };
-//         case 'FETCH_FAIL':
-//             const errorMessage = typeof action.payload === 'string' ? action.payload :
-//                 action.payload.message ? action.payload.message :
-//                     'Unknown error occurred during fetch';
-//             return { ...state, loading: false, error: errorMessage };
-//         default:
-//             return state;
-//     }
-// };
+// Function to get the public URL of an image
+const getImageUrl = async (folder, path) => {
+  const fullPath = `${folder}/${path}`;
+  const { data, error } = await supabase.storage
+    .from("Images")
+    .getPublicUrl(fullPath);
 
-// const initialState = {
-//     groomie: null,
-//     loading: false,
-//     error: '',
-// };
+  if (error) {
+    console.error("Error fetching image URL:", error);
+    return null;
+  }
+  return data.publicUrl;
+};
 
-// export default function GroomieList() {
-//     const { groomieId } = useParams();
-//     const [state, dispatch] = useReducer(reducer, initialState);
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_REQUEST":
+      return { ...state, loading: true, error: "" };
+    case "FETCH_SUCCESS":
+      return { ...state, groomies: action.payload, loading: false, error: "" };
+    case "FETCH_FAIL":
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
-//     useEffect(() => {
-//         const fetchGroomieData = async () => {
-//             dispatch({ type: 'FETCH_REQUEST' });
-//             console.log('this is groomie ID', groomieId)
-//             try {
-//                 const { data, error } = await supabase
-//                     .from('groomies')
-//                 console.log('this is the table', groomies)
-//                     .select('groomieId, groomieName, groomieImage, email')
-//                 console.log('select groomieId', groomieId)
-//                     .eq('groomieId', groomieId)
-//                     .single();
+const initialState = {
+  groomies: [],
+  loading: false,
+  error: "",
+};
 
-//                 if (error) {
-//                     console.log('fetching error!', error)
-//                     throw error;
-//                 }
-//                 console.log("fetching groomie Data", data)
-//                 if (data) {
-//                     dispatch({ type: 'FETCH_SUCCESS', payload: data });
-//                 } else {
-//                     console.log('no groomie found ', groomieId)
-//                     dispatch({ type: 'FETCH_FAIL', payload: 'No groomie found' });
-//                 }
-//             } catch (error) {
-//                 console.error('Error fetching groomie:', error);
-//                 dispatch({ type: 'FETCH_FAIL', payload: error });
-//             }
-//         };
+export default function GroomieProfile() {
+  const [{ groomies, loading, error }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
-//         fetchGroomieData();
-//     }, [groomieId]);
+  useEffect(() => {
+    const fetchGroomie = async () => {
+      dispatch({ type: "FETCH_REQUEST" });
+      try {
+        const { data, error } = await supabase.from("groomies").select("*");
 
-//     return (
-//         <div>
-//             <h1>Groomie Profile</h1>
-//             {state.loading && <p>Loading...</p>}
-//             {state.error && <p className="error">{state.error}</p>}
-//             {state.groomie && (
-//                 <div>
-//                     <h2>{state.groomie.groomieName}</h2>
-//                     <img src={state.groomie.groomieImage} alt={state.groomie.groomieName} />
-//                     <p>Email: {state.groomie.email}</p>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// }
+        if (error) {
+          dispatch({ type: "FETCH_FAIL", payload: error.message });
+          return;
+        }
+
+        const groomiesImg = await Promise.all(
+          data.map(async (groomie) => {
+            if (groomie.groomieImage) {
+              groomie.imageUrl = await getImageUrl(
+                "groomies",
+                groomie.groomieImage
+              );
+            }
+            return groomie;
+          })
+        );
+
+        dispatch({ type: "FETCH_SUCCESS", payload: groomiesImg });
+      } catch (error) {
+        dispatch({ type: "FETCH_FAIL", payload: error.message });
+      }
+    };
+
+    fetchGroomie();
+  }, []);
+
+  return (
+    <div>
+      <Helmet>
+        <title>Groomies List</title>
+      </Helmet>
+      <h1 style={{ color: "rgb(17, 28, 52)", fontWeight: "800" }}>
+        Groomies List
+      </h1>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      <div>
+        {groomies.map((groomie) => (
+          <div key={groomie.groomieId}>
+            <h2>Name: {groomie.groomieName}</h2>
+            <img
+              src={groomie.imageUrl || "default_groomie_image.jpg"}
+              alt={`${groomie.groomieName}'s profile`}
+              style={{
+                height: "30vh",
+                width: "50vw",
+                objectFit: "cover",
+              }}
+            />
+            <p>Preference: {groomie.preference}</p>
+            <p>Email: {groomie.email}</p>
+            <p>Contact:{groomie.contact}</p>
+            <Link className="a" to={groomie.github}>
+                    Github link
+                </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

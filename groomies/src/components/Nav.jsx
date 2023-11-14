@@ -32,7 +32,7 @@ export default function Nav() {
                         Profile
                     </Link>
                 )}
-                <Link className="a" to="/groomie">
+                <Link className="a" to="/groomie/list">
                     Meet The Groomies!
                 </Link>
                 <Link className="a" to="/calendar">
