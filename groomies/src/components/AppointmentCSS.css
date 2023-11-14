@@ -1,5 +1,6 @@
 .body {
     text-align: center;
+    background-color: rgb(55, 94, 113);
     background-image: url('../assets/bubblesFINAL.png');
     background-repeat: repeat-x;
     background-attachment: fixed;
@@ -8,4 +9,23 @@
     border-radius: 20px;
 }
 
+.appt-titles {
+    color: #64b6ac;
+}
 
+.card {
+    background-color: rgb(55, 94, 113);
+}
+
+.appt-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
+.user-and-pet {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

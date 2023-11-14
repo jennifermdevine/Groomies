@@ -5,6 +5,8 @@ import { getImageUrl } from './PetProfile';
 import { Helmet } from "react-helmet-async";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "../components/AppointmentCSS.css";
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 export default function Appointment() {
     const { appointmentId } = useParams();
@@ -14,6 +16,7 @@ export default function Appointment() {
     const [groomie, setGroomie] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAppointmentDetails = async () => {
@@ -71,6 +74,25 @@ export default function Appointment() {
         fetchAppointmentDetails();
     }, [appointmentId]);
 
+    const cancelAppointment = async () => {
+        if (window.confirm('Are you sure you want to cancel this appointment?')) {
+            try {
+                const { error } = await supabase
+                    .from('appointments')
+                    .delete()
+                    .match({ appointmentId: appointment.appointmentId });
+
+                if (error) {
+                    throw error
+                };
+                navigate('/calendar');
+            } catch (error) {
+                console.error('Error deleting appointment:', error);
+                setError('Failed to cancel appointment');
+            }
+        }
+    }
+
     return (
         <div className="body">
             <Helmet>
@@ -81,34 +103,40 @@ export default function Appointment() {
             <Container>
             <div>
                 <h1>Appointment Details</h1>
-                <Col>
-                    <Card.Body>
+                <hr/>
+            </div>
+            <div className="appt-container">
+            <Col>
+            <Card>
                 {appointment && (
-                    <div>
-                        <h2>Title: {appointment.title}</h2>
+                    <Card.Text>
+                    <div className="appt-time">
+                        <h2 className="appt-titles">Title: {appointment.title}</h2>
                         <p>Appointment Time: {new Date(appointment.appointment).toLocaleString()}</p>
+                        <hr/>
                     </div>
+                    
+                    </Card.Text>
                 )}
-                </Card.Body>
-                </Col>
+            </Card>
+            </Col>
+            <Col>
+            <Card>
+                <div className="user-and-pet">
                 {user && (
-                    <div>
-                        <h3>User Details</h3>
+                    <Card.Text>
+                    <div className="user-details">
+                        <h3 className="appt-titles">Owner Details</h3>
                         <p>Name: {user.fullName}</p>
                         <p>Email: {user.email}</p>
                         <p>Username: {user.userName}</p>
                     </div>
-                )}
-                {groomie && (
-                    <div>
-                        <h3>Groomie Details</h3>
-                        <p>Name: {groomie.groomieName}</p>
-                        <p>Email: {groomie.email}</p>
-                    </div>
+                    </Card.Text>
                 )}
                 {pet && (
-                    <div>
-                        <h3>Pet Details</h3>
+                    <Card.Text>
+                    <div className="pet-details">
+                        <h3 className="appt-titles">Pet Details</h3>
                         <p>Name: {pet.petName}</p>
                         <p>Species: {pet.species}</p>
                         {pet.imageUrl && (
@@ -117,9 +145,33 @@ export default function Appointment() {
                             </div>
                         )}
                     </div>
+                    </Card.Text>
                 )}
                 </div>
-            </Container>
+            </Card>
+            </Col>
+            <Col>
+            <Card>
+                {groomie && (
+                    <Card.Text>
+                        <hr/>
+                    <div className="groomie-details">
+                        <h3 className="appt-titles">Groomie Details</h3>
+                        <p>Name: {groomie.groomieName}</p>
+                        <p>Email: {groomie.email}</p>
+                        <hr/>
+                    </div>
+                    </Card.Text>
+                )}
+            </Card>
+            </Col>
+            <div>
+            <br/>
+                    <button className="logoutButton" onClick={cancelAppointment}>Cancel Appointment</button>
+                </div>
+                </div>
+                </Container>
         </div>
+        
     );
 }
