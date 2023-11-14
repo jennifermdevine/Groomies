@@ -1,6 +1,8 @@
 // CalendarModal.jsx
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import TimePicker from 'react-time-picker';
 import { supabase } from '../supabaseClient';
 
@@ -95,76 +97,66 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
     }, [isOpen]);
 
     return (
-        <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={onClose}
-            contentLabel="Add Appointment"
-            overlayClassName="react-modal-overlay"
-            className="react-modal-content"
-        >
-            <h2>Make a New Appointment</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Appointment Title:
-                        <input
+        <Modal show={modalIsOpen} onHide={onClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Make a New Appointment</Modal.Title>
+            </Modal.Header>
+    
+            <Form onSubmit={handleSubmit}>
+                <Modal.Body>
+                    <Form.Group>
+                        <Form.Label>Appointment Title:</Form.Label>
+                        <Form.Control
                             type="text"
                             value={appointmentTitle}
                             onChange={(e) => setAppointmentTitle(e.target.value)}
                         />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Appointment Date:
-                        <input
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Appointment Date:</Form.Label>
+                        <Form.Control
                             type="date"
                             value={appointmentDate}
                             onChange={(e) => setAppointmentDate(e.target.value)}
                         />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Appointment Time:
-                        <div className="custom-time-picker">
-                            <TimePicker
-                                onChange={setAppointmentTime}
-                                value={appointmentTime}
-                                format="HH:mm"
-                                hourPlaceholder="hh"
-                                minutePlaceholder="mm"
-                                step={30}
-                            />
-                        </div>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Select Pet:
-                        <select value={selectedPet} onChange={handlePetChange}>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Appointment Time:</Form.Label>
+                        {/* Custom TimePicker needs to be styled or replaced */}
+                        <TimePicker
+                            onChange={setAppointmentTime}
+                            value={appointmentTime}
+                            format="HH:mm"
+                            hourPlaceholder="hh"
+                            minutePlaceholder="mm"
+                            step={30}
+                            className="form-control"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Select Pet:</Form.Label>
+                        <Form.Control as="select" value={selectedPet} onChange={handlePetChange}>
                             {pets.map(pet => (
                                 <option key={pet.petId} value={pet.petId}>{pet.petName}</option>
                             ))}
-                        </select>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Select Groomie:
-                        <select value={selectedGroomie} onChange={handleGroomieChange}>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Select Groomie:</Form.Label>
+                        <Form.Control as="select" value={selectedGroomie} onChange={handleGroomieChange}>
                             <option value="">Select a Groomie</option>
                             {groomies.map(groomie => (
-                                <option key={groomie.groomieId} value={groomie.groomieId}>
-                                    {groomie.groomieName}
-                                </option>
+                                <option key={groomie.groomieId} value={groomie.groomieId}>{groomie.groomieName}</option>
                             ))}
-                        </select>
-                    </label>
-                </div>
-                <button type="submit">Add Appointment</button>
-                <button type="button" onClick={() => setModalIsOpen(false)}>Cancel</button>
-            </form>
+                        </Form.Control>
+                    </Form.Group>
+                </Modal.Body>
+    
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={onClose}>Cancel</Button>
+                    <Button variant="primary" type="submit">Add Appointment</Button>
+                </Modal.Footer>
+            </Form>
         </Modal>
     );
 }

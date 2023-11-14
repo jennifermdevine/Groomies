@@ -43,7 +43,7 @@ export default function Nav() {
                 <div className="text-sm lg:flex-grow">
                     {user && (
                         <span className="welcome">
-                            Welcome, {user.email}!
+                            Welcome, {user.userName ? user.userName : user.email}!
                         </span>
                     )}
                 </div>

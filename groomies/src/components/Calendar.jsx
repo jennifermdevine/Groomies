@@ -49,10 +49,6 @@ export default function Calendar() {
     }
   };
 
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
   return (
     <div className='body'>
       <Helmet>
