@@ -2,6 +2,13 @@ import React, { useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "../supabaseClient";
 import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import "../components/GroomieCSS.css";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaGithub
+} from "react-icons/fa";
 
 // Function to get the public URL of an image
 const getImageUrl = async (folder, path) => {
@@ -75,37 +82,37 @@ export default function GroomieProfile() {
   }, []);
 
   return (
-    <div>
+    <div className="body">
       <Helmet>
         <title>Groomies List</title>
       </Helmet>
-      <h1 style={{ color: "rgb(17, 28, 52)", fontWeight: "800" }}>
+      <Container>
+      <h1>
         Groomies List
       </h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      <div>
+      <div className="groomie-container">
         {groomies.map((groomie) => (
-          <div key={groomie.groomieId}>
-            <h2>Name: {groomie.groomieName}</h2>
+          <div className="individ-groomie" key={groomie.groomieId}>
+            <h2>{groomie.groomieName}</h2>
             <img
+              className="groomiePic"
               src={groomie.imageUrl || "default_groomie_image.jpg"}
               alt={`${groomie.groomieName}'s profile`}
-              style={{
-                height: "30vh",
-                width: "50vw",
-                objectFit: "cover",
-              }}
             />
             <p>Preference: {groomie.preference}</p>
-            <p>Email: {groomie.email}</p>
-            <p>Contact:{groomie.contact}</p>
+            <FaEnvelope></FaEnvelope> {groomie.email}
+            <br/>
+            <FaPhone></FaPhone> {groomie.contact}
+            <br/>
             <Link className="a" to={groomie.github}>
-                    Github link
+                    <FaGithub></FaGithub>
                 </Link>
           </div>
         ))}
       </div>
+      </Container>
     </div>
   );
 }
