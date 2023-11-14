@@ -5,6 +5,8 @@ import { getImageUrl } from './PetProfile';
 import { Helmet } from "react-helmet-async";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "../components/AppointmentCSS.css";
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 export default function Appointment() {
     const { appointmentId } = useParams();
@@ -14,6 +16,7 @@ export default function Appointment() {
     const [groomie, setGroomie] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAppointmentDetails = async () => {
@@ -71,6 +74,25 @@ export default function Appointment() {
         fetchAppointmentDetails();
     }, [appointmentId]);
 
+    const cancelAppointment = async () => {
+        if (window.confirm('Are you sure you want to cancel this appointment?')) {
+            try {
+                const { error } = await supabase
+                    .from('appointments')
+                    .delete()
+                    .match({ appointmentId: appointment.appointmentId });
+
+                if (error) {
+                    throw error
+                };
+                navigate('/calendar');
+            } catch (error) {
+                console.error('Error deleting appointment:', error);
+                setError('Failed to cancel appointment');
+            }
+        }
+    }
+
     return (
         <div className="body">
             <Helmet>
@@ -79,45 +101,48 @@ export default function Appointment() {
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             <Container>
-            <div>
-                <h1>Appointment Details</h1>
-                <Col>
-                    <Card.Body>
-                {appointment && (
-                    <div>
-                        <h2>Title: {appointment.title}</h2>
-                        <p>Appointment Time: {new Date(appointment.appointment).toLocaleString()}</p>
-                    </div>
-                )}
-                </Card.Body>
-                </Col>
-                {user && (
-                    <div>
-                        <h3>User Details</h3>
-                        <p>Name: {user.fullName}</p>
-                        <p>Email: {user.email}</p>
-                        <p>Username: {user.userName}</p>
-                    </div>
-                )}
-                {groomie && (
-                    <div>
-                        <h3>Groomie Details</h3>
-                        <p>Name: {groomie.groomieName}</p>
-                        <p>Email: {groomie.email}</p>
-                    </div>
-                )}
-                {pet && (
-                    <div>
-                        <h3>Pet Details</h3>
-                        <p>Name: {pet.petName}</p>
-                        <p>Species: {pet.species}</p>
-                        {pet.imageUrl && (
-                            <div>
-                                <img src={pet.imageUrl} alt={pet.petName} style={{ width: '100px', height: '100px' }} />
-                            </div>
-                        )}
-                    </div>
-                )}
+                <div>
+                    <h1>Appointment Details</h1>
+                    <Col>
+                        <Card.Body>
+                            {appointment && (
+                                <div>
+                                    <h2>Title: {appointment.title}</h2>
+                                    <p>Appointment Time: {new Date(appointment.appointment).toLocaleString()}</p>
+                                </div>
+                            )}
+                        </Card.Body>
+                    </Col>
+                    {user && (
+                        <div>
+                            <h3>User Details</h3>
+                            <p>Name: {user.fullName}</p>
+                            <p>Email: {user.email}</p>
+                            <p>Username: {user.userName}</p>
+                        </div>
+                    )}
+                    {groomie && (
+                        <div>
+                            <h3>Groomie Details</h3>
+                            <p>Name: {groomie.groomieName}</p>
+                            <p>Email: {groomie.email}</p>
+                        </div>
+                    )}
+                    {pet && (
+                        <div>
+                            <h3>Pet Details</h3>
+                            <p>Name: {pet.petName}</p>
+                            <p>Species: {pet.species}</p>
+                            {pet.imageUrl && (
+                                <div>
+                                    <img src={pet.imageUrl} alt={pet.petName} style={{ width: '100px', height: '100px' }} />
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+                <div>
+                    <Button variant="danger" onClick={cancelAppointment}>Cancel Appointment</Button>
                 </div>
             </Container>
         </div>

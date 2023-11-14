@@ -87,11 +87,18 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const dateTime = `${appointmentDate}T${appointmentTime}`;
-        addAppointment(dateTime, appointmentTitle, user.userId, selectedPet, selectedGroomie);
-        setModalIsOpen(false);
+        await addAppointment(dateTime, appointmentTitle, user.userId, selectedPet, selectedGroomie);
+        
+        setAppointmentDate('');
+        setAppointmentTime('10:00');
+        setAppointmentTitle('');
+        setSelectedPet('');
+        setSelectedGroomie('');
+    
+        onClose();
     };
 
     useEffect(() => {

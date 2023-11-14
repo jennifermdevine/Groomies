@@ -49,6 +49,11 @@ export default function Calendar() {
     }
   };
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+    fetchAppointments();
+};
+
   return (
     <div className='body'>
       <Helmet>
@@ -82,7 +87,7 @@ export default function Calendar() {
         />
         <CalendarModal
           isOpen={modalIsOpen}
-          onClose={() => setModalIsOpen(false)}
+          onClose={closeModal}
           fetchAppointments={fetchAppointments}
           user={user}
         />
