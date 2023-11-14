@@ -32,12 +32,14 @@ export default function Nav() {
                         Profile
                     </Link>
                 )}
-
                 <Link className="a" to="/groomie">
                     Meet The Groomies!
                 </Link>
                 <Link className="a" to="/calendar">
                     Calendar
+                </Link>
+                <Link className="a" to="/comingsoon">
+                    Coming Soon
                 </Link>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
