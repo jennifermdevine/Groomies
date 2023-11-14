@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { getImageUrl } from './PetProfile';
 import { Helmet } from "react-helmet-async";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Col, Card } from "react-bootstrap";
 import "../components/AppointmentCSS.css";
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
