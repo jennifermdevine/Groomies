@@ -32,6 +32,7 @@ export default function Nav() {
                         Profile
                     </Link>
                 )}
+
                 <Link className="a" to="/groomie">
                     Meet The Groomies!
                 </Link>
