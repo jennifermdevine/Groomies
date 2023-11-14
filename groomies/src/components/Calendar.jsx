@@ -20,28 +20,62 @@ export default function Calendar() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { user } = useUser();
   const navigate = useNavigate();
+  const [groomies, setGroomies] = useState([]);
+  const [selectedGroomie, setSelectedGroomie] = useState('');
+
+  const fetchGroomies = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('groomies')
+        .select('groomieId, groomieName');
+
+      if (error) throw error;
+      setGroomies(data);
+    } catch (error) {
+      console.error('Error fetching groomies:', error);
+    }
+  };
 
   const fetchAppointments = async () => {
-    const { data, error } = await supabase
-      .from('appointments')
-      .select('appointmentId, title, appointment');
+    try {
+      let query = supabase
+        .from('appointments')
+        .select('appointmentId, title, appointment, groomieId');
 
-    if (error) {
-      console.error('Error fetching appointments:', error);
-    } else {
-      const fetchedEvents = data.map(appt => ({
+      if (selectedGroomie) {
+        query = query.eq('groomieId', selectedGroomie);
+      }
+
+      const { data, error } = await query;
+      if (error) {
+        console.error('Error fetching appointments:', error);
+        throw error;
+      }
+
+      const fetchedAppointments = data.map(appt => ({
         id: appt.appointmentId,
         title: appt.title,
         start: new Date(appt.appointment).toISOString(),
-        allDay: false,
+        allday: false,
       }));
-      setEvents(fetchedEvents);
+
+      setEvents(fetchedAppointments)
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
     }
   };
 
   useEffect(() => {
     fetchAppointments();
+  }, [selectedGroomie]);
+
+  useEffect(() => {
+    fetchGroomies();
   }, []);
+
+  const handleGroomieChange = (e) => {
+    setSelectedGroomie(e.target.value);
+  }
 
   const handleEventClick = ({ event }) => {
     if (user) {
@@ -60,6 +94,16 @@ export default function Calendar() {
         <title>Calendar</title>
       </Helmet>
       <div className="calendar-container">
+        <div className='groomie-filter'>
+          <select value={selectedGroomie} onChange={handleGroomieChange}>
+            <option value=''>All Groomies</option>
+            {groomies.map(groomie => (
+              <option key={groomie.groomieId} value={groomie.groomieId}>
+                {groomie.groomieName}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
           {user && (
             <button
