@@ -58,22 +58,32 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
     };
 
     const addAppointment = async (dateTime, title, userId, petId, groomieId) => {
-        const { error } = await supabase
-            .from('appointments')
-            .insert([
-                {
+        const parsedPetId = parseInt(petId, 10);
+        const parsedGroomieId = parseInt(groomieId, 10);
+
+        if (isNaN(parsedPetId) || isNaN(parsedGroomieId) || isNaN(userId)) {
+            console.error("Invalid petId, groomieId, or userId");
+            return;
+        }
+
+        try {
+            const { error } = await supabase
+                .from('appointments')
+                .insert([{
                     appointment: new Date(dateTime).toISOString(),
                     title,
-                    userId,
-                    petId,
-                    groomieId
-                }
-            ]);
+                    userId, // Assuming userId is already a number
+                    petId: parsedPetId,
+                    groomieId: parsedGroomieId
+                }]);
 
-        if (error) {
-            console.error('Error adding new appointment:', error);
-        } else {
-            fetchAppointments();
+            if (error) {
+                console.error('Error adding new appointment:', error);
+            } else {
+                fetchAppointments();
+            }
+        } catch (error) {
+            console.error('Error in addAppointment:', error);
         }
     };
 
@@ -101,7 +111,7 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
             <Modal.Header closeButton>
                 <Modal.Title>Make a New Appointment</Modal.Title>
             </Modal.Header>
-    
+
             <Form onSubmit={handleSubmit}>
                 <Modal.Body>
                     <Form.Group>
@@ -110,6 +120,7 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
                             type="text"
                             value={appointmentTitle}
                             onChange={(e) => setAppointmentTitle(e.target.value)}
+                            required
                         />
                     </Form.Group>
                     <Form.Group>
@@ -118,11 +129,11 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
                             type="date"
                             value={appointmentDate}
                             onChange={(e) => setAppointmentDate(e.target.value)}
+                            required
                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Appointment Time:</Form.Label>
-                        {/* Custom TimePicker needs to be styled or replaced */}
                         <TimePicker
                             onChange={setAppointmentTime}
                             value={appointmentTime}
@@ -131,11 +142,13 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
                             minutePlaceholder="mm"
                             step={30}
                             className="form-control"
+                            required
                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Select Pet:</Form.Label>
-                        <Form.Control as="select" value={selectedPet} onChange={handlePetChange}>
+                        <Form.Control as="select" value={selectedPet} onChange={handlePetChange} required>
+                            <option value="">Select a Pet</option>
                             {pets.map(pet => (
                                 <option key={pet.petId} value={pet.petId}>{pet.petName}</option>
                             ))}
@@ -143,7 +156,7 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Select Groomie:</Form.Label>
-                        <Form.Control as="select" value={selectedGroomie} onChange={handleGroomieChange}>
+                        <Form.Control as="select" value={selectedGroomie} onChange={handleGroomieChange} required>
                             <option value="">Select a Groomie</option>
                             {groomies.map(groomie => (
                                 <option key={groomie.groomieId} value={groomie.groomieId}>{groomie.groomieName}</option>
@@ -151,7 +164,7 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
                         </Form.Control>
                     </Form.Group>
                 </Modal.Body>
-    
+
                 <Modal.Footer>
                     <Button variant="secondary" onClick={onClose}>Cancel</Button>
                     <Button variant="primary" type="submit">Add Appointment</Button>
