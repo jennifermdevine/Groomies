@@ -95,7 +95,7 @@ export default function Calendar() {
       </Helmet>
       <div className="calendar-container">
         <div className='groomie-filter'>
-          <select value={selectedGroomie} onChange={handleGroomieChange}>
+          Check a Groomie's availability: <select value={selectedGroomie} onChange={handleGroomieChange}>
             <option value=''>All Groomies</option>
             {groomies.map(groomie => (
               <option key={groomie.groomieId} value={groomie.groomieId}>
