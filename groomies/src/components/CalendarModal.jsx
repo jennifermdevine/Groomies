@@ -72,7 +72,7 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
                 .insert([{
                     appointment: new Date(dateTime).toISOString(),
                     title,
-                    userId, // Assuming userId is already a number
+                    userId,
                     petId: parsedPetId,
                     groomieId: parsedGroomieId
                 }]);
@@ -91,13 +91,13 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
         e.preventDefault();
         const dateTime = `${appointmentDate}T${appointmentTime}`;
         await addAppointment(dateTime, appointmentTitle, user.userId, selectedPet, selectedGroomie);
-        
+
         setAppointmentDate('');
         setAppointmentTime('10:00');
         setAppointmentTitle('');
         setSelectedPet('');
         setSelectedGroomie('');
-    
+
         onClose();
     };
 

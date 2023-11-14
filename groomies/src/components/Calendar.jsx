@@ -52,7 +52,7 @@ export default function Calendar() {
   const closeModal = () => {
     setModalIsOpen(false);
     fetchAppointments();
-};
+  };
 
   return (
     <div className='body'>
