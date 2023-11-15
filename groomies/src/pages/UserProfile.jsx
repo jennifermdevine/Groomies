@@ -161,6 +161,7 @@ export default function UserProfile() {
             {/* Appointments section */}
             <div className="appointments-info">
               <h2>Appointments</h2>
+              <hr/>
               {appointments && appointments.length > 0 ? (
                 appointments.map((appointment) => (
                   <Row key={appointment.appointmentId}>

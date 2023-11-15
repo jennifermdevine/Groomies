@@ -111,7 +111,7 @@ export default function Reviews() {
             ) : (
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="groomieSelect">Select Groomie:</label>
+                        <label className="submit-review" htmlFor="groomieSelect">Select Groomie:</label>
                         <select id="groomieSelect" value={selectedGroomieId} onChange={handleGroomieChange} required>
                             <option value="">Select a groomie</option>
                             {groomies.map((groomie) => (
@@ -122,11 +122,12 @@ export default function Reviews() {
                         </select>
                     </div>
                     <div>
+                        <label className="submit-review">Leave a Review:</label>
                         <textarea
                             value={review}
                             onChange={(e) => setReview(e.target.value)}
-                            placeholder="Leave a review..."
                             required
+                            style={{color: "white"}}
                         ></textarea>
                     </div>
                     <button className="apptButton" type="submit" disabled={loading}>
