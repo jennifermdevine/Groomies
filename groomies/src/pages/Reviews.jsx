@@ -40,7 +40,7 @@ export default function Reviews() {
                 reviewId,
                 review,
                 groomieId,
-                user:userId (fullName),
+                reviewerName,
                 groomie:groomieId (groomieName)
             `);
 
@@ -92,12 +92,12 @@ export default function Reviews() {
             <Container>
             <h1>Reviews</h1>
             <hr />
-            {user && (
+            
                 <div className="reviews-container">
                 {reviews.map((review) => (
                     <div className="reviews" key={review.reviewId}>
                         <p>
-                            <strong>{review.user ? review.user.fullName : 'Anonymous'}</strong>: {review.review}
+                        <strong>{review.reviewerName || 'Anonymous'}</strong>: {review.review}
                             <br />
                             <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
                         </p>
@@ -105,7 +105,6 @@ export default function Reviews() {
                 ))}
             </div>
                 
-            )}
             {loading ? (
                 <p>Loading reviews...</p>
             ) : (

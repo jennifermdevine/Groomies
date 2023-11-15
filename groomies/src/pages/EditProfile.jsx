@@ -37,7 +37,6 @@ export default function EditProfile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('contextUser:', contextUser);
         if (contextUser) {
             setUserName(contextUser.userName || '');
             setFullName(contextUser.fullName || '');
