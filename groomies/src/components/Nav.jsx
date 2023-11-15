@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
 import logo from "../assets/groomieslogo.png";
+import '../components/NavCSS.css';
 
 export default function Nav() {
     const { user } = useUser();
@@ -37,6 +38,9 @@ export default function Nav() {
                 </Link>
                 <Link className="a" to="/calendar">
                     Calendar
+                </Link>
+                <Link className="a" to="/reviews">
+                    Reviews
                 </Link>
                 <Link className="a" to="/comingsoon">
                     Coming Soon
