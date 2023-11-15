@@ -4,6 +4,8 @@ import { supabase } from '../supabaseClient';
 import { useUser } from '../components/UserContext';
 import { Container } from "react-bootstrap";
 import '../components/ReviewsCSS.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Reviews() {
     const { user } = useUser();
@@ -40,8 +42,9 @@ export default function Reviews() {
                 reviewId,
                 review,
                 groomieId,
-                user:userId (fullName),
-                groomie:groomieId (groomieName)
+                reviewerName,
+                groomie:groomieId (groomieName),
+                userId
             `);
 
             if (error) throw error;
@@ -84,16 +87,41 @@ export default function Reviews() {
         setSelectedGroomieId(e.target.value);
     };
 
+    const deleteReview = async (reviewId) => {
+        if (!window.confirm('Are you sure you want to delete this review?')) {
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const { error } = await supabase
+                .from('reviews')
+                .delete()
+                .match({ reviewId });
+
+            if (error) throw error;
+
+            toast.success('Review deleted successfully');
+            fetchReviews();
+        } catch (error) {
+            console.error('Error deleting review:', error);
+            toast.error(`Error deleting review: ${error.message}`);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="body">
             <Helmet>
                 <title>Reviews | Groomies</title>
             </Helmet>
             <Container>
-            <h1>Reviews</h1>
-            <hr />
-            {user && (
+                <h1>Reviews</h1>
+                <hr />
+
                 <div className="reviews-container">
+
                 {reviews.map((review) => (
                     <div className="reviews" key={review.reviewId}>
                         <p>
@@ -101,6 +129,19 @@ export default function Reviews() {
                             <br />
                             <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
                         </p>
+                            {user && user.userId === review.userId && (
+                                <button
+                                    className="logoutButton"
+                                    onClick={() => deleteReview(review.reviewId)}
+                                    style={{
+                                        fontSize: '0.6rem',
+                                        height: '1.2rem',
+                                        width: '3rem'
+                                    }}
+                                >
+                                    Delete
+                                </button>
+                            )}
                     </div>
                 ))}
             </div>
@@ -136,6 +177,7 @@ export default function Reviews() {
                 </form>
                 
             )}
+
             </Container>
         </div>
     );

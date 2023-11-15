@@ -1,10 +1,11 @@
-// CalendarModal.jsx
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import TimePicker from 'react-time-picker';
 import { supabase } from '../supabaseClient';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fetchAppointments }) {
     const [appointmentDate, setAppointmentDate] = useState('');
@@ -79,11 +80,14 @@ export default function CalendarModal({ isOpen, onClose, onEventAdded, user, fet
 
             if (error) {
                 console.error('Error adding new appointment:', error);
+                toast.error(`Error adding new appointment: ${error.message}`);
             } else {
                 fetchAppointments();
+                toast.success('Appointment added successfully!');
             }
         } catch (error) {
             console.error('Error in addAppointment:', error);
+            toast.error(`Error adding new appointment: ${error.message}`);
         }
     };
 
