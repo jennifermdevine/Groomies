@@ -12,6 +12,8 @@
 .groomiePic {
     width: 100px;
     height: 100px;
+    border: #0ebe75 1px solid;
+    border-radius: 25px;
 }
 
 .groomie-container {
