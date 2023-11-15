@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { useUser } from '../components/UserContext';
 import { supabase } from '../supabaseClient';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import slugify from 'slugify';
 
 // Define the reducer for managing state
