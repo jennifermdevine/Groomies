@@ -11,7 +11,6 @@ export default function Reviews() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log("User from context:", user);
         fetchGroomies();
         fetchReviews();
     }, [user]);
@@ -23,7 +22,6 @@ export default function Reviews() {
                 .select('groomieId, groomieName');
 
             if (error) throw error;
-            console.log("Groomies fetched:", data);
             setGroomies(data);
         } catch (error) {
             console.error('Error fetching groomies:', error);
