@@ -1,0 +1,42 @@
+.hero .carousel {
+  position: relative;
+}
+
+.custom-caption {
+  background-color: transparent;
+}
+
+.custom-caption h1,
+.custom-caption p {
+  background-color: transparent;
+}
+
+.carousel-indicators,
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  background-color: transparent;
+}
+
+.hero .carousel-item {
+  height: 400px;
+}
+
+.hero .carousel-item img {
+  width: 100vw;
+  height: 100%;
+}
+
+.hero .carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.5)
+  );
+  z-index: -1;
+}

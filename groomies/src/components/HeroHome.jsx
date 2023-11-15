@@ -1,17 +1,17 @@
 import Carousel from "react-bootstrap/Carousel";
-import "./HeroHome.css";
 import teddyBear from "../assets/teddyBear.png";
-import tackingUp from "../assets/tackingUp.png";
+import tackingUp from "../assets/tackingUp.jpg";
+import hero1 from "../assets/dog-groom.jpg";
+import "./HeroHome.css";
+
 function HeroHome() {
   return (
     <div className="hero">
       <Carousel>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://placedog.net/300"
-            alt="first slide"
-          />
+          <div className="image-container">
+            <img className="d-block w-100" src={hero1} alt="first slide" />
+          </div>
           <Carousel.Caption className="custom-caption">
             <h1>
               Mobile Grooming at Your Doorstep: Tailored Pet Care, Effortless
@@ -22,27 +22,27 @@ function HeroHome() {
         </Carousel.Item>
 
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={teddyBear}
-            alt="second slide"
-          />
+          <img className="d-block w-100" src={teddyBear} alt="second slide" />
           <Carousel.Caption className="custom-caption">
             <h1>Teddy Bear Cut</h1>
-            <p>As the name suggests, this cut makes your Puppy look just like your first best friend. We can't think of a better way to take your pup's cute-and-cuddliness to a whole new level than with this medium-length haircut.</p>
+            <p>
+              As the name suggests, this cut makes your Puppy look just like
+              your first best friend. We can't think of a better way to take
+              your pup's cute-and-cuddliness to a whole new level than with this
+              medium-length haircut.
+            </p>
           </Carousel.Caption>
         </Carousel.Item>
 
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={tackingUp}
-            alt="second slide"
-          />
+          <img className="d-block w-100" src={tackingUp} alt="second slide" />
           <Carousel.Caption className="custom-caption">
             <h1>Tacking Up</h1>
-            <p>Rubbing down a horse is simply the act of using a brush to clean your horse’s coat. It’s usually done after a ride to remove any dirt, sweat, or debris that may be clinging to his coat.
-</p>
+            <p>
+              Rubbing down a horse is simply the act of using a brush to clean
+              your horse’s coat. It’s usually done after a ride to remove any
+              dirt, sweat, or debris that may be clinging to his coat.
+            </p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
