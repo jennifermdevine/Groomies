@@ -4,38 +4,6 @@
     background-color: rgb(55, 94, 113);
   }
   
-  .welcome {
-    color: #fcfffd;
-    font-weight: 600;
-  }
-  
-  .logo {
-    width: 100px;
-    height: 100px;
-    border: #0ebe75 1px solid;
-    border-radius: 25px;
-  }
-  
-  .titleName {
-    font-size: 25px;
-    border-radius: 12px;
-    border-color: #64bbac;
-  }
-  
-  .nav {
-    display: flex;
-    flex-direction: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 25px;
-  }
-  
-  .navLinks {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
   .loginButton {
     background-color: #64b6ac;
     font-size: 18px;
