@@ -145,8 +145,6 @@ export default function Reviews() {
                     </div>
                 ))}
             </div>
-                
-            )}
             {loading ? (
                 <p>Loading reviews...</p>
             ) : (
