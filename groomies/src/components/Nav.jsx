@@ -38,6 +38,9 @@ export default function Nav() {
                 <Link className="a" to="/calendar">
                     Calendar
                 </Link>
+                <Link className="a" to="/reviews">
+                    Reviews
+                </Link>
                 <Link className="a" to="/comingsoon">
                     Coming Soon
                 </Link>
