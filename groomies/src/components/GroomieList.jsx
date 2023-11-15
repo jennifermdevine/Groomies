@@ -107,7 +107,7 @@ export default function GroomieProfile() {
             <FaPhone></FaPhone> {groomie.contact}
             <br/>
             <Link className="a" to={groomie.github}>
-                    <FaGithub></FaGithub>
+                    <FaGithub></FaGithub> Github
                 </Link>
           </div>
         ))}

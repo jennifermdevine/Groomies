@@ -2,9 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
 import logo from "../assets/groomieslogo.png";
+import Nav from 'react-bootstrap/Nav';
 import '../components/NavCSS.css';
 
-export default function Nav() {
+export default function Navbar() {
     const { user } = useUser();
     const navigate = useNavigate();
 
@@ -18,33 +19,48 @@ export default function Nav() {
     };
 
     return (
-        <nav className="nav">
+        <Nav className="navbar" fill variant="underline" defaultActiveKey="/">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <span className="titleName">
-                    <Link className="a" to="/"><img className="logo" src={logo} alt="Login Illustration" /></Link>
+                    <Nav.Item>
+                    <Nav.Link className="a" to="/"><img className="logo" src={logo} alt="Login Illustration" />
+                    </Nav.Link>
+                    </Nav.Item>
                 </span>
             </div>
             <div className="navLinks">
-                <Link className="a" to="/">
+                <Nav.Item>
+                <Nav.Link className="a" to="/">
                     Home
-                </Link>
+                </Nav.Link>
+                </Nav.Item>
                 {user && (
-                    <Link className="a" to={`/user/${user.userId}`}>
+                    <Nav.Item>
+                    <Nav.Link className="a" to={`/user/${user.userId}`}>
                         Profile
-                    </Link>
+                    </Nav.Link>
+                    </Nav.Item>
                 )}
-                <Link className="a" to="/groomie/list">
+                <Nav.Item>
+                <Nav.Link className="a" to="/groomie/list">
                     Meet The Groomies!
-                </Link>
-                <Link className="a" to="/calendar">
+                </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                <Nav.Link className="a" to="/calendar">
                     Calendar
-                </Link>
-                <Link className="a" to="/reviews">
+                </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                <Nav.Link className="a" to="/reviews">
                     Reviews
-                </Link>
-                <Link className="a" to="/comingsoon">
+                </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                <Nav.Link className="a" to="/comingsoon">
                     Coming Soon
-                </Link>
+                </Nav.Link>
+                </Nav.Item>
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
@@ -65,15 +81,15 @@ export default function Nav() {
                             </button>
                         </>
                     ) : (
-                        <Link className="a" to="/register">
+                        <Nav.Link className="a" to="/register">
                             <button className="loginButton">
                                 Login <br/>
                                 or sign up here!
                             </button>
-                        </Link>
+                        </Nav.Link>
                     )}
                 </div>
             </div>
-        </nav>
+        </Nav>
     );
 }
