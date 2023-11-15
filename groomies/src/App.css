@@ -2,13 +2,14 @@
   color: #c0fdfb;
   text-align: center;
   background-color: rgb(55, 94, 113);
+  text-shadow: 1px 1px 1px black;
 }
 
 .loginButton {
   background-color: #3e8e41;
   color: #080D17;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
   border-radius: 12px;
   border-color: #64bbac;
   transition-duration: 0.4s;
@@ -58,14 +59,6 @@
   background-color: rgb(79, 228, 201);
   box-shadow: 0 5px #666;
   transform: translateY(4px);
-}
-
-.a {
-  color: #daffef;
-  text-decoration: none;
-}
-.a:hover {
-  color: #47FF97 !important;
 }
 
 .react-modal-overlay {

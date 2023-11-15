@@ -21,3 +21,10 @@
     flex-wrap: wrap;
     padding: 20px;
 }
+
+.submit-review {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px;
+}

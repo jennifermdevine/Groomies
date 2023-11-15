@@ -121,13 +121,14 @@ export default function Reviews() {
                 <hr />
 
                 <div className="reviews-container">
-                    {reviews.map((review) => (
-                        <div className="reviews" key={review.reviewId}>
-                            <p>
-                                <strong>{review.reviewerName || 'Anonymous'}</strong>: {review.review}
-                                <br />
-                                <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
-                            </p>
+
+                {reviews.map((review) => (
+                    <div className="reviews" key={review.reviewId}>
+                        <p>
+                            <strong>{review.user ? review.user.fullName : 'Anonymous'}</strong>: {review.review}
+                            <br />
+                            <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
+                        </p>
                             {user && user.userId === review.userId && (
                                 <button
                                     className="logoutButton"
@@ -141,39 +142,42 @@ export default function Reviews() {
                                     Delete
                                 </button>
                             )}
-                        </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
+            </div>
+                
+            )}
+            {loading ? (
+                <p>Loading reviews...</p>
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label className="submit-review" htmlFor="groomieSelect">Select Groomie:</label>
+                        <select id="groomieSelect" value={selectedGroomieId} onChange={handleGroomieChange} required>
+                            <option value="">Select a groomie</option>
+                            {groomies.map((groomie) => (
+                                <option key={groomie.groomieId} value={groomie.groomieId}>
+                                    {groomie.groomieName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label className="submit-review">Leave a Review:</label>
+                        <textarea
+                            value={review}
+                            onChange={(e) => setReview(e.target.value)}
+                            required
+                            style={{color: "white"}}
+                        ></textarea>
+                    </div>
+                    <button className="apptButton" type="submit" disabled={loading}>
+                        Submit Review
+                    </button>
+                </form>
+                
+            )}
 
-                {loading ? (
-                    <p>Loading reviews...</p>
-                ) : (
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label htmlFor="groomieSelect">Select Groomie:</label>
-                            <select id="groomieSelect" value={selectedGroomieId} onChange={handleGroomieChange} required>
-                                <option value="">Select a groomie</option>
-                                {groomies.map((groomie) => (
-                                    <option key={groomie.groomieId} value={groomie.groomieId}>
-                                        {groomie.groomieName}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <textarea
-                                value={review}
-                                onChange={(e) => setReview(e.target.value)}
-                                placeholder="Leave a review..."
-                                required
-                            ></textarea>
-                        </div>
-                        <button className="apptButton" type="submit" disabled={loading}>
-                            Submit Review
-                        </button>
-                    </form>
-
-                )}
             </Container>
         </div>
     );
