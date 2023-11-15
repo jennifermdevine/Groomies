@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from "react-helmet-async";
 import { supabase } from '../supabaseClient';
 import { useUser } from '../components/UserContext';
+import { Container } from "react-bootstrap";
+import '../components/ReviewsCSS.css';
 
 export default function Reviews() {
     const { user } = useUser();
@@ -13,7 +16,7 @@ export default function Reviews() {
     useEffect(() => {
         fetchGroomies();
         fetchReviews();
-    }, [user]);
+    }, []);
 
     const fetchGroomies = async () => {
         try {
@@ -37,7 +40,7 @@ export default function Reviews() {
                 reviewId,
                 review,
                 groomieId,
-                reviewerName,
+                user:userId (fullName),
                 groomie:groomieId (groomieName)
             `);
 
@@ -58,12 +61,9 @@ export default function Reviews() {
         try {
             const newReview = {
                 userId: user.userId,
-                reviewerName: user.fullName,
                 review,
                 groomieId: selectedGroomieId,
             };
-
-            console.log("Submitting review with data:", newReview);
 
             const { error } = await supabase
                 .from('reviews')
@@ -81,14 +81,34 @@ export default function Reviews() {
     };
 
     const handleGroomieChange = (e) => {
-        console.log("Selected groomieId:", e.target.value);
         setSelectedGroomieId(e.target.value);
     };
 
     return (
-        <div>
+        <div className="body">
+            <Helmet>
+                <title>Reviews | Groomies</title>
+            </Helmet>
+            <Container>
             <h1>Reviews</h1>
+            <hr />
             {user && (
+                <div className="reviews-container">
+                {reviews.map((review) => (
+                    <div className="reviews" key={review.reviewId}>
+                        <p>
+                            <strong>{review.user ? review.user.fullName : 'Anonymous'}</strong>: {review.review}
+                            <br />
+                            <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
+                        </p>
+                    </div>
+                ))}
+            </div>
+                
+            )}
+            {loading ? (
+                <p>Loading reviews...</p>
+            ) : (
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="groomieSelect">Select Groomie:</label>
@@ -109,26 +129,13 @@ export default function Reviews() {
                             required
                         ></textarea>
                     </div>
-                    <button type="submit" disabled={loading}>
+                    <button className="apptButton" type="submit" disabled={loading}>
                         Submit Review
                     </button>
                 </form>
+                
             )}
-            {loading ? (
-                <p>Loading reviews...</p>
-            ) : (
-                <div>
-                    {reviews.map((review) => (
-                        <div key={review.reviewId}>
-                            <p>
-                                <strong>{review.reviewerName || 'Anonymous'}</strong>: {review.review}
-                                <br />
-                                <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
-                            </p>
-                        </div>
-                    ))}
-                </div>
-            )}
+            </Container>
         </div>
     );
 }
