@@ -3,10 +3,9 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { getImageUrl } from './PetProfile';
 import { Helmet } from "react-helmet-async";
-import { Container, Col, Card } from "react-bootstrap";
+import { Container, Col, Card, Row } from "react-bootstrap";
 import "../components/AppointmentCSS.css";
 import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 
 export default function Appointment() {
     const { appointmentId } = useParams();
@@ -101,77 +100,63 @@ export default function Appointment() {
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             <Container>
-            <div>
                 <h1>Appointment Details</h1>
                 <hr/>
-            </div>
-            <div className="appt-container">
-            <Col>
-            <Card>
-                {appointment && (
-                    <Card.Text>
-                    <div className="appt-time">
-                        <h2 className="appt-titles">Title: {appointment.title}</h2>
-                        <p>Appointment Time: {new Date(appointment.appointment).toLocaleString()}</p>
-                        <hr/>
-                    </div>
-                    
-                    </Card.Text>
-                )}
-            </Card>
-            </Col>
-            <Col>
-            <Card>
-                <div className="user-and-pet">
-                {user && (
-                    <Card.Text>
-                    <div className="user-details">
-                        <h3 className="appt-titles">Owner Details</h3>
-                        <p>Name: {user.fullName}</p>
-                        <p>Email: {user.email}</p>
-                        <p>Username: {user.userName}</p>
-                    </div>
-                    </Card.Text>
-                )}
-                {pet && (
-                    <Card.Text>
-                    <div className="pet-details">
-                        <h3 className="appt-titles">Pet Details</h3>
-                        <p>Name: {pet.petName}</p>
-                        <p>Species: {pet.species}</p>
-                        {pet.imageUrl && (
-                            <div>
-                                <img src={pet.imageUrl} alt={pet.petName} style={{ width: '100px', height: '100px' }} />
-                            </div>
-                        )}
-                    </div>
-                    </Card.Text>
-                )}
-                </div>
-            </Card>
-            </Col>
-            <Col>
-            <Card>
-                {groomie && (
-                    <Card.Text>
-                        <hr/>
-                    <div className="groomie-details">
-                        <h3 className="appt-titles">Groomie Details</h3>
-                        <p>Name: {groomie.groomieName}</p>
-                        <p>Email: {groomie.email}</p>
-                        <hr/>
-                    </div>
-                    </Card.Text>
-                )}
-            </Card>
-            </Col>
-            <div>
-            <br/>
+                <Row className="appt-container">
+                    <Col>
+                        <Card>
+                            {appointment && (
+                                <Card.Body>
+                                    <h2 className="appt-titles">Title: {appointment.title}</h2>
+                                    <p>Appointment Time: {new Date(appointment.appointment).toLocaleString()}</p>
+                                    <hr/>
+                                </Card.Body>
+                            )}
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card>
+                            <Card.Body className="user-and-pet">
+                                {user && (
+                                    <div className="user-details">
+                                        <h3 className="appt-titles">Owner Details</h3>
+                                        <p>Name: {user.fullName}</p>
+                                        <p>Email: {user.email}</p>
+                                        <p>Username: {user.userName}</p>
+                                    </div>
+                                )}
+                                {pet && (
+                                    <div className="pet-details">
+                                        <h3 className="appt-titles">Pet Details</h3>
+                                        <p>Name: {pet.petName}</p>
+                                        <p>Species: {pet.species}</p>
+                                        {pet.imageUrl && (
+                                            <img src={pet.imageUrl} alt={pet.petName} style={{ width: '100px', height: '100px' }} />
+                                        )}
+                                    </div>
+                                )}
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card>
+                            {groomie && (
+                                <Card.Body>
+                                    <div className="groomie-details">
+                                        <h3 className="appt-titles">Groomie Details</h3>
+                                        <p>Name: {groomie.groomieName}</p>
+                                        <p>Email: {groomie.email}</p>
+                                    </div>
+                                </Card.Body>
+                            )}
+                        </Card>
+                    </Col>
+                </Row>
+                <div>
+                    <br/>
                     <button className="logoutButton" onClick={cancelAppointment}>Cancel Appointment</button>
                 </div>
-                </div>
-                </Container>
+            </Container>
         </div>
-        
     );
 }

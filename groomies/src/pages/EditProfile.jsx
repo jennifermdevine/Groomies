@@ -3,7 +3,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { useUser } from '../components/UserContext';
 import { supabase } from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import slugify from 'slugify';
 
