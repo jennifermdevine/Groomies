@@ -11,9 +11,10 @@ export default function Reviews() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        console.log("User from context:", user);
         fetchGroomies();
         fetchReviews();
-    }, []);
+    }, [user]);
 
     const fetchGroomies = async () => {
         try {
@@ -22,6 +23,7 @@ export default function Reviews() {
                 .select('groomieId, groomieName');
 
             if (error) throw error;
+            console.log("Groomies fetched:", data);
             setGroomies(data);
         } catch (error) {
             console.error('Error fetching groomies:', error);
@@ -37,7 +39,7 @@ export default function Reviews() {
                 reviewId,
                 review,
                 groomieId,
-                user:userId (fullName),
+                reviewerName,
                 groomie:groomieId (groomieName)
             `);
 
@@ -58,9 +60,12 @@ export default function Reviews() {
         try {
             const newReview = {
                 userId: user.userId,
+                reviewerName: user.fullName,
                 review,
                 groomieId: selectedGroomieId,
             };
+
+            console.log("Submitting review with data:", newReview);
 
             const { error } = await supabase
                 .from('reviews')
@@ -78,6 +83,7 @@ export default function Reviews() {
     };
 
     const handleGroomieChange = (e) => {
+        console.log("Selected groomieId:", e.target.value);
         setSelectedGroomieId(e.target.value);
     };
 
@@ -117,7 +123,7 @@ export default function Reviews() {
                     {reviews.map((review) => (
                         <div key={review.reviewId}>
                             <p>
-                                <strong>{review.user ? review.user.fullName : 'Anonymous'}</strong>: {review.review}
+                                <strong>{review.reviewerName || 'Anonymous'}</strong>: {review.review}
                                 <br />
                                 <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
                             </p>
