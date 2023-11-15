@@ -37,6 +37,7 @@ export default function EditProfile() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log('contextUser:', contextUser);
         if (contextUser) {
             setUserName(contextUser.userName || '');
             setFullName(contextUser.fullName || '');
@@ -126,7 +127,10 @@ export default function EditProfile() {
             const { data, error } = await supabase
                 .from('users')
                 .update(updatedProfile)
-                .eq('userId', contextUser.userId);
+                .eq('userId', contextUser.userId)
+                .select('*')
+
+                console.log('Supabase Response:', data);
 
             if (error) throw error;
 
