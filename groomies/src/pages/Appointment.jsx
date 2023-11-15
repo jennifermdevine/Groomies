@@ -6,6 +6,8 @@ import { Helmet } from "react-helmet-async";
 import { Container, Col, Card, Row } from "react-bootstrap";
 import "../components/AppointmentCSS.css";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Appointment() {
     const { appointmentId } = useParams();
@@ -85,9 +87,11 @@ export default function Appointment() {
                     throw error
                 };
                 navigate('/calendar');
+                toast.success('Appointment cancelled successfully');
             } catch (error) {
                 console.error('Error deleting appointment:', error);
                 setError('Failed to cancel appointment');
+                toast.error(`Error deleting appointment: ${error.message}`);
             }
         }
     }
