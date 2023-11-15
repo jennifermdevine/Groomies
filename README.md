@@ -8,27 +8,10 @@ Bootstrap, CSS, React, Sass, Supabase.
 
 ## Contact Us
 
-### Zoren V.
-[Github](https://github.com/zmoove27)
-\
-[LinkedIn](https://www.linkedin.com/in/zoren-villareal-643908203/)
-
-### Rudy R.
-[Github](https://github.com/Jam19th)
-\
-[LinkedIn](https://www.linkedin.com/in/rudy-rodriguez-9b3328266/)
-
-### Francisco M.
-[Github](https://github.com/frankieSM)
-\
-[LinkedIn](https://www.linkedin.com/in/francisco-menendez-464aa5261/)
-
-### Roberto R.
-[Github](https://github.com/Rodriguezrob2023)
-\
-[LinkedIn](https://www.linkedin.com/in/roberto-rodriguez-89a042272/)
-
-### Jennifer D.
-[Github](https://github.com/jennifermdevine)
-\
-[LinkedIn](https://www.linkedin.com/in/jennifermichelledevine/)
+| Name | Github | LinkedIn |
+| ---- | ------ | -------- |
+| Zoren V. | [Github](https://github.com/zmoove27) | [LinkedIn](https://www.linkedin.com/in/zoren-villareal-643908203/)
+|Rudy R. | [Github](https://github.com/Jam19th) | [LinkedIn](https://www.linkedin.com/in/rudy-rodriguez-9b3328266/)
+|Francisco M.|[Github](https://github.com/frankieSM)|[LinkedIn](https://www.linkedin.com/in/francisco-menendez-464aa5261/)
+|Roberto R.|[Github](https://github.com/Rodriguezrob2023)|[LinkedIn](https://www.linkedin.com/in/roberto-rodriguez-89a042272/)
+|Jennifer D.|[Github](https://github.com/jennifermdevine)|[LinkedIn](https://www.linkedin.com/in/jennifermichelledevine/)
