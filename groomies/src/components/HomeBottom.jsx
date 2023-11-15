@@ -21,7 +21,7 @@ const HomeBottom = ({ title, text, imageSrc }) => {
               groomer.
             </p>
             <Link to="/register">
-              <Button id="register-link" variant="primary" size="lg">
+              <Button id="register-link" variant="success" size="lg">
                 Register Here!
               </Button>
             </Link>

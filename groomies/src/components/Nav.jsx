@@ -67,7 +67,8 @@ export default function Nav() {
                     ) : (
                         <Link className="a" to="/register">
                             <button className="loginButton">
-                                Login
+                                Login <br/>
+                                or sign up here!
                             </button>
                         </Link>
                     )}

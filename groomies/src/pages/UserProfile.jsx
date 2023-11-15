@@ -183,6 +183,17 @@ export default function UserProfile() {
               ) : (
                 <p>No appointments found.</p>
               )}
+              <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
+              {user && (
+            <Link to={`/calendar`}><button
+              type="button"
+              className="apptButton"
+            >
+              Make an Appointment
+            </button>
+            </Link>
+          )}
+        </div>
             </div>
           </div>
         </Container>
