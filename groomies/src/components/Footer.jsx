@@ -128,7 +128,13 @@ export default function Footer() {
                     Show Another Fact
                 </button>
             </div>
-            <p>Groomies © 2023 | <a href="https://github.com/jennifermdevine/Groomies">Github Repository</a></p>
+            <p>Groomies © 2023 |
+                <a href="https://github.com/jennifermdevine/Groomies"
+                    target='blank'
+                >
+                    Github Repository
+                </a>
+            </p>
         </div>
     );
 }
