@@ -17,7 +17,7 @@ export default function Footer() {
 
         setTimeout(() => {
             setIsButtonDisabled(false);
-            toast.info('You can now press the button again!', {
+            toast.info('You can generate a new animal fact!', {
                 position: toast.POSITION.BOTTOM_CENTER,
                 autoClose: 3000
             });
