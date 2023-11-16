@@ -36,8 +36,10 @@
 
 .carousel-caption h3 {
   font-size: 3rem;
+  font-family: "Playfair Display", serif;
 }
 
 .carousel-caption p {
   font-size: 1.2rem;
+  font-family: "Open Sans", sans-serif;
 }

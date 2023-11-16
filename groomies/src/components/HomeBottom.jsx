@@ -33,12 +33,7 @@ function HomeBottom() {
 
           {/* second column for img */}
           <Col md={6} className="d-flex justify-content-center">
-            <img
-              src={dogRobe}
-              alt="Dog"
-              className="rounded-circle"
-              // style={{ width: "200px", height: "200px" }}
-            />
+            <img src={dogRobe} alt="Dog" className="rounded-circle" />
           </Col>
         </Row>
       </Container>

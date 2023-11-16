@@ -1,3 +1,5 @@
+/* HomeBottom.css */
+
 #home-bottom,
 #home-bottom * {
   background-color: #c0fdfb;
@@ -16,16 +18,19 @@
 }
 
 .rounded-circle {
-  width: 450px;
-  height: 450px;
+  width: 100%; /* Use 100% width for responsiveness */
+  max-width: 450px; /* Set a maximum width for larger screens */
+  height: auto; /* Maintain aspect ratio */
+  margin-top: 20px; /* Add some top margin for spacing */
 }
 
 #register-link {
   font-family: "Open Sans", sans-serif;
-  font-weight: 14px;
+  font-size: 14px; /* Change font-weight to font-size */
   background-color: rgb(55, 94, 113);
   color: #c0fdfb;
   border-color: transparent;
+  margin-top: 20px;
 }
 
 #register-link:hover {
