@@ -68,15 +68,19 @@ function Services() {
       <Row xs={1} md={2} className="g-4 service-cards">
         {servicesData.map((service) => (
           <Col key={service.id} className="mb-3">
-            <Card>
+            <Card className="service-card">
               <Card.Img
                 variant="top"
                 as={service.icon}
                 className="service-icon"
               />
-              <Card.Body>
-                <Card.Title>{service.title}</Card.Title>
-                <Card.Text>{service.description}</Card.Text>
+              <Card.Body className="card-body">
+                <Card.Title className="service-title">
+                  {service.title}
+                </Card.Title>
+                <Card.Text className="text-center">
+                  <p className="text-wrap">{service.description}</p>
+                </Card.Text>
               </Card.Body>
             </Card>
           </Col>
