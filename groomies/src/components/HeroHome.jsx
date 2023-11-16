@@ -2,15 +2,15 @@ import Carousel from "react-bootstrap/Carousel";
 import "./HeroHome.css";
 import teddyBear from "../assets/teddyBear.png";
 import tackingUp from "../assets/horsepic.png";
-
+import pugNugget from "../assets/pugpic.jpg"
 function HeroHome() {
   return (
     <div className="hero">
       <Carousel>
         <Carousel.Item>
           <img
-            className="d-block w-100"
-            src="https://placedog.net/300"
+            class="h-75 d-inline-block"
+            src={pugNugget}
             alt="first slide"
           />
           <Carousel.Caption className="custom-caption">
@@ -24,7 +24,6 @@ function HeroHome() {
 
         <Carousel.Item>
           <img
-            className="d-block w-100"
             src={teddyBear}
             alt="second slide"
           />
@@ -36,7 +35,7 @@ function HeroHome() {
 
         <Carousel.Item>
           <img
-            className="d-block w-100"
+            className="h-75 d-inline-block"
             src={tackingUp}
             alt="second slide"
           />
