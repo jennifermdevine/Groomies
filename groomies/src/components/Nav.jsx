@@ -19,16 +19,14 @@ export default function Navbar() {
     };
 
     return (
+        <div className="nav-container">
         <Nav className="navbar" fill variant="underline">
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <span className="titleName">
                     <Nav.Item>
                     <Nav.Link className="a" href="/"><img className="logo" src={logo} alt="Login Illustration" />
                     </Nav.Link>
                     </Nav.Item>
                 </span>
-            </div>
-            <div className="navLinks">
                 <Nav.Item>
                 <Nav.Link className="a" href="/">
                     Home
@@ -61,9 +59,8 @@ export default function Navbar() {
                     Coming Soon
                 </Nav.Link>
                 </Nav.Item>
-            </div>
-            <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                <div className="text-sm lg:flex-grow">
+            <div>
+                <div>
                     {user && (
                         <span className="welcome">
                             Welcome, {user.userName ? user.userName : user.email}!
@@ -91,5 +88,6 @@ export default function Navbar() {
                 </div>
             </div>
         </Nav>
+        </div>
     );
 }
