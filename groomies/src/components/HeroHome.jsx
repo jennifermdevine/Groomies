@@ -1,52 +1,58 @@
-import Carousel from "react-bootstrap/Carousel";
-import teddyBear from "../assets/teddyBear.png";
-import tackingUp from "../assets/tackingUp.jpg";
-import hero1 from "../assets/dog-groom.jpg";
+import React from "react";
+import { Carousel, Container, Row, Col } from "react-bootstrap";
+import dogGroom from "../assets/dog-groom.jpg";
+import horse from "../assets/tackingUp.jpg";
+import teddy from "../assets/teddyBear.png";
 import "./HeroHome.css";
 
 function HeroHome() {
+  const carouselItems = [
+    {
+      id: 1,
+      imageSrc: dogGroom,
+      header: "Welcome to Groomies!",
+      paragraph:
+        "Welcome to Groomies, your go-to destination for top-notch pet grooming services. Our team of experienced groomers is dedicated to providing the utmost care and attention to your furry friends. Join us in creating a world where pets look and feel their best!",
+    },
+    {
+      id: 2,
+      imageSrc: teddy,
+      header: "Unleash the Beauty with Specialized Pet Cuts!",
+      paragraph:
+        "From trendy trims to breed-specific cuts, we tailor each grooming session to highlight the distinct charm of your pets. Whether your pup prefers a chic modern look or your cat adores a classic, we have the expertise to bring your vision to life",
+    },
+    {
+      id: 3,
+      imageSrc: horse,
+      header: "Embracing Our Roots: Introducing Horse Care at Groomies!",
+      paragraph:
+        "At Groomies, we're thrilled to announce a return to our roots with the introduction of specialized horse care services! With a rich history rooted in equestrian care, we're bringing our passion for grooming to the magnificent world of horses.",
+    },
+  ];
+
   return (
-    <div className="hero">
-      <Carousel>
-        <Carousel.Item>
-          <div className="image-container">
-            <img className="d-block w-100" src={hero1} alt="first slide" />
-          </div>
-          <Carousel.Caption className="custom-caption">
-            <h1>
-              Mobile Grooming at Your Doorstep: Tailored Pet Care, Effortless
-              Grooming
-            </h1>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img className="d-block w-100" src={teddyBear} alt="second slide" />
-          <Carousel.Caption className="custom-caption">
-            <h1>Teddy Bear Cut</h1>
-            <p>
-              As the name suggests, this cut makes your Puppy look just like
-              your first best friend. We can't think of a better way to take
-              your pup's cute-and-cuddliness to a whole new level than with this
-              medium-length haircut.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img className="d-block w-100" src={tackingUp} alt="second slide" />
-          <Carousel.Caption className="custom-caption">
-            <h1>Tacking Up</h1>
-            <p>
-              Rubbing down a horse is simply the act of using a brush to clean
-              your horse’s coat. It’s usually done after a ride to remove any
-              dirt, sweat, or debris that may be clinging to his coat.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    </div>
+    <Container>
+      <Row className="justify-content-center">
+        <Col lg={12}>
+          <Carousel fade>
+            {carouselItems.map((item) => (
+              <Carousel.Item key={item.id}>
+                <img
+                  className="d-block w-100 resized-image"
+                  src={item.imageSrc}
+                  alt={`Carousel Item ${item.id}`}
+                />
+                <div className="gradient-overlay"></div>
+                <Carousel.Caption>
+                  <h3>{item.header}</h3>
+                  <p>{item.paragraph}</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
