@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import TimePicker from "react-time-picker";
 import { supabase } from "../supabaseClient";
+import "./CalendarModal.css";
 
 export default function CalendarModal({
   isOpen,
@@ -199,10 +200,10 @@ export default function CalendarModal({
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
+          <Button id="cancel-btn" variant="danger" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit">
+          <Button id="submit-btn" variant="primary" type="submit">
             Add Appointment
           </Button>
         </Modal.Footer>
