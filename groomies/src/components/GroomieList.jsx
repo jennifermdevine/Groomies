@@ -9,6 +9,7 @@ import {
   FaPhone,
   FaGithub
 } from "react-icons/fa";
+import Footer from "../components/Footer";
 
 // Function to get the public URL of an image
 const getImageUrl = async (folder, path) => {
@@ -113,7 +114,9 @@ export default function GroomieProfile() {
           </div>
         ))}
       </div>
+      <Footer/>
       </Container>
+      
     </div>
   );
 }

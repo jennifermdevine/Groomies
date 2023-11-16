@@ -7,6 +7,7 @@ import { Form } from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import slugify from 'slugify';
 import { toast } from 'react-toastify';
+import Footer from "../components/Footer";
 import 'react-toastify/dist/ReactToastify.css';
 
 const reducer = (state, action) => {
@@ -194,6 +195,7 @@ export default function EditProfile() {
                 {loading && <p>Loading...</p>}
                 {error && <p>Error: {error}</p>}
             </div>
+        <Footer />
         </div>
     );
 }

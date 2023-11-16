@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useUser } from '../components/UserContext';
 import { fetchPetsWithImages } from './PetProfile';
 import { supabase } from '../supabaseClient';
+import Footer from "../components/Footer";
 import "../components/UserProfileCSS.css";
 
 // Reducer for managing the state
@@ -197,6 +198,7 @@ export default function UserProfile() {
         </div>
             </div>
           </div>
+          <Footer />
         </Container>
       )}
     </div>

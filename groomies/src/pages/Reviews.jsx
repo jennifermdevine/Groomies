@@ -5,6 +5,7 @@ import { useUser } from '../components/UserContext';
 import { Container } from "react-bootstrap";
 import '../components/ReviewsCSS.css';
 import { toast } from 'react-toastify';
+import Footer from "../components/Footer";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Reviews() {
@@ -175,8 +176,9 @@ export default function Reviews() {
                 </form>
                 
             )}
-
+            <Footer />
             </Container>
+            
         </div>
     );
 }

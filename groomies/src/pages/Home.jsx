@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import HeroHome from "../components/HeroHome";
 import Services from "../components/Services";
 import HomeBottom from "../components/HomeBottom";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <HeroHome />
       <Services />
       <HomeBottom />
+      <Footer />
     </div>
   );
 }

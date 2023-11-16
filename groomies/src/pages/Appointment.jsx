@@ -7,6 +7,7 @@ import { Container, Col, Card, Row } from "react-bootstrap";
 import "../components/AppointmentCSS.css";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Footer from "../components/Footer";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Appointment() {
@@ -160,7 +161,9 @@ export default function Appointment() {
                     <br/>
                     <button className="logoutButton" onClick={cancelAppointment}>Cancel Appointment</button>
                 </div>
+                <Footer />
             </Container>
+            
         </div>
     );
 }

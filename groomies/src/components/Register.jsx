@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import Footer from "../components/Footer";
 import './Register.css';
 
 const Register = () => {
@@ -46,7 +47,10 @@ const Register = () => {
     };
 
     return (
+        <div>
             <Auth supabaseClient={supabase} />
+            <Footer />
+        </div>
     );
 };
 

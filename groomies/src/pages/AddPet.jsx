@@ -6,6 +6,7 @@ import slugify from 'slugify';
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Footer from "../components/Footer";
 import 'react-toastify/dist/ReactToastify.css';
 
 const reducer = (state, action) => {
@@ -121,6 +122,7 @@ export default function AddPet() {
             </Form>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
+            <Footer />
         </div>
     );
 }
