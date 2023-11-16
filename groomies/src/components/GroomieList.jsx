@@ -90,6 +90,7 @@ export default function GroomieProfile() {
       <h1>
         Groomies List
       </h1>
+      <hr/>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       <div className="groomie-container">
