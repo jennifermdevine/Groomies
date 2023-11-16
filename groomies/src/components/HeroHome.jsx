@@ -1,7 +1,8 @@
 import Carousel from "react-bootstrap/Carousel";
 import "./HeroHome.css";
 import teddyBear from "../assets/teddyBear.png";
-import tackingUp from "../assets/tackingUp.png";
+import tackingUp from "../assets/horsepic.png";
+
 function HeroHome() {
   return (
     <div className="hero">
