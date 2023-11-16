@@ -18,15 +18,15 @@
 }
 
 .rounded-circle {
-  width: 100%; /* Use 100% width for responsiveness */
-  max-width: 450px; /* Set a maximum width for larger screens */
-  height: auto; /* Maintain aspect ratio */
-  margin-top: 20px; /* Add some top margin for spacing */
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  margin-top: 20px;
 }
 
 #register-link {
   font-family: "Open Sans", sans-serif;
-  font-size: 14px; /* Change font-weight to font-size */
+  font-size: 14px;
   background-color: rgb(55, 94, 113);
   color: #c0fdfb;
   border-color: transparent;
