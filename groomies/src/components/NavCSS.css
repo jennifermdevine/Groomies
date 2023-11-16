@@ -11,20 +11,20 @@
     border-radius: 25px;
 }
 
-.navbar {
+.nav-container {
     display: flex;
     flex: wrap;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    gap: 40px;
     padding: 25px;
     font-size: 18px;
 }
 
-.navLinks {
+.navbar {
     display: flex;
-    flex: wrap;
-    align-items: center;
-    gap: 40px;
+    flex: 25%;
+    flex:  wrap;
     padding: 2px;
     text-shadow: 1px 1px 1px black;
 }
