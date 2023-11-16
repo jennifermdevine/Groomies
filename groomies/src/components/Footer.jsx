@@ -12,7 +12,7 @@ export default function Footer() {
     }, []);
 
     const enableButtonAfterTimeout = () => {
-        const lockoutDuration = 120000;
+        const lockoutDuration = 5 * 60 * 1000;
         setIsButtonDisabled(true);
 
         setTimeout(() => {
