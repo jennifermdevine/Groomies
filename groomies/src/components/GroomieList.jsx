@@ -9,6 +9,7 @@ import {
   FaPhone,
   FaGithub
 } from "react-icons/fa";
+import Footer from "../components/Footer";
 
 // Function to get the public URL of an image
 const getImageUrl = async (folder, path) => {
@@ -90,6 +91,7 @@ export default function GroomieProfile() {
       <h1>
         Groomies List
       </h1>
+      <hr/>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       <div className="groomie-container">
@@ -107,12 +109,14 @@ export default function GroomieProfile() {
             <FaPhone></FaPhone> {groomie.contact}
             <br/>
             <Link className="a" to={groomie.github}>
-                    <FaGithub></FaGithub>
+                    <FaGithub></FaGithub> Github
                 </Link>
           </div>
         ))}
       </div>
+      <Footer/>
       </Container>
+      
     </div>
   );
 }

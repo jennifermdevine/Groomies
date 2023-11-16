@@ -1,10 +1,14 @@
 import React, { useState, useReducer } from 'react';
 import { useUser } from '../components/UserContext';
 import { supabase } from '../supabaseClient';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import slugify from 'slugify';
+import { Helmet } from "react-helmet-async";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Footer from "../components/Footer";
+import 'react-toastify/dist/ReactToastify.css';
 
-// Define the reducer for managing state
 const reducer = (state, action) => {
     switch (action.type) {
         case 'ADD_REQUEST':
@@ -27,6 +31,7 @@ export default function AddPet() {
     const { user: contextUser } = useUser();
     const [state, dispatch] = useReducer(reducer, initialState);
     const { loading, error } = state;
+    const navigate = useNavigate();
 
     const [petName, setPetName] = useState('');
     const [petImage, setPetImage] = useState(null);
@@ -68,8 +73,11 @@ export default function AddPet() {
         if (error) {
             console.error('Error adding pet:', error);
             dispatch({ type: 'ADD_FAIL', payload: error.message });
+            toast.error(`Error adding pet: ${error.message}`);
         } else {
             dispatch({ type: 'ADD_SUCCESS' });
+            toast.success('Pet added successfully!');
+            navigate(`/user/${contextUser.userId}`);
         }
     };
 
@@ -80,6 +88,9 @@ export default function AddPet() {
 
     return (
         <div>
+            <Helmet>
+                <title>Add Pet</title>
+            </Helmet>
             <h1>Add Pet</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="petName">
@@ -111,6 +122,7 @@ export default function AddPet() {
             </Form>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
+            <Footer />
         </div>
     );
 }

@@ -1,0 +1,14 @@
+[[headers]]
+for = "/*.html"
+[headers.values]
+Cache-Control = "max-age=0, no-cache, no-store, must-revalidate"
+
+[[headers]]
+for = "/static/*"
+[headers.values]
+Cache-Control = "max-age=31536000"
+
+[[redirects]]
+  from = "/service-worker.js"
+  to = "/service-worker.js"
+  status = 200

@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { useUser } from '../components/UserContext';
 import { supabase } from '../supabaseClient';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
 import slugify from 'slugify';
+import { toast } from 'react-toastify';
+import Footer from "../components/Footer";
+import 'react-toastify/dist/ReactToastify.css';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -28,7 +32,7 @@ export default function EditPet() {
     const { petId } = useParams();
     const { user: contextUser } = useUser();
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { pet, loading, error } = state;
+    const { loading, error } = state;
     const [petName, setPetName] = useState('');
     const [petImage, setPetImage] = useState(null);
     const [species, setSpecies] = useState('');
@@ -116,9 +120,11 @@ export default function EditPet() {
 
         if (error) {
             dispatch({ type: 'UPDATE_FAIL', payload: error.message });
+            toast.error(`Error updating pet: ${error.message}`);
         } else {
             dispatch({ type: 'UPDATE_SUCCESS', payload: updatedPet });
             navigate(`/user/${contextUser.userId}`);
+            toast.success('Pet updated successfully');
         }
     };
 
@@ -128,41 +134,49 @@ export default function EditPet() {
     };
 
     const handleDeletePet = async () => {
-        dispatch({ type: 'UPDATE_REQUEST' });
+        if (window.confirm('Are you sure you want to delete this pet?')) {
+            dispatch({ type: 'UPDATE_REQUEST' });
 
-        if (petImage) {
-            try {
-                const imagePath = `pets/${petImage}`;
-                let { error: deleteError } = await supabase.storage.from('Images').remove([imagePath]);
-                if (deleteError) {
-                    console.error('Error deleting pet image:', deleteError);
-                    dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet image' });
+            if (petImage) {
+                try {
+                    const imagePath = `pets/${petImage}`;
+                    let { error: deleteError } = await supabase.storage.from('Images').remove([imagePath]);
+                    if (deleteError) {
+                        console.error('Error deleting pet image:', deleteError);
+                        dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet image' });
+                        return;
+                    }
+                } catch (error) {
+                    console.error('Exception while deleting pet image:', error);
+                    dispatch({ type: 'UPDATE_FAIL', payload: 'Exception while deleting pet image' });
                     return;
                 }
-            } catch (error) {
-                console.error('Exception while deleting pet image:', error);
-                dispatch({ type: 'UPDATE_FAIL', payload: 'Exception while deleting pet image' });
-                return;
             }
-        }
 
-        try {
-            const { error } = await supabase.from('pets').delete().eq('petId', petId);
-            if (error) {
+            try {
+                const { error } = await supabase.from('pets').delete().eq('petId', petId);
+                if (error) {
+                    console.error('Error deleting pet:', error);
+                    dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet' });
+                    toast.error(`Error deleting pet: ${error.message}`);
+                } else {
+                    dispatch({ type: 'UPDATE_SUCCESS' });
+                    navigate(`/user/${contextUser.userId}`);
+                    toast.success('Pet deleted successfully');
+                }
+            } catch (error) {
                 console.error('Error deleting pet:', error);
-                dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to delete pet' });
-            } else {
-                dispatch({ type: 'UPDATE_SUCCESS' });
-                navigate(`/user/${contextUser.userId}`);
+                dispatch({ type: 'UPDATE_FAIL', payload: 'Error deleting pet' });
+                toast.error(`Error deleting pet: ${error.message}`);
             }
-        } catch (error) {
-            console.error('Error deleting pet:', error);
-            dispatch({ type: 'UPDATE_FAIL', payload: 'Error deleting pet' });
         }
     };
 
     return (
         <div>
+            <Helmet>
+                <title>Edit Pet</title>
+            </Helmet>
             <h1>Edit Pet</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="petName">
@@ -191,12 +205,17 @@ export default function EditPet() {
                 <button className="loginButton" type="submit" disabled={loading}>
                     Update Pet
                 </button>
-                <button className="logoutButton" onClick={handleDeletePet} disabled={loading}>
+                <button
+                    className="logoutButton"
+                    onClick={handleDeletePet}
+                    disabled={loading}
+                >
                     Delete Pet
                 </button>
             </Form>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
+            <Footer />
         </div>
     );
 }

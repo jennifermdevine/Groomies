@@ -1,0 +1,39 @@
+.welcome {
+    color: #fcfffd;
+    font-weight: 600;
+    text-shadow: 1px 1px 1px black;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border: #0ebe75 1px solid;
+    border-radius: 25px;
+}
+
+.nav-container {
+    display: flex;
+    flex: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 25px;
+    font-size: 18px;
+}
+
+.navbar {
+    display: flex;
+    flex: 25%;
+    flex:  wrap;
+    padding: 2px;
+    text-shadow: 1px 1px 1px black;
+}
+
+.a {
+    color: #daffef;
+    text-decoration: none;
+}
+
+.a:hover {
+    color: #47FF97 !important;
+}
