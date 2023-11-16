@@ -10,7 +10,11 @@
     align-items: center !important;
     max-width: 90vw !important;
     margin: auto !important;
-    padding: 20px !important;
+    padding: 50px !important;
+    background-image: url('../assets/pugpic.jpg');
+    background-attachment: fixed; 
+
+
 }
 
 .supabase-auth-ui_ui-button,
