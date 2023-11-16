@@ -3,9 +3,12 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { useUser } from '../components/UserContext';
 import { supabase } from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Helmet } from "react-helmet-async";
 import slugify from 'slugify';
+import { toast } from 'react-toastify';
+import Footer from "../components/Footer";
+import 'react-toastify/dist/ReactToastify.css';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -29,7 +32,7 @@ const initialState = {
 export default function EditProfile() {
     const { user: contextUser } = useUser();
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { user, loading, error } = state;
+    const { loading, error } = state;
     const [userName, setUserName] = useState('');
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -105,15 +108,15 @@ export default function EditProfile() {
             dispatch({ type: 'UPDATE_FAIL', payload: 'User not logged in' });
             return;
         }
-
+    
         const userSlug = slugify(fullName, {
             lower: true,
             strict: true,
             trim: true
         });
-
+    
         dispatch({ type: 'UPDATE_REQUEST' });
-
+    
         try {
             const updatedProfile = {
                 userName,
@@ -122,23 +125,27 @@ export default function EditProfile() {
                 userImage: userImage,
                 userSlug
             };
-
+    
             const { data, error } = await supabase
                 .from('users')
                 .update(updatedProfile)
-                .eq('userId', contextUser.userId);
-
+                .eq('userId', contextUser.userId)
+                .select('*');
+    
             if (error) throw error;
-
+    
             if (data && data.length > 0) {
                 dispatch({ type: 'UPDATE_SUCCESS', payload: data[0] });
+                toast.success('Profile updated successfully!');
                 navigate(`/user/${contextUser.userId}`);
             } else {
                 dispatch({ type: 'UPDATE_FAIL', payload: 'Failed to update profile' });
+                toast.error(`Failed to update profile: ${error.message}`);
             }
         } catch (error) {
             console.error('Error updating profile:', error.message);
             dispatch({ type: 'UPDATE_FAIL', payload: error.message || 'Error updating profile' });
+            toast.error(`Failed to update profile: ${error.message}`);
         }
     };
 
@@ -188,6 +195,7 @@ export default function EditProfile() {
                 {loading && <p>Loading...</p>}
                 {error && <p>Error: {error}</p>}
             </div>
+        <Footer />
         </div>
     );
 }

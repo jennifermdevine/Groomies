@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import CalendarModal from './CalendarModal';
 import { Helmet } from "react-helmet-async";
 import Modal from 'react-modal';
+import Footer from "../components/Footer";
 import '../App.css';
 import './Calendar.css';
 
@@ -135,6 +136,7 @@ export default function Calendar() {
           fetchAppointments={fetchAppointments}
           user={user}
         />
+        <Footer />
       </div>
     </div>
   );

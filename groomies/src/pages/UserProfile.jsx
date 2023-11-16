@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useUser } from '../components/UserContext';
 import { fetchPetsWithImages } from './PetProfile';
 import { supabase } from '../supabaseClient';
+import Footer from "../components/Footer";
 import "../components/UserProfileCSS.css";
 
 // Reducer for managing the state
@@ -161,6 +162,7 @@ export default function UserProfile() {
             {/* Appointments section */}
             <div className="appointments-info">
               <h2>Appointments</h2>
+              <hr/>
               {appointments && appointments.length > 0 ? (
                 appointments.map((appointment) => (
                   <Row key={appointment.appointmentId}>
@@ -183,8 +185,20 @@ export default function UserProfile() {
               ) : (
                 <p>No appointments found.</p>
               )}
+              <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
+              {user && (
+            <Link to={`/calendar`}><button
+              type="button"
+              className="apptButton"
+            >
+              Make an Appointment
+            </button>
+            </Link>
+          )}
+        </div>
             </div>
           </div>
+          <Footer />
         </Container>
       )}
     </div>
