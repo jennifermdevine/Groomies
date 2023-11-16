@@ -1,6 +1,45 @@
-.carousel.item {
+.resized-image {
+  width: 90px;
+  height: 600px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 10%;
+  position: relative;
+}
 
-    height:360px;
-    
-    }
-    
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+  border-radius: 10%;
+}
+
+.carousel-container {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon,
+.carousel-caption,
+.carousel-caption *,
+.carousel-indicators {
+  background-color: transparent;
+}
+
+.carousel-caption {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-caption h3 {
+  font-size: 3rem;
+  font-family: "Playfair Display", serif;
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  font-family: "Open Sans", sans-serif;
+}

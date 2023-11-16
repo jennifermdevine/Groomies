@@ -1,30 +1,39 @@
-#home-bottom {
-  margin-top: 100px;
-  margin-bottom: 100px;
-  background-color: white;
-}
+/* HomeBottom.css */
 
-#register-link {
-  color: white;
-}
-
-.home-content {
-  padding: 20px;
-}
-
-.register-image {
-  text-align: center;
-}
-
-.register-image img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Adjust the values as needed */
+#home-bottom,
+#home-bottom * {
+  background-color: #c0fdfb;
+  margin-top: 20px;
+  color: black;
 }
 
 .home-content h2 {
-  padding-bottom: 20px;
   font-family: "Playfair Display", serif;
+  font-weight: bold;
+}
+
+.home-content p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2em;
+}
+
+.rounded-circle {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  margin-top: 20px; 
+}
+
+#register-link {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px; 
+  background-color: rgb(55, 94, 113);
+  color: #c0fdfb;
+  border-color: transparent;
+  margin-top: 20px;
+}
+
+#register-link:hover {
+  background-color: #fcfffd;
+  color: rgb(55, 94, 113);
 }

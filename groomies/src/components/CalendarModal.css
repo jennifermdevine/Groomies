@@ -1,0 +1,28 @@
+.modal-content * {
+  font-family: "Playfair Display", sans-serif;
+}
+
+/* Style the TimePicker background */
+.react-time-picker__inputGroup *,
+.react-time-picker__wrapper,
+.react-time-picker__inputGroup {
+  background-color: white;
+  color: black;
+}
+
+#submit-btn {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px; /* Change font-weight to font-size */
+  background-color: #c0fdfb;
+  color: rgb(55, 94, 113);
+  border-color: transparent;
+}
+
+#cancel-btn {
+  font-family: "Open Sans", sans-serif;
+}
+
+#submit-btn:hover {
+  background-color: rgb(17, 28, 52);
+  color: #c0fdfb;
+}
