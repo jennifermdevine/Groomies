@@ -60,7 +60,7 @@ export default function Reviews() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!user) return;
-    
+
         if (!user.fullName || user.fullName.trim() === '') {
             toast.warn("Please complete your profile to submit a review.", {
                 position: "bottom-center",
@@ -73,7 +73,7 @@ export default function Reviews() {
             });
             return;
         }
-    
+
         setLoading(true);
         try {
             const newReview = {
@@ -82,13 +82,13 @@ export default function Reviews() {
                 groomieId: selectedGroomieId,
                 reviewerName: user.fullName,
             };
-    
+
             const { error } = await supabase
                 .from('reviews')
                 .insert([newReview]);
-    
+
             if (error) throw error;
-    
+
             setReview('');
             fetchReviews();
         } catch (error) {
@@ -163,36 +163,36 @@ export default function Reviews() {
                 {loading ? (
                     <p>Loading reviews...</p>
                 ) : (
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label className="submit-review" htmlFor="groomieSelect">Select Groomie:</label>
-                            <select id="groomieSelect" value={selectedGroomieId} onChange={handleGroomieChange} required>
-                                <option value="">Select a groomie</option>
-                                {groomies.map((groomie) => (
-                                    <option key={groomie.groomieId} value={groomie.groomieId}>
-                                        {groomie.groomieName}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label className="submit-review">Leave a Review:</label>
-                            <textarea
-                                value={review}
-                                onChange={(e) => setReview(e.target.value)}
-                                required
-                                style={{ color: "white" }}
-                            ></textarea>
-                        </div>
-                        <button className="apptButton" type="submit" disabled={loading}>
-                            Submit Review
-                        </button>
-                    </form>
-
+                    user && (
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <label className="submit-review" htmlFor="groomieSelect">Select Groomie:</label>
+                                <select id="groomieSelect" value={selectedGroomieId} onChange={handleGroomieChange} required>
+                                    <option value="">Select a groomie</option>
+                                    {groomies.map((groomie) => (
+                                        <option key={groomie.groomieId} value={groomie.groomieId}>
+                                            {groomie.groomieName}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label className="submit-review">Leave a Review:</label>
+                                <textarea
+                                    value={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                                    required
+                                    style={{ color: "white" }}
+                                ></textarea>
+                            </div>
+                            <button className="apptButton" type="submit" disabled={loading}>
+                                Submit Review
+                            </button>
+                        </form>
+                    )
                 )}
                 <Footer />
             </Container>
-
         </div>
     );
 }
