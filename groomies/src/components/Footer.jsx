@@ -123,29 +123,26 @@ export default function Footer() {
     enableButtonAfterTimeout();
   };
 
-  return (
-    <div className="Footer">
-      <hr style={{}} />
-      <div className="animal-fact">
-        {loading ? (
-          <p>Loading animal fact...</p>
-        ) : (
-          <p>Did you know? {animalFact}</p>
-        )}
-        <button
-          onClick={fetchAnimalFact}
-          disabled={isButtonDisabled || loading}
-          className="apptButton"
-        >
-          Show Another Fact
-        </button>
-      </div>
-      <p>
-        Groomies © 2023 | 
-        <a href="https://github.com/jennifermdevine/Groomies" target="blank">
-          Github Repository
-        </a>
-      </p>
-    </div>
-  );
+    return (
+        <div className="Footer">
+            <hr />
+            <div className="animal-fact">
+                {loading ? <p>Loading animal fact...</p> : <p>Did you know? {animalFact}</p>}
+                <button
+                    onClick={fetchAnimalFact}
+                    disabled={isButtonDisabled || loading}
+                    className="apptButton"
+                >
+                    Show Another Fact
+                </button>
+            </div>
+            <p>Groomies © 2023 | 
+                <a href="https://github.com/jennifermdevine/Groomies"
+                    target='blank'
+                >
+                    Github Repository
+                </a>
+            </p>
+        </div>
+    );
 }
