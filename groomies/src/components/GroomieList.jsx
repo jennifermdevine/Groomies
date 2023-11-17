@@ -85,7 +85,7 @@ export default function GroomieProfile() {
   return (
     <div className="body">
       <Helmet>
-        <title>Groomies List</title>
+        <title>Meet The Groomies | Groomies</title>
       </Helmet>
       <Container>
       <h1>

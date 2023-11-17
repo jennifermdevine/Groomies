@@ -152,7 +152,7 @@ export default function EditProfile() {
     return (
         <div>
             <Helmet>
-                <title>Edit Profile</title>
+                <title>Edit Profile | Groomies</title>
             </Helmet>
             <h1>Edit Profile</h1>
             <div className="profile-container d-flex justify-content-between">

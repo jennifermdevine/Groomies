@@ -175,7 +175,7 @@ export default function EditPet() {
     return (
         <div>
             <Helmet>
-                <title>Edit Pet</title>
+                <title>Edit Pet | Groomies</title>
             </Helmet>
             <h1>Edit Pet</h1>
             <Form onSubmit={handleSubmit}>
