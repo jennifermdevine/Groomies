@@ -2,10 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useUser } from "../components/UserContext";
 import logo from "../assets/groomieslogo.png";
+import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 import '../components/NavCSS.css';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
-export default function Navbar() {
+export default function Navigation() {
     const { user } = useUser();
     const navigate = useNavigate();
 
@@ -19,55 +22,27 @@ export default function Navbar() {
     };
 
     return (
-        <div className="nav-container">
-        <Nav className="navbar" fill variant="underline">
-                <span className="titleName">
-                    <Nav.Item>
-                    <Nav.Link className="a" href="/"><img className="logo" src={logo} alt="Login Illustration" />
-                    </Nav.Link>
-                    </Nav.Item>
-                </span>
-                <Nav.Item>
-                <Nav.Link className="a" href="/">
-                    Home
-                </Nav.Link>
-                </Nav.Item>
-                {user && (
-                    <Nav.Item>
-                    <Nav.Link className="a" href={`/user/${user.userId}`}>
-                        Profile
-                    </Nav.Link>
-                    </Nav.Item>
-                )}
-                <Nav.Item>
-                <Nav.Link className="a" href="/groomie/list">
-                    Meet The Groomies!
-                </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link className="a" href="/calendar">
-                    Calendar
-                </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link className="a" href="/reviews">
-                    Reviews
-                </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link className="a" href="/comingsoon">
-                    Coming Soon
-                </Nav.Link>
-                </Nav.Item>
-            <div>
-                <div>
+        <Navbar collapseOnSelect expand="lg" variant="dark" className="nav-container">
+            <Container>
+                <Navbar.Brand href="/"><img className="logo" src={logo} alt="groomies logo"></img></Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="navbar" fill variant="underline">
+                    <Nav.Link className="a" href="/"> Home </Nav.Link>
                     {user && (
+                    <Nav.Link className="a" href={`/user/${user.userId}`}> Profile </Nav.Link> )}
+                    <Nav.Link className="a" href="/groomie/list"> Meet The Groomies! </Nav.Link>
+                    <Nav.Link className="a" href="/calendar"> Calendar </Nav.Link>
+                    <Nav.Link className="a" href="/reviews"> Reviews </Nav.Link>
+                    <Nav.Link className="a" href="/comingsoon"> Coming Soon </Nav.Link>
+            <div>
+            {user && (
                         <span className="welcome">
                             Welcome, {user.userName ? user.userName : user.email}!
                         </span>
                     )}
-                </div>
-                <div>
+            </div>
+            <div>
                     {user ? (
                         <>
                             <button
@@ -86,9 +61,9 @@ export default function Navbar() {
                         </Nav.Link>
                     )}
                 </div>
-            </div>
-        </Nav>
-        </div>
-
+                </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 }
