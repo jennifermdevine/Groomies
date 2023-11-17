@@ -168,7 +168,7 @@ export default function UserProfile() {
               <h2>Appointments</h2>
               <hr />
               {appointments && appointments.length > 0 ? (
-                <Row xs={1} md={2} lg={3} className="g-4"> {/* Adjust the number in md and lg for responsive behavior */}
+                <Row xs={1} md={2} lg={3} className="g-4">
                   {appointments.map((appointment) => (
                     <Col key={appointment.appointmentId}>
                       <Card>
