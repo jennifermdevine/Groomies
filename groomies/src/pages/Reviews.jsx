@@ -19,7 +19,7 @@ export default function Reviews() {
     useEffect(() => {
         fetchGroomies();
         fetchReviews();
-    }, []);
+    }, [user]);
 
     const fetchGroomies = async () => {
         try {
@@ -60,21 +60,22 @@ export default function Reviews() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!user) return;
-
+    
         setLoading(true);
         try {
             const newReview = {
                 userId: user.userId,
                 review,
                 groomieId: selectedGroomieId,
+                reviewerName: user.fullName,
             };
-
+    
             const { error } = await supabase
                 .from('reviews')
                 .insert([newReview]);
-
+    
             if (error) throw error;
-
+    
             setReview('');
             fetchReviews();
         } catch (error) {
@@ -123,13 +124,13 @@ export default function Reviews() {
 
                 <div className="reviews-container">
 
-                {reviews.map((review) => (
-                    <div className="reviews" key={review.reviewId}>
-                        <p>
-                            <strong>{review.user ? review.user.fullName : 'Anonymous'}</strong>: {review.review}
-                            <br />
-                            <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
-                        </p>
+                    {reviews.map((review) => (
+                        <div className="reviews" key={review.reviewId}>
+                            <p>
+                                <strong>{review.reviewerName || 'Anonymous'}</strong>: {review.review}
+                                <br />
+                                <em>Groomie: {review.groomie ? review.groomie.groomieName : 'Unknown'}</em>
+                            </p>
                             {user && user.userId === review.userId && (
                                 <button
                                     className="logoutButton"
@@ -143,42 +144,42 @@ export default function Reviews() {
                                     Delete
                                 </button>
                             )}
-                    </div>
-                ))}
-            </div>
-            {loading ? (
-                <p>Loading reviews...</p>
-            ) : (
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label className="submit-review" htmlFor="groomieSelect">Select Groomie:</label>
-                        <select id="groomieSelect" value={selectedGroomieId} onChange={handleGroomieChange} required>
-                            <option value="">Select a groomie</option>
-                            {groomies.map((groomie) => (
-                                <option key={groomie.groomieId} value={groomie.groomieId}>
-                                    {groomie.groomieName}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <label className="submit-review">Leave a Review:</label>
-                        <textarea
-                            value={review}
-                            onChange={(e) => setReview(e.target.value)}
-                            required
-                            style={{color: "white"}}
-                        ></textarea>
-                    </div>
-                    <button className="apptButton" type="submit" disabled={loading}>
-                        Submit Review
-                    </button>
-                </form>
-                
-            )}
-            <Footer />
+                        </div>
+                    ))}
+                </div>
+                {loading ? (
+                    <p>Loading reviews...</p>
+                ) : (
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label className="submit-review" htmlFor="groomieSelect">Select Groomie:</label>
+                            <select id="groomieSelect" value={selectedGroomieId} onChange={handleGroomieChange} required>
+                                <option value="">Select a groomie</option>
+                                {groomies.map((groomie) => (
+                                    <option key={groomie.groomieId} value={groomie.groomieId}>
+                                        {groomie.groomieName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="submit-review">Leave a Review:</label>
+                            <textarea
+                                value={review}
+                                onChange={(e) => setReview(e.target.value)}
+                                required
+                                style={{ color: "white" }}
+                            ></textarea>
+                        </div>
+                        <button className="apptButton" type="submit" disabled={loading}>
+                            Submit Review
+                        </button>
+                    </form>
+
+                )}
+                <Footer />
             </Container>
-            
+
         </div>
     );
 }

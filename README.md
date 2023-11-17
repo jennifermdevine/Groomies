@@ -1,7 +1,7 @@
 # Groomies
 This third and final milestone project was created by Zoren V., Rudy R., Francisco M., Roberto R., and Jennifer D for UNLV/ThriveDX's software development bootcamp.
 
-This project has the ability to register and create a profile to be a part of the Groomie network. You can add multiple pets in your profile and edit their profiles. Moving to the Calendar section, make an appointment with your favorite Groomie by giving your appointment a title, select from your pets list, and pick your favorite Groomie! Notice that you can also search the calendar for each Groomie's availability.
+This project has the ability to register and create a profile to be a part of the Groomie network. You can add multiple pets in your profile and edit their profiles. Moving to the Calendar section, make an appointment with your favorite Groomie by giving your appointment a title, select from your pets list, and pick your favorite Groomie! Notice that you can also search the calendar for each Groomie's availability. Finally, you can leave a review regarding the work your Groomie has done.
 
 ## Technologies Used
 Bootstrap, CSS, React, Sass, Supabase.
