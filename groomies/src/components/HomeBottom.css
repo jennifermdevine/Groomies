@@ -4,6 +4,7 @@
 #home-bottom * {
   background-color: #c0fdfb;
   margin-top: 20px;
+  margin-bottom: 0;
   color: black;
 }
 
@@ -21,12 +22,12 @@
   width: 100%;
   max-width: 450px;
   height: auto;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 #register-link {
   font-family: "Open Sans", sans-serif;
-  font-size: 14px; 
+  font-size: 14px;
   background-color: rgb(55, 94, 113);
   color: #c0fdfb;
   border-color: transparent;
