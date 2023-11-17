@@ -4,6 +4,7 @@
 #home-bottom * {
   background-color: #c0fdfb;
   margin-top: 20px;
+  margin-bottom: 0;
   color: black;
 }
 
