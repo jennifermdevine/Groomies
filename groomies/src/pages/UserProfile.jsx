@@ -87,7 +87,7 @@ export default function UserProfile() {
   return (
     <div className="body">
       <Helmet>
-        <title>{user?.userSlug ? `${user.fullName}'s Profile` : 'User Profile'}</title>
+        <title>{user?.userSlug ? `${user.fullName}'s Profile` : 'User Profile'} | Groomies </title>
       </Helmet>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
