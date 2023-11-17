@@ -61,6 +61,19 @@ export default function Reviews() {
         e.preventDefault();
         if (!user) return;
     
+        if (!user.fullName || user.fullName.trim() === '') {
+            toast.warn("Please complete your profile to submit a review.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return;
+        }
+    
         setLoading(true);
         try {
             const newReview = {
