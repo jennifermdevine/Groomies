@@ -92,7 +92,7 @@ export default function Calendar() {
   return (
     <div className='body'>
       <Helmet>
-        <title>Calendar</title>
+        <title>Calendar | Groomies</title>
       </Helmet>
       <div className="calendar-container">
         <div className='groomie-filter'>

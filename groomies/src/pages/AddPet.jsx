@@ -89,7 +89,7 @@ export default function AddPet() {
     return (
         <div>
             <Helmet>
-                <title>Add Pet</title>
+                <title>Add Pet | Groomies</title>
             </Helmet>
             <h1>Add Pet</h1>
             <Form onSubmit={handleSubmit}>
