@@ -141,7 +141,7 @@ export default function Footer() {
         </button>
       </div>
       <p>
-        Groomies © 2023 |
+        Groomies © 2023 | 
         <a href="https://github.com/jennifermdevine/Groomies" target="blank">
           Github Repository
         </a>
