@@ -23,7 +23,7 @@ function HomeBottom() {
                 skills, your rules - because every pet deserves the touch of a
                 dedicated freelance groomer.
               </p>
-              <Link to="/register">
+              <Link to="/comingsoon">
                 <Button id="register-link" variant="primary" size="lg">
                   Register Here!
                 </Button>
