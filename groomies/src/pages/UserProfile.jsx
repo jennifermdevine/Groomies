@@ -49,8 +49,6 @@ export default function UserProfile() {
     navigate(`/AddPet`)
   }
 
-
-  // Function to fetch user details, pets, and appointments
   const fetchUserDetails = async (userId) => {
     dispatch({ type: 'FETCH_REQUEST' });
     try {
@@ -59,19 +57,25 @@ export default function UserProfile() {
         .select(`*, pets(petId, petName, petSlug, petImage, species)`)
         .eq('userId', userId)
         .single();
-
       if (userError) throw userError;
 
       const petsWithImages = await fetchPetsWithImages(userData.pets);
 
       const { data: appointmentsData, error: appointmentsError } = await supabase
         .from('appointments')
-        .select('*')
+        .select('*, pet:petId (petName)')
         .eq('userId', userId);
-
       if (appointmentsError) throw appointmentsError;
 
-      dispatch({ type: 'FETCH_SUCCESS', payload: { user: userData, pets: petsWithImages, appointments: appointmentsData } });
+      const appointmentsWithPetNames = appointmentsData.map(appointment => {
+        const pet = petsWithImages.find(p => p.petId === appointment.petId);
+        return { ...appointment, petName: pet ? pet.petName : 'Unknown' };
+      });
+
+      dispatch({
+        type: 'FETCH_SUCCESS',
+        payload: { user: userData, pets: petsWithImages, appointments: appointmentsWithPetNames }
+      });
     } catch (error) {
       console.error('Error fetching user details:', error);
       dispatch({ type: 'FETCH_FAIL', payload: error.message });
@@ -124,6 +128,7 @@ export default function UserProfile() {
                 </Card>
               </Col>
             </div>
+
             <div className="pets-info" style={{ marginBottom: "20px" }}>
               {pets && pets.length > 0 ? (
                 pets.map(pet => (
@@ -159,14 +164,13 @@ export default function UserProfile() {
               )}
             </div>
 
-            {/* Appointments section */}
             <div className="appointments-info">
               <h2>Appointments</h2>
-              <hr/>
+              <hr />
               {appointments && appointments.length > 0 ? (
-                appointments.map((appointment) => (
-                  <Row key={appointment.appointmentId}>
-                    <Col>
+                <Row xs={1} md={2} lg={3} className="g-4">
+                  {appointments.map((appointment) => (
+                    <Col key={appointment.appointmentId}>
                       <Card>
                         <Card.Body>
                           <Link to={`/appointment/${appointment.appointmentId}`}>
@@ -176,26 +180,27 @@ export default function UserProfile() {
                             <Card.Text>
                               Time: {new Date(appointment.appointment).toLocaleString()}
                             </Card.Text>
+                            <Card.Text>
+                              Pet: {appointment.petName}
+                            </Card.Text>
                           </Link>
                         </Card.Body>
                       </Card>
                     </Col>
-                  </Row>
-                ))
+                  ))}
+                </Row>
               ) : (
                 <p>No appointments found.</p>
               )}
               <div className="fc-button-group" style={{ textAlign: 'center', marginTop: '10px' }}>
-              {user && (
-            <Link to={`/calendar`}><button
-              type="button"
-              className="apptButton"
-            >
-              Make an Appointment
-            </button>
-            </Link>
-          )}
-        </div>
+                {user && (
+                  <Link to={`/calendar`}>
+                    <button type="button" className="apptButton">
+                      Make an Appointment
+                    </button>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
           <Footer />
